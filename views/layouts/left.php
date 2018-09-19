@@ -22,10 +22,18 @@
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => 'Dashboard', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Perangkat', 'icon' => 'dashboard', 'url' => ['perangkat/index']],
-                    ['label' => 'Data harian', 'icon' => 'dashboard', 'url' => ['/debug']],
-                    ['label' => 'Resume', 'icon' => 'dashboard', 'url' => ['/debug']],
+                    ['label' => 'Dashboard', 'icon' => 'file-code-o', 'url' => ['/gii'],
+                      'options' => ['id' => 'menu1']
+                    ],
+                    ['label' => 'Perangkat', 'icon' => 'dashboard', 'url' => ['perangkat/index'],
+                      'options' => ['id' => 'menu2']
+                    ],
+                    ['label' => 'Data harian', 'icon' => 'dashboard', 'url' => ['/debug'],
+                      'options' => ['id' => 'menu3']
+                    ],
+                    ['label' => 'Resume', 'icon' => 'dashboard', 'url' => ['/debug'],
+                      'options' => ['id' => 'menu4']
+                    ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 
                 ],
