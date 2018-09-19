@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_owner',
             'tgl_instalasi',
             'longitude',
-            //'latitude',
+            'latitude',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
