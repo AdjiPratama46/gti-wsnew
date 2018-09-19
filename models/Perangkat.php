@@ -33,13 +33,19 @@ class Perangkat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required'],
+            [['id', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required',
+              'message' => '{attribute} tidak boleh kosong'
+            ],
             [['id_owner'], 'integer'],
             [['tgl_instalasi'], 'safe'],
+            [['longitude', 'latitude'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/',
+              'message' => '{attribute} harus berupa nomor'
+            ],
             [['id', 'alias', 'longitude', 'latitude'], 'string', 'max' => 255],
             [['id'], 'unique'],
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -50,7 +56,7 @@ class Perangkat extends \yii\db\ActiveRecord
             'id' => 'ID',
             'alias' => 'Alias',
             'id_owner' => 'Id Owner',
-            'tgl_instalasi' => 'Tgl Instalasi',
+            'tgl_instalasi' => 'Tanggal Instalasi',
             'longitude' => 'Longitude',
             'latitude' => 'Latitude',
         ];

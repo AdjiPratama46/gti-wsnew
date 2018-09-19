@@ -18,48 +18,48 @@ use kartik\date\DatePicker;
       'template' => "
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
-          <div class='col-md-8'>{input}{hint}{error}</div>
+          <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
         </div>",
        'options' => ['class' => 'form-group form-inline'],])
        ->textInput([
          'maxlength' => true,
-        'style' => 'width: 60%;']) ?>
+        'style' => 'width: 100%;']) ?>
 
     <?= $form->field($model, 'alias', [
         'template' => "
           <div class='row'>
             <div class='col-md-4' align='right'>{label}</div>
-            <div class='col-md-8'>{input}{hint}{error}</div>
+            <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
           </div>",
        'options' => ['class' => 'form-group form-inline'],])
        ->textInput([
          'maxlength' => true,
-        'style' => 'width: 60%;']) ?>
+        'style' => 'width: 100%;']) ?>
 
     <?= $form->field($model, 'id_owner', [
       'template' => "
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
-          <div class='col-md-8'>{input}{hint}{error}</div>
+          <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
         </div>",
        'options' => ['class' => 'form-group form-inline'],])
        ->textInput([
          'maxlength' => true,
-        'style' => 'width: 60%;']) ?>
+        'style' => 'width: 100%;']) ?>
 
         <?= $form->field($model, 'tgl_instalasi',[
           'template' => "
             <div class='row'>
               <div class='col-md-4' align='right'>{label}</div>
-              <div class='col-md-8'>{input}{hint}{error}</div>
+              <div class='col-md-8' ><div style='width:60%'>{input}</div>{hint}{error}</div>
             </div>",
-           'options' => ['class' => 'form-group form-inline'],] )->widget(DatePicker::ClassName(),
-            [
+           'options' => ['class' => 'form-group form-inline'],]
+           )->widget(DatePicker::ClassName(),[
             'name' => 'tgl_instalasi',
             'options' => [
                 'placeholder' => '',
                 //'value' => date('Y-m-d'),
-                'style' => 'width: 106%;',
+                'style' => 'width: 100%;',
 
             ],
             'pluginOptions' => [
@@ -97,7 +97,7 @@ use kartik\date\DatePicker;
         'style' => 'width: 60%;']) ?>
 
     <div class="form-group">
-        <center><?= Html::submitButton('Save', ['class' => 'btn btn-success butsub']) ?></center>
+        <center><?= Html::submitButton('Simpan', ['class' => 'btn btn-success butsub']) ?></center>
     </div>
 
     <?php ActiveForm::end(); ?>
