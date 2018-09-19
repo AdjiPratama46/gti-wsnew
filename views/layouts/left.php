@@ -15,7 +15,7 @@
         </div>
 
         <!-- search form -->
-        
+
         <!-- /.search form -->
 
         <?= dmstr\widgets\Menu::widget(
@@ -23,7 +23,7 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Dashboard', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Perangkat', 'icon' => 'dashboard', 'url' => ['/debug']],
+                    ['label' => 'Perangkat', 'icon' => 'dashboard', 'url' => ['perangkat/index']],
                     ['label' => 'Data harian', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Resume', 'icon' => 'dashboard', 'url' => ['/debug']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
