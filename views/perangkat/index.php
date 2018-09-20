@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'alias',
-            'id_owner',
+            //'id_owner',
             [
                 'attribute'=>'tgl_instalasi',
                 'value'=>'tgl_instalasi',
@@ -53,8 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'longitude',
             'latitude',
+            [
+            'header' => 'Aksi',
+            'content' => function($model) {
+                return Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success', 'data-pjax' => 0]);
+            }
+],
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

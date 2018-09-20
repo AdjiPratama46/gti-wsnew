@@ -16,6 +16,7 @@ use dosamigos\google\maps\Map;
 use dosamigos\google\maps\services\DirectionsRequest;
 use dosamigos\google\maps\overlays\Polygon;
 use dosamigos\google\maps\layers\BicyclingLayer;
+use yii\helpers\Html;
 
 
 class Maps extends Model
@@ -25,12 +26,14 @@ class Maps extends Model
     $data_long = array();
     $data_lat = array();
     $data_alias = array();
+    $data_id = array();
     $s=0;
     foreach($data as $t)
     {
         $data_long[$s] = $t->longitude;
         $data_lat[$s] = $t->latitude;
         $data_alias[$s] = $t->alias;
+        $data_id[$s] = $t->id;
         $s++;
     }
     $coords = new LatLng(['lat' => -3.248434, 'lng' => 117.347373]);
@@ -48,7 +51,13 @@ class Maps extends Model
       ]);
       $marker->attachInfoWindow(
           new InfoWindow([
-              'content' => '<p>'.$data_alias[$x].'</p>'
+              'content' =>
+                Html::a($data_alias[$x],
+                    ['perangkat/view', 'id' => $data_id[$x]],
+                    [
+                        'class' => 'modal-form',
+                        'data-pjax' => 0
+                    ]),
           ])
       );
       $map->addOverlay($marker);
