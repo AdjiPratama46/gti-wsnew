@@ -36,12 +36,20 @@ class Perangkat extends \yii\db\ActiveRecord
             [['id', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required',
               'message' => '{attribute} tidak boleh kosong'
             ],
+            [['id', 'alias', 'longitude', 'latitude'], 'string', 'max' => 255],
+            [['id'], 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/u',
+              'message' => '{attribute} hanya bisa menggunakan huruf, angka, (_), dan (-)'
+            ],
+            [['id'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['id_owner'], 'integer'],
             [['tgl_instalasi'], 'safe'],
-            [['longitude', 'latitude'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/',
+            [['longitude', 'latitude'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\s*$/',
               'message' => '{attribute} harus berupa nomor'
             ],
-            [['id', 'alias', 'longitude', 'latitude'], 'string', 'max' => 255],
+            [['alias'], 'match', 'pattern' => '/^[A-Za-z0-9 ]+$/u',
+              'message' => '{attribute} hanya bisa menggunakan huruf dan angka'
+            ],
+            [['alias'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['id'], 'unique'],
         ];
     }

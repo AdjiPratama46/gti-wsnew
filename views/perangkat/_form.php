@@ -56,11 +56,12 @@ use kartik\date\DatePicker;
            'options' => ['class' => 'form-group form-inline'],]
            )->widget(DatePicker::ClassName(),[
             'name' => 'tgl_instalasi',
+
+            'readonly' => 'readonly',
             'options' => [
                 'placeholder' => '',
                 //'value' => date('Y-m-d'),
                 'style' => 'width: 100%;',
-
             ],
             'pluginOptions' => [
                 'format' => 'yyyy-mm-dd',
