@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ];
             $fieldPassword = [
                 'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => "{input}<span class='nput-group-addon pwd'><span toggle='#loginform-password' class='form-control-feedback glyphicon glyphicon-eye-open field-icon toggle-password'></span></span>"
+                'inputTemplate' => "{input}<span class='nput-group-addon pwd'><span toggle='#loginform-password' class='form-control-feedback glyphicon glyphicon-eye-close field-icon toggle-password'></span></span>"
             ];
 
         ?>
@@ -57,12 +57,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php 
     $js = <<<js
     $(".toggle-password").click(function() {
-        $(this).toggleClass(".glyphicon glyphicon-eye-close");
         var input = $($(this).attr("toggle"));
         if (input.attr("type") == "password") {
-          input.attr("type", "text");
+            $(this).removeClass("glyphicon glyphicon-eye-close");
+            $(this).addClass("glyphicon glyphicon-eye-open");
+            input.attr("type", "text");
         } else {
-          input.attr("type", "password");
+            $(this).removeClass("glyphicon glyphicon-eye-open");
+            $(this).addClass("glyphicon glyphicon-eye-close");
+            input.attr("type", "password");
         }
       });
 js;

@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-.login-page .register-page {
-=======
 .login-page,
 .register-page {
->>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380
     background-color: #3C8DBC;
-    
     background-image: linear-gradient(to right,#3C8DBC,#363795);
 }
-<<<<<<< HEAD
-=======
 .title{
     padding-bottom: 20px;
 }
@@ -29,4 +22,3 @@
 .text-white{
     color: #ffffff;
 }
->>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380
