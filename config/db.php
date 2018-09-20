@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=gti_weatherstation',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'mysql:host=stmiot-tech.xyz;dbname=stmiotte_gti',
+    'username' => 'stmiotte_gti',
+    'password' => 'sk~I-m^myGo&',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
