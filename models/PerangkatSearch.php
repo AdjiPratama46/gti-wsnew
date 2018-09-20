@@ -47,7 +47,7 @@ class PerangkatSearch extends Perangkat
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-           'pagination' => [ 'pageSize' => 10 ],
+           'pagination' => [ 'pageSize' => 5 ],
         ]);
 
         $this->load($params);
