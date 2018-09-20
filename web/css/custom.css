@@ -1,23 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-.login-page .register-page {
-=======
 .login-page,
 .register-page {
->>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380
     background-color: #3C8DBC;
     
     background-image: linear-gradient(to right,#3C8DBC,#363795);
 }
-<<<<<<< HEAD
-=======
-=======
-.login-page,
-.register-page {
-    background-color: #3C8DBC;
-    background-image: linear-gradient(to right,#3C8DBC,#363795);
-}
->>>>>>> 0bf8f68e02d274aa7b2c3f20072d217c3c49ab3c
+
 .title{
     padding-bottom: 20px;
 }
@@ -36,9 +23,4 @@
 }
 .text-white{
     color: #ffffff;
-<<<<<<< HEAD
 }
->>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380
-=======
-}
->>>>>>> 0bf8f68e02d274aa7b2c3f20072d217c3c49ab3c
