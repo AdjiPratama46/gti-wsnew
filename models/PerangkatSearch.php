@@ -41,7 +41,7 @@ class PerangkatSearch extends Perangkat
      */
     public function search($params)
     {
-        $query = Perangkat::find();
+        $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
 
         // add conditions that should always apply here
 

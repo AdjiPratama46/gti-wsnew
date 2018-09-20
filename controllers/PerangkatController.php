@@ -49,7 +49,7 @@ class PerangkatController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $showmap = new Maps();
-        $map = $showmap->showMaps(Perangkat::find()->all());
+        $map = $showmap->showMaps(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all());
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -60,7 +60,7 @@ class PerangkatController extends Controller
 
     }
 
-    
+
     /**
      * Displays a single Perangkat model.
      * @param string $id
@@ -104,7 +104,7 @@ class PerangkatController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['perangkat/index']);
         }
 
         return $this->render('update', [
