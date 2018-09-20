@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/modal.css',
+        'css/maps.css',
     ];
     public $js = [
         'js/modal.js'

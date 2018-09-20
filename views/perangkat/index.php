@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Perangkat;
+use dosamigos\datepicker\DatePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PerangkatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,7 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'alias',
             'id_owner',
-            'tgl_instalasi',
+            [
+                'attribute'=>'tgl_instalasi',
+                'value'=>'tgl_instalasi',
+                'format'=>'raw',
+                'filter'=>DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'tgl_instalasi',
+                    'options' => [
+                      'readonly' => 'readonly',
+                    ],
+                    'template' => '{addon}{input}',
+                          'clientOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-m-d',
+                            'clearBtn' => true,
+                          ],
+                          'clientEvents' => [
+                              'clearDate' => 'function (e) {$(e.target).find("input").change();}',
+                          ],
+                ])
+            ],
             'longitude',
             'latitude',
 
@@ -36,4 +58,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     <?php Pjax::end(); ?>
+    <br>
+    <div class="maps-bg">
+      <h3><icon class="glyphicon glyphicon-map-marker"></icon> Peta Lokasi </h3>
+      <?= $map->display() ?>
+    </div>
 </div>

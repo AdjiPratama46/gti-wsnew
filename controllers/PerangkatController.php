@@ -4,11 +4,12 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Perangkat;
+use app\models\Maps;
+use yii\helpers\Html;
 use app\models\PerangkatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * PerangkatController implements the CRUD actions for Perangkat model.
  */
@@ -47,12 +48,19 @@ class PerangkatController extends Controller
         $searchModel = new PerangkatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $showmap = new Maps();
+        $map = $showmap->showMaps(Perangkat::find()->all());
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'map' => $map,
         ]);
+
+
     }
 
+    
     /**
      * Displays a single Perangkat model.
      * @param string $id
