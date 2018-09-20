@@ -29,12 +29,10 @@ class SignupForm extends Model
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['name', 'trim'],
             ['name', 'string', 'max' => 255],
-            // username and password are both required
-            [['username','name','password'], 'required'],
-            // rememberMe must be a boolean value
-            // ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
             ['password', 'string', 'min' => 6],
+            [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
+            [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
+            [['password'], 'required','message' => 'Password Tidak Boleh Kosong'],
         ];
     }
 
@@ -62,6 +60,5 @@ class SignupForm extends Model
                 'password' => $this->password,
             ])->execute();
         
-        return $user->save() ? $user : null;
     }
 }
