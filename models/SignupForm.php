@@ -26,10 +26,13 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} setidaknya harus memiliki 6 karakter'],
+            [['username'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
+              'message' => '{attribute} hanya bisa menggunakan huruf, dan angka'
+            ],
             ['name', 'trim'],
             ['name', 'string', 'max' => 255],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 6, 'tooShort' => '{attribute} setidaknya harus memiliki 6 karakter'],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['password'], 'required','message' => 'Password Tidak Boleh Kosong'],
@@ -47,19 +50,19 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->name = $this->name;
         $user->password = $this->password;
-    
+
         Yii::$app->db->createCommand()->insert('user',
             [
                 'username' => $this->username,
                 'name' => $this->name,
                 'password' => $this->password,
             ])->execute();
-        
+
         return $user;
     }
 }
