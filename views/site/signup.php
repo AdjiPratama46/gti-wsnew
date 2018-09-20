@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]); 
         ?>
 
-        <?= $form->field($model, 'username',$fieldUsername)->textInput(['autofocus' => true,'placeholder' => 'Masukkan Username'])->label(false) ?>
+        <?= $form->field($model, 'username',$fieldUsername)->textInput(['placeholder' => 'Masukkan Username'])->label(false) ?>
 
         <?= $form->field($model, 'name',$fieldName)->textInput(['placeholder' => 'Masukkan Nama'])->label(false) ?>
 
