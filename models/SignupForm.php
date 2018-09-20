@@ -60,5 +60,6 @@ class SignupForm extends Model
                 'password' => $this->password,
             ])->execute();
         
+        return $user;
     }
 }
