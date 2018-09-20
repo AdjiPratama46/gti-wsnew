@@ -1,5 +1,32 @@
+<<<<<<< HEAD
 .login-page .register-page {
+=======
+.login-page,
+.register-page {
+>>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380
     background-color: #3C8DBC;
-    color: rebeccapurple;
+    
     background-image: linear-gradient(to right,#3C8DBC,#363795);
 }
+<<<<<<< HEAD
+=======
+.title{
+    padding-bottom: 20px;
+}
+.text-shadow{
+    text-shadow: 3px 3px 1px #413d3d;
+}
+.form-control-feedback {
+    cursor: pointer;
+    pointer-events: auto !important ;
+}
+.box {
+    box-shadow: 15px 15px 10px rgba(0, 0, 0, 0.1) !important;
+}
+.login-box-body,.register-box-body {
+    padding: 30px !important;
+}
+.text-white{
+    color: #ffffff;
+}
+>>>>>>> b725f7a8d055b99fdb1b3f73c1634adb4ae15380

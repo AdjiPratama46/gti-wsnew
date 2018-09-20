@@ -18,7 +18,6 @@ if (class_exists('yii\debug\Module')) {
 }
 
 if ((Yii::$app->controller->action->id == 'login' | Yii::$app->controller->action->id == 'index' ) & Yii::$app->user->isGuest) {
-
     echo $this->render(
         'main-login',
         ['content' => $content]
