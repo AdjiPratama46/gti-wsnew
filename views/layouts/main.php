@@ -24,6 +24,11 @@ if ((Yii::$app->controller->action->id == 'login' | Yii::$app->controller->actio
         ['content' => $content]
     );
 
+} else if ((Yii::$app->controller->action->id == 'signup' | Yii::$app->controller->action->id == 'index' ) & Yii::$app->user->isGuest) {
+    echo $this->render(
+        'main-signup',
+        ['content' => $content]
+    );
 } else {
 
     if (class_exists('backend\assets\AppAsset')) {
