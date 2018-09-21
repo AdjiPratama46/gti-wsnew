@@ -40,14 +40,18 @@ use yii\helpers\Html;
 
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <div class="menu-dd">
+                            <?= Html::a(
+                                    'Setting',
+                                    ['/site/profile'],
+                                    ['class' => 'btn btn-block btn-menu-dd']
+                                ) ?>
                             </div>
-                            <div class="pull-right">
+                            <div class="menu-dd">
                                 <?= Html::a(
                                     'Sign out',
                                     ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                    ['data-method' => 'post', 'class' => 'btn btn-block btn-menu-dd']
                                 ) ?>
                             </div>
                         </li>

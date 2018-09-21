@@ -24,3 +24,25 @@
 .text-white{
     color: #ffffff;
 }
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    padding: 20px !important;
+    height: 160px !important;
+}
+.navbar-nav>.user-menu>.dropdown-menu {
+    width: 230px !important;
+}
+.menu-dd{
+    padding: 5px;
+}
+.btn-menu-dd{
+    color: white;
+    background-color: #3C8DBC;
+}
+.btn-menu-dd:hover{
+    color: #3C8DBC;
+    border: 2px solid #3C8DBC;
+    background-color: white;
+}
+.profile-index{
+    border: 2px solid black;
+}
