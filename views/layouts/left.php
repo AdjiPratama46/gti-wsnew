@@ -32,6 +32,9 @@
                     ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['/debug'],
                       'options' => ['id' => 'menu4']
                     ],
+                    ['label' => 'Profile', 'icon' => 'user', 'url' => ['/user/index'],
+                      'options' => ['id' => 'menu5']
+                    ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 
                 ],

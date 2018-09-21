@@ -163,4 +163,9 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    
+    public function actionProfile()
+    {
+        return $this->render('profile');
+    }
 }
