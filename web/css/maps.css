@@ -1,6 +1,19 @@
 .maps-bg{
+  background-color: #fff;
+  padding:10px;
+}
+
+.per-bgs{
   margin:10px;
   width:100%;
   background-color: #fff;
   padding:10px;
+}
+
+.pss{
+  padding:100px;
+}
+
+.tabelcustom{
+  background-color: #000;
 }

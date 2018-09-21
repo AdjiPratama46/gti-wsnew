@@ -3,7 +3,7 @@ use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
 
 ?>
-<div class="content-wrapper">
+<div class="content-wrapper" style="margin-top:50px;padding:20px;">
     <section class="content-header">
         <?php if (isset($this->blocks['content-header'])) { ?>
             <h1><?= $this->blocks['content-header'] ?></h1>

@@ -1,5 +1,4 @@
-<aside class="main-sidebar">
-
+<aside class="main-sidebar" style="position:fixed;">
     <section class="sidebar">
 
         <!-- Sidebar user panel -->
@@ -15,24 +14,22 @@
             </div>
         </div>
 
-        <!-- search form -->
-
-        <!-- /.search form -->
+      <hr style="border:0.5px solid #4F7BC3;width:60%;">
 
         <?= dmstr\widgets\Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => 'Dashboard', 'icon' => 'file-code-o', 'url' => ['/gii'],
+                    ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/index'],
                       'options' => ['id' => 'menu1']
                     ],
-                    ['label' => 'Perangkat', 'icon' => 'dashboard', 'url' => ['perangkat/index'],
+                    ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
                       'options' => ['id' => 'menu2']
                     ],
-                    ['label' => 'Data harian', 'icon' => 'dashboard', 'url' => ['/debug'],
+                    ['label' => 'Data harian', 'icon' => 'calendar', 'url' => ['/gii'],
                       'options' => ['id' => 'menu3']
                     ],
-                    ['label' => 'Resume', 'icon' => 'dashboard', 'url' => ['/debug'],
+                    ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['/debug'],
                       'options' => ['id' => 'menu4']
                     ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

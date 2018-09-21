@@ -13,58 +13,61 @@ $this->title = 'Perangkat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perangkat-index">
+      <div style="background-color:#fff;padding:10px;padding-top:20px;">
+        <?php Pjax::begin(); ?>
+        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?php echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']); ?>
-    <p>
-        <?php /* Html::a('Create Perangkat', ['create'], ['class' => 'btn btn-success'])*/ ?>
-    </p>
+        <?php echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']); ?>
+        <br><br>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'alias',
-            //'id_owner',
-            [
-                'attribute'=>'tgl_instalasi',
-                'value'=>'tgl_instalasi',
-                'format'=>'raw',
-                'filter'=>DatePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'tgl_instalasi',
-                    'options' => [
-                      'readonly' => 'readonly',
-                    ],
-                    'template' => '{addon}{input}',
-                          'clientOptions' => [
-                            'autoclose' => true,
-                            'format' => 'yyyy-m-d',
-                            'clearBtn' => true,
-                          ],
-                          'clientEvents' => [
-                              'clearDate' => 'function (e) {$(e.target).find("input").change();}',
-                          ],
-                ])
+                'id',
+                'alias',
+                //'id_owner',
+                [
+                    'attribute'=>'tgl_instalasi',
+                    'value'=>'tgl_instalasi',
+                    'format'=>'raw',
+                    'filter'=>DatePicker::widget([
+                        'model' => $searchModel,
+                        'attribute' => 'tgl_instalasi',
+                        'options' => [
+                          'readonly' => 'readonly',
+                        ],
+                        'template' => '{addon}{input}',
+                              'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-m-d',
+                                'clearBtn' => true,
+                              ],
+                              'clientEvents' => [
+                                  'clearDate' => 'function (e) {$(e.target).find("input").change();}',
+                              ],
+                    ])
+                ],
+                'longitude',
+                'latitude',
+                [
+                'header' => 'Aksi',
+                'content' => function($model) {
+                    return Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success', 'data-pjax' => 0]);
+                }
+              ],
+
             ],
-            'longitude',
-            'latitude',
-            [
-            'header' => 'Aksi',
-            'content' => function($model) {
-                return Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success', 'data-pjax' => 0]);
-            }
-],
-
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
-    <br>
-    <div class="maps-bg">
+        ]); ?>
+        <?php Pjax::end(); ?>
+      </div>
+      <br>
+      <hr style="border:0.5px solid #4F7BC3;width:60%;">
+      <br>
+    <div style="background-color:#fff;padding:10px;">
       <h3><icon class="glyphicon glyphicon-map-marker"></icon> Peta Lokasi </h3>
       <?= $map->display() ?>
     </div>

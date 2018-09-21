@@ -52,7 +52,7 @@ if ((Yii::$app->controller->action->id == 'login' | Yii::$app->controller->actio
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
     <?php $this->beginBody() ?>
-    <div class="wrapper">
+    <div class="wrapper" >
 
         <?= $this->render(
             'header.php',
