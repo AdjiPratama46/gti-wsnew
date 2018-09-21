@@ -36,11 +36,11 @@ $url = Url::to(['user/update', 'id' => $id]);
                     </a>
                     <ul class="dropdown-menu" style="width:200px;" >
                         <!-- User image -->
-                        <li class="user-header" style="background-color: #E7E7E7;">
+                        <li class="user-header" style="background-color: #3963A9;">
                           <img src="images/profilephoto.png" width="160" height="160" class="img-circle" alt="User Image"/>
 
 
-                            <p style="color:#222D32;">
+                            <p style="color:white;">
                                 <?= Yii::$app->user->identity->name ?>
                             </p>
                             <hr style="border:0.5px solid #4F7BC3;width:60%;">

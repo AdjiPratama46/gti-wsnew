@@ -36,13 +36,17 @@
 }
 .btn-menu-dd{
     color: white;
-    background-color: #3C8DBC;
+    background-color: #3963A9;
 }
 .btn-menu-dd:hover{
-    color: #3C8DBC;
-    border: 2px solid #3C8DBC;
+    color: #3963A9;
+    border: 2px solid #3963A9;
     background-color: white;
 }
 .profile-index{
-    border: 2px solid black;
+    padding: 50px;
+    background-color: #fff;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>img{
+    border-color: white !important;
 }
