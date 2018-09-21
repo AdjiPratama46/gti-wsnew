@@ -37,9 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filter'=>DatePicker::widget([
                         'model' => $searchModel,
                         'attribute' => 'tgl_instalasi',
-                        'options' => [
-                          'readonly' => 'readonly',
-                        ],
                         'template' => '{addon}{input}',
                               'clientOptions' => [
                                 'autoclose' => true,
