@@ -6,13 +6,16 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Perangkat */
 
-$this->title = $model->id;
+$this->title = $model->alias;
 $this->params['breadcrumbs'][] = ['label' => 'Perangkats', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="perangkat-view">
+<div class="perangkat-view" style="
+                                  padding:20px;
+                                  ">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <center><h3><?= Html::encode($this->title) ?></h3></center>
+    <br>
 
     <p>
 
@@ -23,11 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'alias',
-            'id_owner',
+            //'id_owner',
             'tgl_instalasi',
-            'longitude',
-            'latitude',
+            //'longitude',
+            //'latitude',
+            [
+                'attribute'=>'Lokasi',
+                'format'=>'raw',
+                'value'=>$model->latitude.', '.$model->longitude,
+            ],
         ],
     ]) ?>
-
+    <br>
+    <center><?php echo Html::a('Pindahkan', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success']); ?></center>
+    <br>
 </div>
