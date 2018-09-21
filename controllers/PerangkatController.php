@@ -84,6 +84,9 @@ class PerangkatController extends Controller
         $model = new Perangkat();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          Yii::$app->getSession()->setFlash(
+              'success','Perangkat tersimpan !'
+          );
             return $this->redirect(['perangkat/index']);
         }
 
@@ -104,6 +107,9 @@ class PerangkatController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          Yii::$app->getSession()->setFlash(
+              'success','Perangkat dipindahkan !'
+          );
             return $this->redirect(['perangkat/index']);
         }
 

@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perangkat-index">
       <div style="background-color:#fff;padding:10px;padding-top:20px;">
+  
         <?php Pjax::begin(); ?>
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
