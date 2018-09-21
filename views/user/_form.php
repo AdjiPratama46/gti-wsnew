@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-        <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => true])->label('Old Password') ?>
+        <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => true]) ?>
         </div>
     </div>
     <div class="row">
