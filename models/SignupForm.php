@@ -26,13 +26,19 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} setidaknya harus memiliki 6 karakter'],
+            ['username', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['username'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
-              'message' => '{attribute} hanya bisa menggunakan huruf, dan angka'
+              'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
             ],
             ['name', 'trim'],
+            [['name'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
+              'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
+            ],
             ['name', 'string', 'max' => 255],
-            ['password', 'string', 'min' => 6, 'tooShort' => '{attribute} setidaknya harus memiliki 6 karakter'],
+            ['password', 'string', 'min' => 6, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
+            [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
+              'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
+            ],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['password'], 'required','message' => 'Password Tidak Boleh Kosong'],
