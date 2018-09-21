@@ -21,6 +21,8 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $confirm_password;
+    public $new_password;
     public static function tableName()
     {
         return 'user';
@@ -32,8 +34,13 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'username', 'password'], 'required'],
-            [['name', 'username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 255],
+            [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
+            [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
+            [['password'], 'required','message' => 'Password Baru Tidak Boleh Kosong'],
+            [['confirm_password'], 'required','message' => 'Password Lama Tidak Boleh Kosong'],
+            [['new_password'],'required','message' => 'Password Baru Tidak Boleh Kosong'],
+            ['confirm_password', 'compare', 'compareAttribute' => 'password','message' => 'Password Tidak Sesuai'],
+            [['name', 'username', 'password','confirm_password','authKey', 'accessToken'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,6 +56,8 @@ class Users extends \yii\db\ActiveRecord
             'password' => 'Password',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
+            'confirm_password' => 'Old Password',
+            'confirm_password' => 'New Password',
         ];
     }
 

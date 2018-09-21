@@ -86,10 +86,13 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash(
-                'success','Data saved!'
-            );
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password = $model->new_password;
+            if($model->save(false)){
+                Yii::$app->getSession()->setFlash(
+                    'success','Data saved!'
+                );
+            }
             return $this->redirect(['update', 'id' => $model->id]);
         }
 
