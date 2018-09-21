@@ -1,8 +1,11 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+$id = Yii::$app->user->identity->id;
+$url = Url::to(['user/update', 'id' => $id]);
 ?>
 
 <header class="main-header" style="position:fixed;width:100%;border-bottom:1px solid #4F7BC3;">
@@ -49,7 +52,7 @@ use yii\helpers\Html;
                             <div class="menu-dd">
                             <?= Html::a(
                                     'Setting',
-                                    ['/site/profile'],
+                                    ['/user/update', 'id' => $id],
                                     ['class' => 'btn btn-block btn-menu-dd']
                                 ) ?>
                             </div>
