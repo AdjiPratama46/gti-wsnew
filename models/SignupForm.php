@@ -40,6 +40,7 @@ class SignupForm extends Model
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
             ],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
+            [['username'],'unique','targetClass' => '\app\models\Users','message' => 'Username Ini Sudah Digunakan'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['password'], 'required','message' => 'Password Tidak Boleh Kosong'],
         ];

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
         class=\"col-lg-8\">{error}</div>", ]) ?> -->
 
         <div class="form-group">
-            <?= Html::submitButton('Login', ['class' => 'btn btn-block btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Login', ['class' => 'btn btn-block btn-primary', 'id' => 'btn-gd' , 'name' => 'login-button']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <div style="color:#999;">

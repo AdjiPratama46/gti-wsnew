@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'password',$fieldPassword)->passwordInput(['placeholder' => 'Masukkan Password'])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Signup', ['class' => 'btn btn-block btn-primary', 'name' => 'login-button']) ?>
+            <?= Html::submitButton('Signup', ['class' => 'btn btn-block btn-primary', 'id' => 'btn-gd' , 'name' => 'login-button']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
