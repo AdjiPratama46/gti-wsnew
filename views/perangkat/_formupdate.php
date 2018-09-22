@@ -94,13 +94,9 @@ use kartik\date\DatePicker;
          'maxlength' => true,
         'style' => 'width: 60%;']) ?>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-4">
+    <center>
                 <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?>
-            </div>
-        </div>
-    </div>
+            </center><br>
 
     <?php ActiveForm::end(); ?>
 
