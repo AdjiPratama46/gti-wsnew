@@ -127,6 +127,9 @@ class PerangkatController extends Controller
      */
     public function actionDelete($id)
     {
+      Yii::$app->getSession()->setFlash(
+          'success','perangkat berhasil dihapus !'
+      );
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
