@@ -36,7 +36,7 @@ use kartik\date\DatePicker;
          'maxlength' => true,
         'style' => 'width: 100%;']) ?>
 
-      <?= $form->field($model, 'id_owner', [
+    <?= $form->field($model, 'id_owner', [
         'template' => "{label}{input}{hint}{error}",
          'options' => ['class' => 'form-group form-inline'],])
          ->hiddenInput([
@@ -44,7 +44,7 @@ use kartik\date\DatePicker;
            'maxlength' => true,
           'style' => 'width: 100%;'])->label(false) ?>
 
-        <?= $form->field($model, 'tgl_instalasi',[
+    <?= $form->field($model, 'tgl_instalasi',[
           'template' => "
             <div class='row'>
               <div class='col-md-4' align='right'>{label}</div>
@@ -81,8 +81,6 @@ use kartik\date\DatePicker;
          'maxlength' => true,
         'style' => 'width: 60%;']) ?>
 
-
-
     <?= $form->field($model, 'latitude', [
       'template' => "
         <div class='row'>
@@ -95,7 +93,11 @@ use kartik\date\DatePicker;
         'style' => 'width: 60%;']) ?>
 
     <div class="form-group">
-        <center><?= Html::submitButton('Simpan', ['class' => 'btn btn-success butsub']) ?></center>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-4">
+                <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
