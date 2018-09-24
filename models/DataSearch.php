@@ -46,9 +46,8 @@ class DataSearch extends Data
       $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
 
       $this->load($params);
-      if(!empty($perank)){
-        if(empty($this->tgl) && empty($this->id_perangkat)){
-          $query = Data::find()->where(
+        if(empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
+          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
               [
                 'between',
                 'tgl',
@@ -61,9 +60,6 @@ class DataSearch extends Data
         else{
           $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id]);
         }
-      }else{
-          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id]);
-      }
 
 
 
