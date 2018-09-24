@@ -43,7 +43,7 @@ class Users extends \yii\db\ActiveRecord
             ],
             [['password'], 'required','message' => 'Password Baru Tidak Boleh Kosong'],
             [['confirm_password'], 'required','message' => 'Password Lama Tidak Boleh Kosong'],
-            [['new_password'],'required','message' => 'Password Baru Tidak Boleh Kosong'],
+            //[['new_password'],'required','message' => 'Password Baru Tidak Boleh Kosong'],
             ['new_password', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             ['confirm_password', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             ['confirm_password', 'compare', 'compareAttribute' => 'password','message' => 'Password Tidak Sesuai'],
