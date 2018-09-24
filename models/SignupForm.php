@@ -17,14 +17,16 @@ class SignupForm extends Model
     public $username;
     public $name;
     public $password;
-
-
+    public $id;
+    public $authKey;
+    public $accessToken;
     /**
      * @return array the validation rules.
      */
     public function rules()
     {
         return [
+            [['id'], 'integer'],
             ['username', 'trim'],
             ['username', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['username'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
@@ -43,6 +45,7 @@ class SignupForm extends Model
             [['username'],'unique','targetClass' => '\app\models\Users','message' => 'Username Ini Sudah Digunakan'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['password'], 'required','message' => 'Password Tidak Boleh Kosong'],
+            [['authKey','accessToken'],'string'],
         ];
     }
 
@@ -61,14 +64,24 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->name = $this->name;
-        $user->password = $this->password;
-
+        $user->password = $this->password;        
         Yii::$app->db->createCommand()->insert('user',
-            [
-                'username' => $this->username,
-                'name' => $this->name,
-                'password' => $this->password,
-            ])->execute();
+        [
+            'username' => $this->username,
+            'name' => $this->name,
+            'password' => $this->password,
+        ])->execute();
+        $id = User::find()
+        ->select(['id'])
+        ->where(['username' => $this->username])
+        ->asArray()
+        ->one();
+        
+        Yii::$app->db->createCommand()->update('user',
+        [
+            'authKey' => 'test'.$id['id'].'key',
+            'accessToken' =>  $id['id'].'-token',
+        ] ,'id ='.$id['id'])->execute();
 
         return $user;
     }

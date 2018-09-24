@@ -9,10 +9,15 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
-?>
+if(Yii::$app->session->hasFlash('success')){
+    ?>
+<div id="note">
+    <?= Yii::$app->session->getFlash('success'); ?>
+</div>
+<?php } ?>
 
 <div class="login-box">
-    <div class="login-logo"> 
+    <div class="login-logo">
         <h2 class="text-center text-white text-shadow">GTI - WEATHER STATION</h2>
     </div>
     <div class="login-box-body box">
@@ -51,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
     </div>
-    
+
 </div>
 
 <?php 
