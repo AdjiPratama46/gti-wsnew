@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Perangkat
-                    <?= $model['id_perangkat'] ?>
+                        <?= $model['alias'] ?>
                     </h3>
 
                     <div class="box-tools pull-right">
@@ -32,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             </p>
                             <div class="chart">
                                 <h4>Nama Perangkat :</h4>
-                                <h3>NULL</h3>
+                                <h3><?= $model['alias'] ?></h3>
                                 <hr style="border:1px solid #4F7BC3;">
                                 <h4>Kordinat :</h4>
-                                <h3>NULL</h3>
+                                <h3><?= $model['longitude'] ?></h3>
                                 <hr style="border:1px solid #4F7BC3;">
                                 <h3 class="text-center"><?= date('Y-m-d'); ?></h3>
-                                <div id="MyClockDisplay" class="clock text-center"></div>
+                                <!-- <div id="MyClockDisplay" class="clock text-center"></div> -->
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -50,12 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
-                                            <h3> <?= $model['arah_angin'] ?> </h3>
+                                            <h3>
+                                            NULL
+                                            </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-compass"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info
+                                        <a href="#data-detail" class="small-box-footer">More info
                                             <i class="fa fa-arrow-circle-right"></i>
                                         </a>
                                     </div>
@@ -64,12 +66,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
-                                            <h3> <?= $model['kelembaban'] ?> </h3>
+                                            <h3>
+                                            NULL
+                                            </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-water"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info
+                                        <a href="#data-detail" class="small-box-footer">More info
                                             <i class="fa fa-arrow-circle-right"></i>
                                         </a>
                                     </div>
@@ -80,12 +84,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
-                                            <h3> <?= $model['curah_hujan'] ?> </h3>
+                                            <h3>
+                                            NULL
+                                            </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-rainy"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info
+                                        <a href="#data-detail" class="small-box-footer">More info
                                             <i class="fa fa-arrow-circle-right"></i>
                                         </a>
                                     </div>
@@ -94,12 +100,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
-                                            <h3> <?= $model['kecepatan_angin'] ?> </h3>
+                                            <h3>
+                                                NULL
+                                            </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-speedometer"></i>
                                         </div>
-                                        <a href="#" class="small-box-footer">More info
+                                        <a href="#data-detail" class="small-box-footer">More info
                                             <i class="fa fa-arrow-circle-right"></i>
                                         </a>
                                     </div>
@@ -112,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </p>
                             <div class="pad box-pane-right bg-green text-center" style="min-height: 280px">
                                 <i class="ion-ios-thermometer big"></i>
-                                <h2><?= $model['temperature'] ?>&deg;</h2>
+                                <h2>NULL &deg;</h2>
                                 <h3>Celcius</h3>
                             </div>
                         </div>
@@ -124,79 +132,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box" id="data-detail">
                 <div class="box-header with-border">
                     <h3 class="box-title">Data Selengkapnya</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
+                            <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body">
-                    <?php Pjax::begin(); ?>
-                    <?= GridView::widget([
+                <div class="box-body" style="display:none;">
+                    <?= $this->renderAjax('/data/index', [
                         'dataProvider' => $dataProvider,
-                        'filterModel' => $searchModel,
-                        'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
-
-                            //'id_data',
-                            //'id_perangkat',
-                            //'tgl',
-                            [
-                                'attribute' => 'tgl',
-                                'header' => 'Pukul',
-                                'format' =>  ['date', 'php:H:i'],
-                            ],
-                            'kelembaban',
-                            'kecepatan_angin',
-                            'arah_angin',
-                            'curah_hujan',
-                            'temperature',
-                            'kapasitas_baterai',
-
-                            ['class' => 'yii\grid\ActionColumn'],
-                        ],
-                    ]); ?>
-                    <?php Pjax::end(); ?>
+                        'searchModel' => $searchModel,
+                    ]) ?>
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-<?php
-$js = <<<js
-function showTime(){
-    var date = new Date();
-    var h = date.getHours(); // 0 - 23
-    var m = date.getMinutes(); // 0 - 59
-    var s = date.getSeconds(); // 0 - 59
-    var session = "AM";
-    
-    if(h == 0){
-        h = 12;
-    }
-    
-    if(h > 12){
-        h = h - 12;
-        session = "PM";
-    }
-    
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-    s = (s < 10) ? "0" + s : s;
-    
-    var time = h + ":" + m + ":" + s + " " + session;
-    document.getElementById("MyClockDisplay").innerText = time;
-    document.getElementById("MyClockDisplay").textContent = time;
-    
-    setTimeout(showTime, 1000);
-}
-showTime();
-js;
-
-$this->registerJs($js);
-
-?>

@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="login-box">
     <div class="login-logo">
-        <h2 class="text-center text-white text-shadow">GTI - WEATHER STATION</h2>
+        <h2 class="text-center text-white text-shadow">WEATHER STATION</h2>
     </div>
     <div class="login-box-body box">
         <h2 class="text-center title"><?= Html::encode($this->title) ?></h2>
@@ -47,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::submitButton('Signup', ['class' => 'btn btn-block btn-primary', 'id' => 'btn-gd' , 'name' => 'login-button']) ?>
         </div>
         <?php ActiveForm::end(); ?>
+        <div style="color:#999;">
+            Kembali ke halaman
+            <?= Html::a('login', ['/site/login'])?>
+        </div>
     </div>
 
 </div>

@@ -18,7 +18,7 @@ if(Yii::$app->session->hasFlash('success')){
 
 <div class="login-box">
     <div class="login-logo">
-        <h2 class="text-center text-white text-shadow">GTI - WEATHER STATION</h2>
+        <h2 class="text-center text-white text-shadow">WEATHER STATION</h2>
     </div>
     <div class="login-box-body box">
         <h2 class="text-center title"><?= Html::encode($this->title) ?></h2>
