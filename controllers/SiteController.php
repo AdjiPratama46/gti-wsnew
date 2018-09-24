@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
 use app\models\Data;
+use app\models\Perangkat;
 use app\models\DataSearch;
 
 class SiteController extends Controller
@@ -64,9 +65,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
+        $id_owner = Yii::$app->user->id;
       if (!Yii::$app->user->isGuest) {
-        $model = Data::find()->asArray()->one();
+        $model = Perangkat::find()
+        ->where(['id_owner' => $id_owner])
+        ->asArray()
+        ->one();
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

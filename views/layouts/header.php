@@ -10,7 +10,7 @@ $url = Url::to(['user/update', 'id' => $id]);
 
 <header class="main-header" style="position:fixed;width:100%;border-bottom:1px solid #4F7BC3;">
 
-      <a href="/" class="logo" style="background-color:#2F5189;" >
+      <a href="<?php  Url::to(['site/index']); ?>" class="logo" style="background-color:#2F5189;" >
         <!-- mini logo for sidebar mini 50x50 pixels -->
 
           <span class="logo-mini"><b>W</b>S</span>
