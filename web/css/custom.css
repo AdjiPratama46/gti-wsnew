@@ -102,3 +102,11 @@
     -moz-transform:    translateY(-50px);
     -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
 }
+.big{
+    font-size: 90px;
+    color: rgba(0,0,0,0.15);
+}
+.big:hover{
+    font-size: 95px;
+    transition: 0.5s;
+}
