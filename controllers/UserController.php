@@ -87,7 +87,10 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+          if(!empty($model->new_password)){
             $model->password = $model->new_password;
+          }
+
             if($model->save(false)){
                 Yii::$app->getSession()->setFlash(
                     'success','Data saved!'
