@@ -42,7 +42,13 @@ class DataSearch extends Data
      */
     public function search($params)
     {
-        $query = Data::find();
+        $query = Data::find()->where(
+            [
+              'between',
+              'tgl',
+              date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+              date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+              ])->orderBy(['tgl' => SORT_ASC]);
 
         // add conditions that should always apply here
 
@@ -61,7 +67,6 @@ class DataSearch extends Data
         // grid filtering conditions
         $query->andFilterWhere([
             'id_data' => $this->id_data,
-            'tgl' => $this->tgl,
             'kelembaban' => $this->kelembaban,
             'kecepatan_angin' => $this->kecepatan_angin,
             'curah_hujan' => $this->curah_hujan,
@@ -70,7 +75,8 @@ class DataSearch extends Data
         ]);
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
-            ->andFilterWhere(['like', 'arah_angin', $this->arah_angin]);
+            ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
+            ->andFilterWhere(['like', 'FROM_UNIXTIME(tgl, "%Y-%m-%d")', $this->tgl]);
 
         return $dataProvider;
     }

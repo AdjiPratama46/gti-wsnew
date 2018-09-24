@@ -26,15 +26,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_data',
-            'id_perangkat',
-            'tgl',
+            //'id_data',
+            //'id_perangkat',
+            //'tgl',
+            [
+              'attribute' => 'tgl',
+              'header' => 'Pukul',
+              'format' =>  ['date', 'php:H:i'],
+            ],
             'kelembaban',
             'kecepatan_angin',
-            //'arah_angin',
-            //'curah_hujan',
-            //'temperature',
-            //'kapasitas_baterai',
+            'arah_angin',
+            'curah_hujan',
+            'temperature',
+            'kapasitas_baterai',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
