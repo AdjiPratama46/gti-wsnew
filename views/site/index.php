@@ -2,9 +2,6 @@
 
 /* @var $this yii\web\View */
 
-use yii\grid\GridView;
-use yii\widgets\Pjax;
-
 $this->title = 'Dashboard';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h3 class="box-title">Perangkat
                         <?= $model['alias'] ?>
                     </h3>
-
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -38,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h3><?= $model['longitude'] ?></h3>
                                 <hr style="border:1px solid #4F7BC3;">
                                 <h3 class="text-center"><?= date('Y-m-d'); ?></h3>
-                                <!-- <div id="MyClockDisplay" class="clock text-center"></div> -->
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -51,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
                                             <h3>
-                                            NULL
+                                                NULL
                                             </h3>
                                         </div>
                                         <div class="icon">
@@ -67,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
                                             <h3>
-                                            NULL
+                                                NULL
                                             </h3>
                                         </div>
                                         <div class="icon">
@@ -85,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
                                             <h3>
-                                            NULL
+                                                NULL
                                             </h3>
                                         </div>
                                         <div class="icon">
@@ -141,12 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </button>
                     </div>
                 </div>
-                <div class="box-body" style="display:none;">
-                    <?= $this->renderAjax('/data/index', [
-                        'dataProvider' => $dataProvider,
-                        'searchModel' => $searchModel,
-                    ]) ?>
-                </div>
+               
             </div>
         </div>
     </div>

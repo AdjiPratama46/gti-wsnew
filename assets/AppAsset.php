@@ -24,10 +24,10 @@ class AppAsset extends AssetBundle
         'css/modal.css',
         'css/maps.css',
         'css/custom.css',
-        'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css'
+        'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css',
     ];
     public $js = [
-        'js/modal.js'
+        'js/modal.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
