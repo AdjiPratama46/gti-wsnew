@@ -52,7 +52,7 @@ class Data extends \yii\db\ActiveRecord
         return [
             'id_data' => 'Id Data',
             'id_perangkat' => 'Id Perangkat',
-            'tgl' => 'Tgl',
+            'tgl' => 'Pukul',
             'kelembaban' => 'Kelembaban',
             'kecepatan_angin' => 'Kecepatan Angin',
             'arah_angin' => 'Arah Angin',

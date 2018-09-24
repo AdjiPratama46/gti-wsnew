@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Data;
+use app\models\Perangkat;
 use app\models\DataSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -37,12 +38,21 @@ class DataController extends Controller
     {
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $model = new Data();
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->redirect('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $model,
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
+
 
     /**
      * Displays a single Data model.

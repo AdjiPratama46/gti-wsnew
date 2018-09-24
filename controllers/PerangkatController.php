@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Perangkat;
 use app\models\Maps;
+use app\models\Data;
 use yii\helpers\Html;
 use app\models\PerangkatSearch;
 use yii\web\Controller;
@@ -46,6 +47,7 @@ class PerangkatController extends Controller
     public function actionIndex()
     {
         $searchModel = new PerangkatSearch();
+        $model = new Perangkat();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         $showmap = new Maps();
@@ -127,10 +129,17 @@ class PerangkatController extends Controller
      */
     public function actionDelete($id)
     {
-      Yii::$app->getSession()->setFlash(
-          'success','perangkat berhasil dihapus !'
-      );
-        $this->findModel($id)->delete();
+      if(empty(Data::find()->where(['id_perangkat' => $id])->all())){
+        Yii::$app->getSession()->setFlash(
+            'success','perangkat berhasil dihapus !'
+        );
+          $this->findModel($id)->delete();
+      }else{
+        Yii::$app->getSession()->setFlash(
+            'danger','perangkat tidak dapat dihapus !'
+        );
+      }
+
 
         return $this->redirect(['index']);
     }

@@ -2,6 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
+use app\models\Perangkat;
+use app\models\Data;
+use yii\helpers\ArrayHelper;
+use dosamigos\datepicker\DatePicker;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DataSearch */
@@ -18,15 +24,46 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id_data') ?>
+    <?php //$form->field($model, 'id_data') ?>
+    <div class="row">
+    <div class="col-md-6"></div>
+      <div class="col-md-3">
+            <?php $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
 
-    <?= $form->field($model, 'id_perangkat') ?>
+                    echo $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
+                                          'data' => $perangkats,
+                                          'pluginOptions' => [
+                                            'placeholder' => 'Pilih perangkat',
+                                            'clearBtn' => true,
+                                          ],
+                                          'options' => [
+                                            'onchange'=>'this.form.submit()',
+                                          ]
 
-    <?= $form->field($model, 'tgl') ?>
+                                  ])->label(false); ?>
+          </div><div class="col-md-3">
+            <?= $form->field($model, 'tgl')->widget(DatePicker::ClassName(),
+      [
+      'name' => 'tgl',
+      'options' => [
+          'placeholder' => 'Pilih tanggal',
+      ],
+      'clientOptions' => [
+          'format' => 'yyyy-mm-dd',
+          'todayHighlight' => true,
+          'changeDate' => false,
+      ],
+      'options' => [
+        'onchange'=>'this.form.submit()',
+      ]
 
-    <?= $form->field($model, 'kelembaban') ?>
+      ])->label(false);
+      ?>
+          </div>
 
-    <?= $form->field($model, 'kecepatan_angin') ?>
+    <?php //$form->field($model, 'kelembaban') ?>
+
+    <?php //$form->field($model, 'kecepatan_angin') ?>
 
     <?php // echo $form->field($model, 'arah_angin') ?>
 
@@ -36,10 +73,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'kapasitas_baterai') ?>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
+    </div>-->
 
     <?php ActiveForm::end(); ?>
 

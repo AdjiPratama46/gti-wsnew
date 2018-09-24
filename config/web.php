@@ -12,6 +12,14 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+          'formatter' => [
+               'dateFormat' => 'Y-M-d',
+               'datetimeFormat' => 'Y-m-d H:i:s',
+               'timeFormat' => 'H:i',
+
+               'locale' => 'de-DE', //your language locale
+               'defaultTimeZone' => 'Europe/Berlin', // time zone
+          ],
           'assetManager' => [
             'bundles' => [
                 'dosamigos\google\maps\MapAsset' => [
@@ -60,7 +68,7 @@ $config = [
         //     'rules' => [
         //     ],
         // ],
-        
+
     ],
     'params' => $params,
 ];

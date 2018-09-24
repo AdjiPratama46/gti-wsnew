@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Data;
+use app\models\Perangkat;
 
 /**
  * DataSearch represents the model behind the search form of `app\models\Data`.
@@ -42,18 +43,29 @@ class DataSearch extends Data
      */
     public function search($params)
     {
+      $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
+      $this->load($params);
+      if(empty($this->tgl) && empty($this->id_perangkat)){
         $query = Data::find()->where(
             [
               'between',
               'tgl',
               date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
               date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
-              ])->orderBy(['tgl' => SORT_ASC]);
+              ])->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
+
+
+      }
+      else{
+        $query = Data::find();
+      }
+
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [ 'pageSize' => 10 ],
         ]);
 
         $this->load($params);
@@ -76,7 +88,7 @@ class DataSearch extends Data
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
-            ->andFilterWhere(['like', 'FROM_UNIXTIME(tgl, "%Y-%m-%d")', $this->tgl]);
+            ->andFilterWhere(['like', 'tgl', $this->tgl]);
 
         return $dataProvider;
     }
