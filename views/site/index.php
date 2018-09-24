@@ -2,52 +2,201 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+
+$this->title = 'Dashboard';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Perangkat
+                    <?= $model['id_perangkat'] ?>
+                    </h3>
 
-    <div class="jumbotron">
-        <h1>Congratulations!TestPush</h1>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="text-center">
+                                <strong>Perangkat</strong>
+                            </p>
+                            <div class="chart">
+                                <h4>Nama Perangkat :</h4>
+                                <h3>NULL</h3>
+                                <hr style="border:1px solid #4F7BC3;">
+                                <h4>Kordinat :</h4>
+                                <h3>NULL</h3>
+                                <hr style="border:1px solid #4F7BC3;">
+                                <h3 class="text-center"><?= date('Y-m-d'); ?></h3>
+                                <div id="MyClockDisplay" class="clock text-center"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-center">
+                                <strong>Data</strong>
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <p class="text-center">Arah Angin</p>
+                                            <h3> <?= $model['arah_angin'] ?> </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-compass"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer">More info
+                                            <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <p class="text-center">Kelembaban</p>
+                                            <h3> <?= $model['kelembaban'] ?> </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-water"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer">More info
+                                            <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <p class="text-center">Curah Hujan</p>
+                                            <h3> <?= $model['curah_hujan'] ?> </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-rainy"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer">More info
+                                            <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small-box bg-aqua">
+                                        <div class="inner">
+                                            <p class="text-center">Kecepatan Angin</p>
+                                            <h3> <?= $model['kecepatan_angin'] ?> </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-speedometer"></i>
+                                        </div>
+                                        <a href="#" class="small-box-footer">More info
+                                            <i class="fa fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="text-center">
+                                <strong>Suhu</strong>
+                            </p>
+                            <div class="pad box-pane-right bg-green text-center" style="min-height: 280px">
+                                <i class="ion-ios-thermometer big"></i>
+                                <h2><?= $model['temperature'] ?>&deg;</h2>
+                                <h3>Celcius</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Data Selengkapnya</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <?php Pjax::begin(); ?>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+
+                            //'id_data',
+                            //'id_perangkat',
+                            //'tgl',
+                            [
+                                'attribute' => 'tgl',
+                                'header' => 'Pukul',
+                                'format' =>  ['date', 'php:H:i'],
+                            ],
+                            'kelembaban',
+                            'kecepatan_angin',
+                            'arah_angin',
+                            'curah_hujan',
+                            'temperature',
+                            'kapasitas_baterai',
+
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                    <?php Pjax::end(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+<?php
+$js = <<<js
+function showTime(){
+    var date = new Date();
+    var h = date.getHours(); // 0 - 23
+    var m = date.getMinutes(); // 0 - 59
+    var s = date.getSeconds(); // 0 - 59
+    var session = "AM";
+    
+    if(h == 0){
+        h = 12;
+    }
+    
+    if(h > 12){
+        h = h - 12;
+        session = "PM";
+    }
+    
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+    
+    var time = h + ":" + m + ":" + s + " " + session;
+    document.getElementById("MyClockDisplay").innerText = time;
+    document.getElementById("MyClockDisplay").textContent = time;
+    
+    setTimeout(showTime, 1000);
+}
+showTime();
+js;
+
+$this->registerJs($js);
+
+?>

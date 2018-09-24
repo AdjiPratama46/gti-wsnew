@@ -74,3 +74,39 @@
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
     border-color: white !important;
 }
+#note {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #0062CC;
+    color: white;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden; 
+    
+    box-shadow:         0 0 5px white;
+}
+@-webkit-keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-50px); }
+    10%, 90% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideDown {
+    0%, 100% { -moz-transform: translateY(-50px); }
+    10%, 90% { -moz-transform: translateY(0px); }
+}
+.cssanimations.csstransforms #note {
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
+}
+.big{
+    font-size: 90px;
+    color: rgba(0,0,0,0.15);
+}
+.big:hover{
+    font-size: 95px;
+    transition: 0.5s;
+}

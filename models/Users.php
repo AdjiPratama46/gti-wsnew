@@ -34,6 +34,8 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['id'], 'integer'],
+            [['authKey','accessToken'],'string'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['username','name','new_password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
