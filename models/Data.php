@@ -69,4 +69,8 @@ class Data extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Perangkat::className(), ['id' => 'id_perangkat']);
     }
+    public function getUser(){
+        return $this->hasOne(Users::className(),['id' => 'id_owner'])
+        ->viaTable('perangkat',['id' => 'id_perangkat']);
+    }
 }

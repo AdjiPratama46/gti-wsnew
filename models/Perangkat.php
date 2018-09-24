@@ -84,6 +84,6 @@ class Perangkat extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_owner']);
+        return $this->hasOne(Users::className(), ['id' => 'id_owner']);
     }
 }

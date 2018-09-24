@@ -32,6 +32,8 @@ $this->title = 'Data harian';
             //'id_data',
             //'id_perangkat',
             'tgl:time',
+            'perangkat.alias',
+            'user.id',
             'kelembaban',
             'kecepatan_angin',
             'arah_angin',
