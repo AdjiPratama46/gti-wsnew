@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\ContactForm;
+use app\models\Data;
+use app\models\DataSearch;
 
 class SiteController extends Controller
 {
@@ -64,9 +66,15 @@ class SiteController extends Controller
     {
 
       if (!Yii::$app->user->isGuest) {
+        $model = Data::find()->asArray()->one();
+        $searchModel = new DataSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-
-          return $this->render('index');
+        return $this->render('index', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
       }else{
         $this->layout = '//main-login';
           if (!Yii::$app->user->isGuest) {

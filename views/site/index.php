@@ -2,6 +2,9 @@
 
 /* @var $this yii\web\View */
 
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+
 $this->title = 'Dashboard';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -10,14 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Dashboard</h3>
+                    <h3 class="box-title">Perangkat
+                    <?= $model['id_perangkat'] ?>
+                    </h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
                         </button>
                     </div>
                 </div>
@@ -48,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
-                                            <h3>NULL</h3>
+                                            <h3> <?= $model['arah_angin'] ?> </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-compass"></i>
@@ -62,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
-                                            <h3>NULL</h3>
+                                            <h3> <?= $model['kelembaban'] ?> </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-water"></i>
@@ -78,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
-                                            <h3>NULL</h3>
+                                            <h3> <?= $model['curah_hujan'] ?> </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-rainy"></i>
@@ -92,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
-                                            <h3>NULL</h3>
+                                            <h3> <?= $model['kecepatan_angin'] ?> </h3>
                                         </div>
                                         <div class="icon">
                                             <i class="ion-ios-speedometer"></i>
@@ -110,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </p>
                             <div class="pad box-pane-right bg-green text-center" style="min-height: 280px">
                                 <i class="ion-ios-thermometer big"></i>
-                                <h2>NULL</h2>
+                                <h2><?= $model['temperature'] ?>&deg;</h2>
                                 <h3>Celcius</h3>
                             </div>
                         </div>
@@ -124,17 +126,41 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Lihat Selengkapnya</h3>
+                    <h3 class="box-title">Data Selengkapnya</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
                     </div>
                 </div>
-                <div class="box-body"></div>
+                <div class="box-body">
+                    <?php Pjax::begin(); ?>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+
+                            //'id_data',
+                            //'id_perangkat',
+                            //'tgl',
+                            [
+                                'attribute' => 'tgl',
+                                'header' => 'Pukul',
+                                'format' =>  ['date', 'php:H:i'],
+                            ],
+                            'kelembaban',
+                            'kecepatan_angin',
+                            'arah_angin',
+                            'curah_hujan',
+                            'temperature',
+                            'kapasitas_baterai',
+
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+                    <?php Pjax::end(); ?>
+                </div>
             </div>
         </div>
     </div>
