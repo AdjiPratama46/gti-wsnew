@@ -44,21 +44,27 @@ class DataSearch extends Data
     public function search($params)
     {
       $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
+
       $this->load($params);
-      if(empty($this->tgl) && empty($this->id_perangkat)){
-        $query = Data::find()->where(
-            [
-              'between',
-              'tgl',
-              date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
-              date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
-              ])->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
+      if(!empty($perank)){
+        if(empty($this->tgl) && empty($this->id_perangkat)){
+          $query = Data::find()->where(
+              [
+                'between',
+                'tgl',
+                date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                ])->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
 
 
+        }
+        else{
+          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id]);
+        }
+      }else{
+          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id]);
       }
-      else{
-        $query = Data::find();
-      }
+
 
 
         // add conditions that should always apply here
