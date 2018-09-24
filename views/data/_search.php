@@ -28,7 +28,7 @@ use dosamigos\datepicker\DatePicker;
     <div class="row">
     <div class="col-md-6"></div>
       <div class="col-md-3">
-            <?php $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
+            <?php $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
 
                     echo $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
                                           'data' => $perangkats,
