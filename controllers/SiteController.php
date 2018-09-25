@@ -66,16 +66,39 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $id_owner = Yii::$app->user->id;
-      if (!Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->isGuest) {
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
-        ->asArray()
         ->one();
+        $suhu = Yii::$app->db->createCommand
+        ('SELECT AVG(temperature) as suhu FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
+        $kelembaban = Yii::$app->db->createCommand
+        ('SELECT AVG(kelembaban) as kelembaban FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
+        $data = Yii::$app->db->createCommand
+        ('SELECT date(tgl) AS tgl FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
+        $arangin = Yii::$app->db->createCommand
+        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE id_perangkat= "'.$model['id'].'" GROUP BY arah_angin DESC')
+        ->queryOne();
+        $kangin = Yii::$app->db->createCommand
+        ('SELECT AVG(kecepatan_angin) as kecepatan_angin FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
+        $curjan = Yii::$app->db->createCommand
+        ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
+            'curjan' => $curjan,
+            'kangin' => $kangin,
+            'kelembaban' => $kelembaban,
+            'suhu' => $suhu,
+            'arangin' => $arangin,
             'model' => $model,
+            'data' => $data,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

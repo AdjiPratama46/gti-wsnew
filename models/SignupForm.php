@@ -29,9 +29,6 @@ class SignupForm extends Model
             [['id'], 'integer'],
             ['username', 'trim'],
             ['username', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
-            [['username'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
-              'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
-            ],
             ['name', 'trim'],
             [['name'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
