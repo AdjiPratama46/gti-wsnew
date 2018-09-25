@@ -11,16 +11,18 @@ use app\models\Perangkat;
 /**
  * DataSearch represents the model behind the search form of `app\models\Data`.
  */
+
 class DataSearch extends Data
 {
     /**
      * {@inheritdoc}
      */
+     public $perangkat;
     public function rules()
     {
         return [
             [['id_data', 'kapasitas_baterai'], 'integer'],
-            [['id_perangkat', 'tgl', 'arah_angin'], 'safe'],
+            [['id_perangkat', 'tgl', 'arah_angin', 'perangkat'], 'safe'],
             [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature'], 'number'],
         ];
     }
@@ -70,6 +72,13 @@ class DataSearch extends Data
             'pagination' => [ 'pageSize' => 10 ],
         ]);
 
+        $dataProvider->sort->attributes['perangkat'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['perangkat.alias' => SORT_ASC],
+            'desc' => ['perangkat.alias' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -90,7 +99,8 @@ class DataSearch extends Data
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
-            ->andFilterWhere(['like', 'tgl', $this->tgl]);
+            ->andFilterWhere(['like', 'tgl', $this->tgl])
+            ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
 
         return $dataProvider;
     }
