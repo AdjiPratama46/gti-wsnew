@@ -16,10 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-header with-border">
                     <h3 class="box-title">
                     <?php 
-                        if (empty($model->id)) {
+                        if (empty($perangkat['id'])) {
                             echo 'Belum Ada Data';
                         }else{
-                            echo $model->id;
+                            echo $perangkat['id'];
                         }                        
                         ?>
                     </h3>
@@ -37,11 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h4>Nama Perangkat :</h4>
                                 <h3>
                                 <?php 
-                                    if (empty($model->alias)) {
+                                    if (empty($perangkat['alias'])) {
                                         echo 'Belum Ada Data';
                                         
                                     }else{
-                                        echo $model->alias;
+                                        echo $perangkat['alias'];
                                     }                        
                                     ?>
                                 </h3>
@@ -49,10 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h4>Kordinat :</h4>
                                 <h3>
                                 <?php 
-                                    if (empty($model->latitude) AND empty($model->longitude)) {
+                                    if (empty($perangkat['latitude']) AND empty($perangkat['longitude'])) {
                                         echo 'Belum Ada Data';
                                     }else{
-                                        echo $model->latitude .','. $model->longitude;
+                                        echo $perangkat['latitude'] .','. $perangkat['longitude'];
                                     }                        
                                     ?>
                                 </h3>

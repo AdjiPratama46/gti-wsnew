@@ -70,28 +70,32 @@ class SiteController extends Controller
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
         ->one();
+        $perangkat = Yii::$app->db->createCommand
+        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE perangkat.id="'.$model['id'].'" AND DATE(data.tgl) = DATE(NOW())-1')
+        ->queryOne();
         $suhu = Yii::$app->db->createCommand
-        ('SELECT AVG(temperature) as suhu FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ('SELECT AVG(temperature) as suhu FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $kelembaban = Yii::$app->db->createCommand
-        ('SELECT AVG(kelembaban) as kelembaban FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ('SELECT AVG(kelembaban) as kelembaban FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $data = Yii::$app->db->createCommand
-        ('SELECT date(tgl) AS tgl FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ('SELECT date(tgl) AS tgl FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $arangin = Yii::$app->db->createCommand
-        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE id_perangkat= "'.$model['id'].'" GROUP BY arah_angin DESC')
+        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" GROUP BY arah_angin DESC')
         ->queryOne();
         $kangin = Yii::$app->db->createCommand
-        ('SELECT AVG(kecepatan_angin) as kecepatan_angin FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ('SELECT AVG(kecepatan_angin) as kecepatan_angin FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $curjan = Yii::$app->db->createCommand
-        ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE id_perangkat= "'.$model['id'].'" ')
+        ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         return $this->render('index', [
+            'perangkat' => $perangkat,
             'curjan' => $curjan,
             'kangin' => $kangin,
             'kelembaban' => $kelembaban,
