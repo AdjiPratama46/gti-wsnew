@@ -2,12 +2,15 @@
 
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use app\models\Perangkat;
 use yii\helpers\Url;
 use kartik\select2\Select2;
 /* @var $this yii\web\View */
 
 $this->title = 'Dashboard';
 $this->params['breadcrumbs'][] = $this->title;
+$perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','id');
 ?>
 <div class="site-index">
     <div class="row">
@@ -19,7 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         if (empty($perangkat['id'])) {
                             echo 'Belum Ada Data';
                         }else{
-                            echo $perangkat['id'];
+                            echo Select2::widget([
+                                'name' => 'id-p',
+                                'data' => $perangkats,
+                                'value' => $perangkat['id'],
+                                'options' => [
+                                    'placeholder' => 'Pilih Id Perangkat',
+                                ],
+                            ]);
                         }                        
                         ?>
                     </h3>

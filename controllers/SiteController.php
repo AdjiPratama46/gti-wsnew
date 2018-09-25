@@ -70,6 +70,7 @@ class SiteController extends Controller
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
         ->one();
+        // print_r($model);exit;
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE perangkat.id="'.$model['id'].'" AND DATE(data.tgl) = DATE(NOW())-1')
         ->queryOne();
