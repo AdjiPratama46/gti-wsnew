@@ -22,14 +22,15 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         if (empty($perangkat['id'])) {
                             echo 'Belum Ada Data';
                         }else{
-                            echo Select2::widget([
-                                'name' => 'id-p',
-                                'data' => $perangkats,
-                                'value' => $perangkat['id'],
-                                'options' => [
-                                    'placeholder' => 'Pilih Id Perangkat',
-                                ],
-                            ]);
+                            echo $perangkat['id'];
+                            // echo Select2::widget([
+                            //     'name' => 'id-p',
+                            //     'data' => $perangkats,
+                            //     'value' => $perangkat['id'],
+                            //     'options' => [
+                            //         'placeholder' => 'Pilih Id Perangkat',
+                            //     ],
+                            // ]);
                         }                        
                         ?>
                     </h3>
