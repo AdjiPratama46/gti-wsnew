@@ -25,7 +25,7 @@ $this->title = 'Data harian';
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-
+        'emptyText' => '<center>Tidak ada data untuk ditampilkan</center>',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

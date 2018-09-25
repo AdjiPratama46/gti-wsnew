@@ -10,7 +10,6 @@ use dosamigos\datepicker\DatePicker;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Perangkat';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perangkat-index">
       <div style="background-color:#fff;padding:10px;padding-top:20px;">
@@ -25,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
+            'emptyText' => '<center>Tidak ada data untuk ditampilkan</center>',
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
