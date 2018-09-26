@@ -16,7 +16,7 @@
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
-@keyframes AnimationName { 
+@keyframes AnimationName {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
@@ -84,8 +84,8 @@
     color: white;
     text-align: center;
     line-height: 2.5;
-    overflow: hidden; 
-    
+    overflow: hidden;
+
     box-shadow:         0 0 5px white;
 }
 @-webkit-keyframes slideDown {
@@ -105,8 +105,4 @@
 .big{
     font-size: 90px;
     color: rgba(0,0,0,0.15);
-}
-.big:hover{
-    font-size: 95px;
-    transition: 0.5s;
 }

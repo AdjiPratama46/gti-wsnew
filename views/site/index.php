@@ -18,7 +18,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                    <?php 
+                    <?php
                         if (empty($perangkat['id'])) {
                             echo 'Belum Ada Data';
                         }else{
@@ -31,7 +31,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                             //         'placeholder' => 'Pilih Id Perangkat',
                             //     ],
                             // ]);
-                        }                        
+                        }
                         ?>
                     </h3>
                     <div class="box-tools pull-right">
@@ -45,50 +45,50 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                     <div class="row">
                         <div class="col-md-4">
                             <div class="data">
-                                <h4>Nama Perangkat :</h4>
-                                <h3>
-                                <?php 
+                                <center><h4><b>Nama Perangkat</b></h4>
+                                <h4>
+                                <?php
                                     if (empty($perangkat['alias'])) {
                                         echo 'Belum Ada Data';
-                                        
+
                                     }else{
                                         echo $perangkat['alias'];
-                                    }                        
+                                    }
                                     ?>
-                                </h3>
-                                <hr style="border:1px solid #4F7BC3;">
-                                <h4>Kordinat :</h4>
-                                <h3>
-                                <?php 
+                                </h4></center>
+                                <hr style="border:0.5px solid #4F7BC3;">
+                                <center><h4><b>Kordinat</b></h4>
+                                <h4>
+                                <?php
                                     if (empty($perangkat['latitude']) AND empty($perangkat['longitude'])) {
                                         echo 'Belum Ada Data';
                                     }else{
                                         echo $perangkat['latitude'] .','. $perangkat['longitude'];
-                                    }                        
+                                    }
                                     ?>
-                                </h3>
-                                <hr style="border:1px solid #4F7BC3;">
-                                <h3 class="text-center">
-                                    <?php 
+                                </h4></center>
+                                <hr style="border:0.5px solid #4F7BC3;">
+                                <h4 class="text-center">
+                                    <?php
                                     if (empty($data['tgl'])) {
                                         echo 'Belum Ada Data';
                                     }else{
                                         echo $data['tgl'];
-                                    }                        
+                                    }
                                     ?>
-                                </h3>
+                                </h4>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="small-box bg-aqua">
+                                    <div class="small-box bg-red">
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
                                             <h3>
-                                                <?php 
+                                                <?php
                                                 if (empty($arangin['arah_angin'])){
-                                                    echo '0';
+                                                    echo 'null';
                                                 }else{
                                                     echo $arangin['arah_angin'];
                                                 }
@@ -98,17 +98,19 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="icon">
                                             <i class="ion-ios-compass"></i>
                                         </div>
-                                        <a href="#data-detail" class="small-box-footer">More info
+                                        <!--<a href="#data-detail" class="small-box-footer">More info
                                             <i class="fa fa-arrow-circle-right"></i>
-                                        </a>
+                                        </a>-->
+                                        <div  class="small-box-footer">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="small-box bg-aqua">
+                                    <div class="small-box bg-yellow">
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
                                             <h3>
-                                                <?php 
+                                                <?php
                                                 if (empty($kelembaban['kelembaban'])) {
                                                     echo '0';
                                                 }else{
@@ -121,9 +123,8 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="icon">
                                             <i class="ion-ios-water"></i>
                                         </div>
-                                        <a href="#data-detail" class="small-box-footer">More info
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </a>
+                                        <div  class="small-box-footer">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +134,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
                                             <h3>
-                                                <?php 
+                                                <?php
                                                 if (empty($curjan['curah_hujan'])) {
                                                     echo '0';
                                                 }else{
@@ -146,17 +147,16 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="icon">
                                             <i class="ion-ios-rainy"></i>
                                         </div>
-                                        <a href="#data-detail" class="small-box-footer">More info
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </a>
+                                        <div  class="small-box-footer">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="small-box bg-aqua">
+                                    <div class="small-box bg-primary">
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
                                             <h3>
-                                                <?php 
+                                                <?php
                                                 if (empty($kangin['kecepatan_angin'])) {
                                                     echo '0';
                                                 }else{
@@ -169,19 +169,20 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="icon">
                                             <i class="ion-ios-speedometer"></i>
                                         </div>
-                                        <a href="#data-detail" class="small-box-footer">More info
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </a>
+                                        <div  class="small-box-footer">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="pad box-pane-right bg-green text-center" style="min-height: 280px">
+                        <div class="col-md-2 " >
+                            <div class="pad box-pane-right bg-green text-center" id="hov-here">
                                 <p class="text-center">Suhu</p>
-                                <i class="ion-ios-thermometer big"></i>
+                                <div class="icon" style="max-height:100px;">
+                                    <i class="ion-ios-thermometer big" id="hov-lah"></i>
+                                </div>
                                 <h3>
-                                <?php 
+                                <?php
                                     if (empty($suhu['suhu'])) {
                                         echo '0';
                                     }else{
@@ -191,6 +192,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                 &deg;
                                 </h3>
                                 <h4>Celcius</h4>
+
                             </div>
                         </div>
                     </div>
@@ -210,7 +212,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         </button>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" >
                     <?php Pjax::begin(); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,

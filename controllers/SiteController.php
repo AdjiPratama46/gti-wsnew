@@ -94,7 +94,7 @@ class SiteController extends Controller
         ->queryOne();
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+
         return $this->render('index', [
             'perangkat' => $perangkat,
             'curjan' => $curjan,
@@ -206,7 +206,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    
+
     public function actionProfile()
     {
         return $this->render('profile');
