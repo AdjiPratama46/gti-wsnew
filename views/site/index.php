@@ -16,7 +16,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
 <div class="site-index">
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box" style="box-shadow:none;">
                 <div class="box-header with-border">
                     <h3 class="box-title">
                     <?php
@@ -201,10 +201,9 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
-            <div class="box" id="data-detail">
+            <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Data Selengkapnya</h3>
                     <div class="box-tools pull-right">

@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/modal.css',
         'css/maps.css',
-        'css/custom.css',
+        'css/customs.css',
         'https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css',
     ];
     public $js = [
