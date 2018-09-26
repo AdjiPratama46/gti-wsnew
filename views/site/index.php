@@ -218,7 +218,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-                        'emptyText' => '<center>Tidak ada data untuk ditampilkan</center>',
+                        'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
