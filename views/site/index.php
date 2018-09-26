@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Perangkat;
 use yii\helpers\Url;
 use kartik\select2\Select2;
+use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Dashboard';
@@ -231,6 +232,9 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         ],
                     ]); ?>
                     <?php Pjax::end(); ?>
+                </div>
+                <div class="box-footer text-center">
+                  <?php echo Html::a('Lihat data lengkap', ['data/index'], ['class' => 'uppercase']); ?>
                 </div>
             </div>
         </div>
