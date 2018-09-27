@@ -29,7 +29,7 @@
                     ['label' => 'Data harian', 'icon' => 'calendar', 'url' => ['data/index'],
                       'options' => ['id' => 'menu3']
                     ],
-                    ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['site/resume'],
+                    ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['/debug'],
                       'options' => ['id' => 'menu4']
                     ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

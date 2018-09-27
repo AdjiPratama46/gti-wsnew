@@ -213,30 +213,4 @@ class SiteController extends Controller
         return $this->render('profile');
     }
     
-    public function actionResume()
-    {
-        $totalCount = Yii::$app->db->createCommand('SELECT id_perangkat, MONTHNAME(tgl) AS bulan,
-        ( SELECT arah_angin AS jumlah FROM data GROUP BY arah_angin ORDER BY jumlah DESC LIMIT 1) 
-        AS jumlah, AVG(kelembaban) as kelembaban, AVG(temperature) as temperature, 
-        AVG(curah_hujan) as curah_hujan , AVG(kecepatan_angin) as kecepatan_angin
-        FROM data')->queryScalar();
-
-    $dataProvider = new SqlDataProvider([
-        'sql' => 
-        'SELECT id_perangkat, MONTHNAME(tgl) AS bulan,
-        ( SELECT arah_angin AS jumlah FROM data GROUP BY arah_angin ORDER BY jumlah DESC LIMIT 1) 
-        AS jumlah, AVG(kelembaban) as kelembaban, AVG(temperature) as temperature, 
-        AVG(curah_hujan) as curah_hujan , AVG(kecepatan_angin) as kecepatan_angin
-        FROM data',
-        'totalCount' => $totalCount,
-        'sort' =>false,
-        'pagination' => [
-            'pageSize' => 10,
-        ],
-    ]);
-
-    return $this->render('resume', [
-        'dataProvider' => $dataProvider,
-    ]);
-    }
 }

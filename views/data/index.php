@@ -15,37 +15,33 @@ use yii\widgets\ActiveForm;
 $this->title = 'Data harian';
 ?>
 <div class="data-index">
-  <div style="background-color:#fff;padding:30px;padding-top:40px;">
-    <?php Pjax::begin(); ?>
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+  <div class="box">
+    <div class="box-body">
+    
+      <?php Pjax::begin(); ?>
+      <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
+      <?= GridView::widget([
+          'dataProvider' => $dataProvider,
+          'filterModel' => $searchModel,
+          'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
+          'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
+          'columns' => [
+              ['class' => 'yii\grid\SerialColumn'],
 
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-        'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'id_data',
-            //'id_perangkat',
-            ['attribute' => 'perangkat',
-              'value' => 'perangkat.alias'
-            ],
-            'tgl:time',
-            //'user.id',
-            'kelembaban',
-            'kecepatan_angin',
-            'arah_angin',
-            'curah_hujan',
-            'temperature',
-            'kapasitas_baterai',
-
-            //['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
+              ['attribute' => 'perangkat',
+                'value' => 'perangkat.alias'
+              ],
+              'tgl:time',
+              'kelembaban',
+              'kecepatan_angin',
+              'arah_angin',
+              'curah_hujan',
+              'temperature',
+              'kapasitas_baterai',
+          ],
+      ]); ?>
+      <?php Pjax::end(); ?>
+      </div>
   </div>
 </div>

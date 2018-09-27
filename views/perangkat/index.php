@@ -12,76 +12,72 @@ use dosamigos\datepicker\DatePicker;
 $this->title = 'Perangkat';
 ?>
 <div class="perangkat-index">
-      <div style="background-color:#fff;padding:10px;padding-top:20px;">
+    <div class="box">
+        <div class="box-body">
 
-        <?php Pjax::begin(); ?>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php Pjax::begin(); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-        <?php echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']); ?>
-        <br><br>
+            <?php echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']); ?>
+            <br><br>
 
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-            'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
+                'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-                'id',
-                'alias',
-                //'id_owner',
-                [
-                    'attribute'=>'tgl_instalasi',
-                    'value'=>'tgl_instalasi',
-                    'format'=>'raw',
-                    'filter'=>DatePicker::widget([
-                        'model' => $searchModel,
-                        'attribute' => 'tgl_instalasi',
-                        'template' => '{addon}{input}',
-                              'clientOptions' => [
-                                'autoclose' => true,
-                                'format' => 'yyyy-m-d',
-                                'clearBtn' => true,
-                              ],
-                              'clientEvents' => [
-                                  'clearDate' => 'function (e) {$(e.target).find("input").change();}',
-                              ],
-                    ])
+                    'id',
+                    'alias',
+                    //'id_owner',
+                    [
+                        'attribute'=>'tgl_instalasi',
+                        'value'=>'tgl_instalasi',
+                        'format'=>'raw',
+                        'filter'=>DatePicker::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'tgl_instalasi',
+                            'template' => '{addon}{input}',
+                                  'clientOptions' => [
+                                    'autoclose' => true,
+                                    'format' => 'yyyy-m-d',
+                                    'clearBtn' => true,
+                                  ],
+                                  'clientEvents' => [
+                                      'clearDate' => 'function (e) {$(e.target).find("input").change();}',
+                                  ],
+                        ])
+                    ],
+                    'longitude',
+                    'latitude',
+                    [
+                    'header' => 'Aksi',
+                    'headerOptions'=> ['style'=> 'width:118px;'],
+                    'content' => function($model) {
+                        return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'data-pjax' => 0])
+                        .'&nbsp;'.
+                          Html::a('Hapus', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-xs','data' => [
+                                'confirm' => 'Anda yakin akan menghapus perangkat ini?',
+                                'method' => 'post',
+                            ],])
+                      ;
+                    }
+                  ],
                 ],
-                'longitude',
-                'latitude',
-                [
-                'header' => 'Aksi',
-                'headerOptions'=> ['style'=> 'width:118px;'],
-                'content' => function($model) {
-                    return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'data-pjax' => 0])
-                    .'&nbsp;'.
-                      Html::a('Hapus', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-xs','data' => [
-                            'confirm' => 'Anda yakin akan menghapus perangkat ini?',
-                            'method' => 'post',
-                        ],])
-                  ;
-                }
-              ],
-
-
-
-
-
-
-
-
-
-            ],
-        ]); ?>
-        <?php Pjax::end(); ?>
-      </div>
-      <br>
-      <hr style="border:0.5px solid #4F7BC3;width:60%;">
-      <br>
+            ]); ?>
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
+    <br>
+    <hr style="border:0.5px solid #4F7BC3;width:60%;">
+    <br>
     <div style="background-color:#fff;padding:10px;">
-      <h3><icon class="glyphicon glyphicon-map-marker"></icon> Peta Lokasi </h3>
-      <?= $map->display() ?>
+        <h3>
+            <icon class="glyphicon glyphicon-map-marker"></icon>
+            Peta Lokasi
+        </h3>
+        <?= $map->display() ?>
     </div>
 </div>
