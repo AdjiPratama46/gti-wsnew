@@ -5,5 +5,18 @@ use yii\widgets\Pjax;
 
 $this->title = 'Data Minggu';
 ?>
-
-<p>Naon</p>
+<?php Pjax::begin(); ?>
+<?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'minggu',
+            'kelembaban',
+            'kecepatan_angin',
+            'arah_angin',
+            'curah_hujan',
+            'temperature',
+        ],
+    ]); ?>
+<?php Pjax::end(); ?>

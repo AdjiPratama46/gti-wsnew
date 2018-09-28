@@ -57,7 +57,7 @@ Modal::end();
                             'buttons' => [
                                 'detail' => 
                                     function ($url, $model, $key) {
-                                        return  Html::a('Detail',['minggu'],[
+                                        return  Html::a('Detail',['minggu','bulan' => $model['bulan']],[
                                             'class' => 'btn btn-success',
                                             'data-toggle'=>'modal',
                                             'data-target'=>'#myModal',
