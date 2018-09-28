@@ -120,8 +120,6 @@ class DataSearch extends Data
 
         return $query;
 
-<<<<<<< HEAD
-
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -160,7 +158,5 @@ class DataSearch extends Data
             ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
 
         return $dataProvider;
-=======
->>>>>>> d54920d9fe7c767227372cae4c0ce74beb714ce4
     }
 }
