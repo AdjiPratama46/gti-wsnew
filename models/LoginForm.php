@@ -29,13 +29,15 @@ class LoginForm extends Model
             // username and password are both required
             [['username'], 'required', 'message' => 'Username Tidak Boleh Kosong'],
             [['password'], 'required', 'message' => 'Password Tidak Boleh Kosong'],
-            [['username','password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
+            [['username'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Menggunakan Huruf dan Angka'
             ],
+            // ['username' , 'email', 'message' => 'Username Harus Menggunakan Email'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['username', 'validateUsername'],
         ];
     }
 
@@ -50,9 +52,17 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Username atau Password Anda Salah');
+                $this->addError($attribute, 'Password Anda Salah');
+            }
+        }
+    }
+    public function validateUsername($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->username)) {
+                $this->addError($attribute, 'Username Anda Salah');
             }
         }
     }

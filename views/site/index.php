@@ -178,7 +178,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         </div>
                         <div class="col-md-2 " >
                             <div class="pad box-pane-right bg-green text-center" id="hov-here">
-                                <p class="text-center">Suhu</p>
+                                <p class="text-center">Temperature</p>
                                 <div class="icon" style="max-height:100px;">
                                     <i class="ion-ios-thermometer big" id="hov-lah"></i>
                                 </div>
