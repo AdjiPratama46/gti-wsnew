@@ -34,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
               ['attribute' => 'perangkat',
                 'value' => 'perangkat.alias'
               ],
-              'tgl:time',
+              ['attribute' => 'pukul',
+                'value' => 'tgl',
+                'format' =>  ['date', 'php:H:i'],
+              ],
               'kelembaban',
               'kecepatan_angin',
               'arah_angin',

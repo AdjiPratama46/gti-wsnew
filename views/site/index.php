@@ -222,7 +222,11 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
 
-                            'tgl:time',
+
+                            ['attribute' => 'pukul',
+                              'value' => 'tgl',
+                              'format' =>  ['date', 'php:H:i'],
+                            ],
                             'kelembaban',
                             'kecepatan_angin',
                             'arah_angin',

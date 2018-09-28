@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Aksi',
                     'headerOptions'=> ['style'=> 'width:118px;'],
                     'content' => function($model) {
-                        return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'data-pjax' => 0])
+                        return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0])
                         .'&nbsp;'.
                           Html::a('Hapus', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-xs','data' => [
                                 'confirm' => 'Anda yakin akan menghapus perangkat ini?',
