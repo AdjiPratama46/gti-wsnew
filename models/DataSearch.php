@@ -45,6 +45,55 @@ class DataSearch extends Data
      */
     public function search($params)
     {
+
+        //Menentukan QUERY
+        $query=$this->querynya($params);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [ 'pageSize' => 10 ],
+        ]);
+
+        $dataProvider->sort->attributes['perangkat'] = [
+            'asc' => ['perangkat.alias' => SORT_ASC],
+            'desc' => ['perangkat.alias' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['pukul'] = [
+            'asc' => ['tgl' => SORT_ASC],
+            'desc' => ['tgl' => SORT_DESC],
+        ];
+
+
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_data' => $this->id_data,
+            'kelembaban' => $this->kelembaban,
+            'kecepatan_angin' => $this->kecepatan_angin,
+            'curah_hujan' => $this->curah_hujan,
+            'temperature' => $this->temperature,
+            'kapasitas_baterai' => $this->kapasitas_baterai,
+        ]);
+
+        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
+            ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
+            ->andFilterWhere(['like', 'tgl', $this->tgl])
+            ->andFilterWhere(['like', 'time(tgl)', $this->pukul])
+            ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
+
+        return $dataProvider;
+    }
+
+    private function querynya($params){
       $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
 
       $this->load($params);
@@ -69,7 +118,9 @@ class DataSearch extends Data
           $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->orderBy(['tgl' => SORT_ASC]);;
         }
 
+        return $query;
 
+<<<<<<< HEAD
 
         // add conditions that should always apply here
 
@@ -109,5 +160,7 @@ class DataSearch extends Data
             ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
 
         return $dataProvider;
+=======
+>>>>>>> d54920d9fe7c767227372cae4c0ce74beb714ce4
     }
 }

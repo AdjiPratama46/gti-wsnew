@@ -35,6 +35,7 @@ use dosamigos\datepicker\DatePicker;
                                   'pluginOptions' => [
                                     'placeholder' => 'Pilih perangkat',
                                     'clearBtn' => true,
+                                    
                                   ],
                                   'options' => [
                                     'onchange'=>'this.form.submit()',
@@ -42,6 +43,7 @@ use dosamigos\datepicker\DatePicker;
 
                           ])->label(false); ?>
           </div><div class="col-md-3">
+
             <?= $form->field($model, 'tgl')->widget(DatePicker::ClassName(),
       [
       'name' => 'tgl',
@@ -52,7 +54,11 @@ use dosamigos\datepicker\DatePicker;
           'format' => 'yyyy-mm-dd',
           'todayHighlight' => true,
           'changeDate' => false,
-      ],
+          'clearBtn' => true,
+        ],
+        'clientEvents' => [
+            'clearDate' => 'function (e) {$(e.target).find("input").change();}',
+        ],
       'options' => [
         'onchange'=>'this.form.submit()',
       ]
