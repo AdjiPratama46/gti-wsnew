@@ -10,27 +10,34 @@ use yii\bootstrap\Modal;
 
 $this->title = 'Data Resume';
 $this->params['breadcrumbs'][] = $this->title;
-$js=<<<js
-    $('#modalButton').on('click', function () {
-        $('#modal').modal('show')
-            .find('#modalContent')
-            .load($(this).attr('value'));
-    });
-js;
-$this->registerJs($js);
+$this->registerJs("
+    $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var modal = $(this)
+        var title = button.data('title') 
+        var href = button.attr('href') 
+        modal.find('.modal-title').html(title)
+        modal.find('.modal-body').html('<div class=\"progress\"><div class=\"progress-bar progress-bar-striped active\" aria-valuenow=\"100\" style=\"width:100%\"></div></div>')
+        $.post(href)
+            .done(function( data ) {
+                modal.find('.modal-body').html(data)
+            });
+        })
+");
 
 Modal::begin([
-    'header' => 'Data Resume Mingguan',
-    'id' => 'modal',
-    'size' => 'modal-lg',
+    'id' => 'myModal',
+    'header' => '<h4 class="modal-title">...</h4>',
 ]);
-echo "<div id='modalContent'></div>";
+ 
+echo '...';
+ 
 Modal::end();
 ?>
 <div class="resume-index">
     <div class="box">
         <div class="box-body">
-            <?= $this->render('_search'); ?>
+            <?= $this->render('_search',['model' => $model]); ?>
             <?php Pjax::begin(); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -50,7 +57,12 @@ Modal::end();
                             'buttons' => [
                                 'detail' => 
                                     function ($url, $model, $key) {
-                                        return  Html::button('Detail',['value' =>  Url::to(['resume/minggu']),'class' => 'btn btn-info','id' => 'modalButton']);
+                                        return  Html::a('Detail',['minggu'],[
+                                            'class' => 'btn btn-success',
+                                            'data-toggle'=>'modal',
+                                            'data-target'=>'#myModal',
+                                            'data-title'=> 'Data Resume Mingguan',
+                                            ]);
                                     },
                             ]
                         ],
