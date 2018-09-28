@@ -18,11 +18,12 @@ class DataSearch extends Data
      * {@inheritdoc}
      */
      public $perangkat;
+     public $pukul;
     public function rules()
     {
         return [
             [['id_data', 'kapasitas_baterai'], 'integer'],
-            [['id_perangkat', 'tgl', 'arah_angin', 'perangkat'], 'safe'],
+            [['id_perangkat', 'tgl', 'arah_angin', 'perangkat','pukul'], 'safe'],
             [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature'], 'number'],
         ];
     }
@@ -47,26 +48,50 @@ class DataSearch extends Data
     {
       $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
 
-      $this->load($params);
+        $this->load($params);
+
         if(empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
 
-            $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
+            $query = Data::find()
+
+            ->joinWith('perangkat')
+            ->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])
+            ->andWhere(
                 [
                   'between',
                   'tgl',
                   date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
                   date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
-                  ])->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
-
+                  ])
+            ->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
 
         }
 
         elseif(!empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
-          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
+          $query = Data::find()
+          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
               ['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
         }
+
+        elseif(!empty($this->id_perangkat) && empty($this->tgl)   && !empty($perangk->id)){
+
+          $query = Data::find()
+          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
+              ['id_perangkat' => $perangk->id])->andWhere(
+                  [
+                    'between',
+                    'tgl',
+                    date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                    date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                    ])->orderBy(['tgl' => SORT_ASC]);
+
+        }
+
         else{
-          $query = Data::find()->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->orderBy(['tgl' => SORT_ASC]);;
+
+          $query = Data::find()
+          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->orderBy(['tgl' => SORT_ASC]);;
+
         }
 
 
@@ -84,6 +109,15 @@ class DataSearch extends Data
             'asc' => ['perangkat.alias' => SORT_ASC],
             'desc' => ['perangkat.alias' => SORT_DESC],
         ];
+
+        $dataProvider->sort->attributes['pukul'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tgl' => SORT_ASC],
+            'desc' => ['tgl' => SORT_DESC],
+        ];
+
+
 
         $this->load($params);
 
@@ -106,7 +140,8 @@ class DataSearch extends Data
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
             ->andFilterWhere(['like', 'tgl', $this->tgl])
-            ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
+            ->andFilterWhere(['like', 'time(tgl)', $this->pukul]);
+            //->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
 
         return $dataProvider;
     }

@@ -17,7 +17,7 @@ $this->title = 'Data harian';
 <div class="data-index">
   <div class="box">
     <div class="box-body">
-    
+
       <?php Pjax::begin(); ?>
       <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -32,7 +32,11 @@ $this->title = 'Data harian';
               ['attribute' => 'perangkat',
                 'value' => 'perangkat.alias'
               ],
-              'tgl:time',
+              ['attribute' => 'pukul',
+                'value' => 'tgl',
+                'format' => ['date', 'php:H:i']
+              ],
+
               'kelembaban',
               'kecepatan_angin',
               'arah_angin',
