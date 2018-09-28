@@ -52,8 +52,7 @@ class DataController extends Controller
             'model' => $model,
         ]);
     }
-
-
+    
     /**
      * Displays a single Data model.
      * @param integer $id

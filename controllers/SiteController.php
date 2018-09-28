@@ -71,9 +71,8 @@ class SiteController extends Controller
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
         ->one();
-        // print_r($model);exit;
         $perangkat = Yii::$app->db->createCommand
-        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE perangkat.id="'.$model['id'].'" AND DATE(data.tgl) = DATE(NOW())-1')
+        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE data.id_perangkat="'.$model['id'].'" AND DATE(data.tgl) = DATE(NOW())-1')
         ->queryOne();
         $suhu = Yii::$app->db->createCommand
         ('SELECT AVG(temperature) as suhu FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')

@@ -14,11 +14,12 @@ use kartik\time\TimePicker;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Data harian';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-index">
   <div class="box">
     <div class="box-body">
-
+    
       <?php Pjax::begin(); ?>
       <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -33,11 +34,7 @@ $this->title = 'Data harian';
               ['attribute' => 'perangkat',
                 'value' => 'perangkat.alias'
               ],
-              ['attribute' => 'pukul',
-                'value' => 'tgl',
-                'format' => ['date', 'php:H:i']
-              ],
-
+              'tgl:time',
               'kelembaban',
               'kecepatan_angin',
               'arah_angin',
