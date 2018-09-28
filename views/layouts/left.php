@@ -26,7 +26,7 @@
                     ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
                       'options' => ['id' => 'menu2']
                     ],
-                    ['label' => 'Data harian', 'icon' => 'calendar', 'url' => ['data/index'],
+                    ['label' => 'Data Harian', 'icon' => 'calendar', 'url' => ['data/index'],
                       'options' => ['id' => 'menu3']
                     ],
                     ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],

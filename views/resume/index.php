@@ -37,10 +37,13 @@ Modal::end();
 <div class="resume-index">
     <div class="box">
         <div class="box-body">
+        <br>
             <?= $this->render('_search',['model' => $model]); ?>
+        <br>
             <?php Pjax::begin(); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
                     'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],

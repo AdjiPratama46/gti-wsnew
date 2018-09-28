@@ -13,7 +13,7 @@ use kartik\time\TimePicker;
 /* @var $searchModel app\models\DataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data harian';
+$this->title = 'Data Harian';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-index">
