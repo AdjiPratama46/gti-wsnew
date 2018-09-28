@@ -35,7 +35,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            
+            ['username', 'validateUsername'],
         ];
     }
 
@@ -52,6 +52,15 @@ class LoginForm extends Model
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Password Anda Salah');
+            }
+        }
+    }
+    public function validateUsername($attribute, $params)
+    {
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validateUsername($this->username)) {
+                $this->addError($attribute, 'Username Anda Salah');
             }
         }
     }
