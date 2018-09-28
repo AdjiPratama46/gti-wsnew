@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="data-index">
   <div class="box">
     <div class="box-body">
-    <br><br>
+    <br>
       <?php Pjax::begin(); ?>
       <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
