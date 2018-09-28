@@ -46,6 +46,55 @@ class DataSearch extends Data
      */
     public function search($params)
     {
+
+        //Menentukan QUERY
+        $query=$this->querynya($params);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [ 'pageSize' => 10 ],
+        ]);
+
+        $dataProvider->sort->attributes['perangkat'] = [
+            'asc' => ['perangkat.alias' => SORT_ASC],
+            'desc' => ['perangkat.alias' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['pukul'] = [
+            'asc' => ['tgl' => SORT_ASC],
+            'desc' => ['tgl' => SORT_DESC],
+        ];
+
+
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_data' => $this->id_data,
+            'kelembaban' => $this->kelembaban,
+            'kecepatan_angin' => $this->kecepatan_angin,
+            'curah_hujan' => $this->curah_hujan,
+            'temperature' => $this->temperature,
+            'kapasitas_baterai' => $this->kapasitas_baterai,
+        ]);
+
+        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
+            ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
+            ->andFilterWhere(['like', 'tgl', $this->tgl])
+            ->andFilterWhere(['like', 'time(tgl)', $this->pukul])
+            ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
+
+        return $dataProvider;
+    }
+
+    private function querynya($params){
       $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
 
         $this->load($params);
@@ -94,55 +143,7 @@ class DataSearch extends Data
 
         }
 
+        return $query;
 
-
-        // add conditions that should always apply here
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [ 'pageSize' => 10 ],
-        ]);
-
-        $dataProvider->sort->attributes['perangkat'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
-            'asc' => ['perangkat.alias' => SORT_ASC],
-            'desc' => ['perangkat.alias' => SORT_DESC],
-        ];
-
-        $dataProvider->sort->attributes['pukul'] = [
-            // The tables are the ones our relation are configured to
-            // in my case they are prefixed with "tbl_"
-            'asc' => ['tgl' => SORT_ASC],
-            'desc' => ['tgl' => SORT_DESC],
-        ];
-
-
-
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_data' => $this->id_data,
-            'kelembaban' => $this->kelembaban,
-            'kecepatan_angin' => $this->kecepatan_angin,
-            'curah_hujan' => $this->curah_hujan,
-            'temperature' => $this->temperature,
-            'kapasitas_baterai' => $this->kapasitas_baterai,
-        ]);
-
-        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
-            ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
-            ->andFilterWhere(['like', 'tgl', $this->tgl])
-            ->andFilterWhere(['like', 'time(tgl)', $this->pukul]);
-            //->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
-
-        return $dataProvider;
     }
 }
