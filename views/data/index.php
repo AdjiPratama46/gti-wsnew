@@ -8,6 +8,7 @@ use app\models\Perangkat;
 use app\models\DataSearch;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use kartik\time\TimePicker;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
