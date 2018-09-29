@@ -14,16 +14,19 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
             <?= Select2::widget([
                 'name' => 'id-perangkat',
                 'id' => 'id-perangkat',
+                'value' => $model['id'],
                 'data' => $perangkats,
                 'options' => ['placeholder' => 'Pilih Perangkat'],
             ]); ?>
         </div>
         <div class="col-md-3">
             <?= DatePicker::widget([
-                'name' => 'date_1',
+                'name' => 'tgl',
+                'id' => 'tgl',
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
-                    'autoclose'=>true,
+                    'autoclose'=>false,
+                    'maxViewMode' => 'years',
                     'format' => 'yyyy'
                 ], 
             ]); ?>
@@ -33,16 +36,33 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
 
 <?php
 $urlData = Url::to(['resume/get']);
-$this->registerJs("$('#id-perangkat').change(function(){
-    var id = $('#id-perangkat').val();    
-    $.ajax({
-        type :'GET',
-        url : '{$urlData}',
-        data:'id='+id,
-        success : function(data){
-            $('#tabel').html(data);
-         }
+$urlDate = Url::to(['resume/date']);
+$this->registerJs(
+    "
+    $('#id-perangkat').change(function(){
+        var id = $('#id-perangkat').val();    
+        $.ajax({
+            type :'GET',
+            url : '{$urlData}',
+            data:'id='+id,
+            success : function(data){
+                $('#tabel').html(data);
+            }
+        });
     });
-});");
+    $('#tgl').change(function(){
+        var id = $('#id-perangkat').val(); 
+        var date = $('#tgl').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlDate}',
+            data:'id='+id+'&tgl='+date,
+            success : function(data){
+                $('#tabel').html(data);
+            }
+        });
+    });
+    "
+);
 
 ?>

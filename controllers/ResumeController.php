@@ -60,6 +60,30 @@ class ResumeController extends \yii\web\Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionBulan($tahun)
+    {
+        $id_owner = Yii::$app->user->id;
+        $model = Perangkat::find()
+        ->where(['id_owner' => $id_owner])
+        ->one();
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'SELECT MONTHNAME(tgl) as bulan,AVG(kelembaban) as kelembaban,
+            AVG(kecepatan_angin) as kecepatan_angin,
+            (SELECT arah_angin from data where id_perangkat="'.$model['id'].'" AND MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
+            AVG(curah_hujan) as curah_hujan,
+            AVG(temperature) as temperature
+            from data
+            where id_perangkat="'.$model['id'].'" AND YEAR(tgl)="'.$tahun.'"
+            group by bulan',
+            'sort' =>false,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        return $this->renderAjax('dataBulan',[
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     public function actionSearch()
     {
@@ -94,6 +118,28 @@ class ResumeController extends \yii\web\Controller
         return $this->renderAjax('_index', [
             'dataProvider' => $dataProvider,
             'model' => $model,
+        ]);
+    }
+
+    public function actionDate($id,$tgl)
+    {        
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'SELECT YEAR(tgl) as tahun, AVG(kelembaban) as kelembaban, 
+            AVG(kecepatan_angin) as kecepatan_angin, 
+            (SELECT arah_angin from data where id_perangkat="'.$id.'" 
+            AND year(tgl)=tahun GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) 
+            as arah_angin, AVG(curah_hujan) as curah_hujan, AVG(temperature) as temperature 
+            from data where id_perangkat="'.$id.'" GROUP BY tahun',
+            
+            'sort' =>false,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+            
+        return $this->renderAjax('_indexthn', [
+            'dataProvider' => $dataProvider,
+            
         ]);
     }
 }
