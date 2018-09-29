@@ -37,10 +37,12 @@ Modal::end();
 <div class="resume-index">
     <div class="box">
         <div class="box-body">
-        <br>
+            <br>
+            
             <?= $this->render('_search',['model' => $model]); ?>
-        <br>
-            <?php Pjax::begin(); ?>
+            <br>
+            <div id="tabel">
+                <?php Pjax::begin(); ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
@@ -71,7 +73,8 @@ Modal::end();
                         ],
                     ],
                 ]); ?>
-            <?php Pjax::end(); ?>
+                <?php Pjax::end(); ?>
+            </div>
         </div>
     </div>
 </div>
