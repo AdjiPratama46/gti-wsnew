@@ -8,7 +8,7 @@ $this->title = 'Data Bulan';
 <?php Pjax::begin(); ?>
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
+        'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
         'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
