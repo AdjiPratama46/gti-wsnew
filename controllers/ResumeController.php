@@ -127,9 +127,9 @@ class ResumeController extends \yii\web\Controller
             'sql' => 'SELECT YEAR(tgl) as tahun, AVG(kelembaban) as kelembaban, 
             AVG(kecepatan_angin) as kecepatan_angin, 
             (SELECT arah_angin from data where id_perangkat="'.$id.'" 
-            AND year(tgl)=tahun GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) 
+            AND year(tgl)="'.$tgl.'" GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) 
             as arah_angin, AVG(curah_hujan) as curah_hujan, AVG(temperature) as temperature 
-            from data where id_perangkat="'.$id.'" GROUP BY tahun',
+            from data where id_perangkat="'.$id.'" AND YEAR(tgl)="'.$tgl.'" GROUP BY tahun',
             
             'sort' =>false,
             'pagination' => [
