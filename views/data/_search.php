@@ -6,7 +6,7 @@ use kartik\select2\Select2;
 use app\models\Perangkat;
 use app\models\Data;
 use yii\helpers\ArrayHelper;
-use dosamigos\datepicker\DatePicker;
+use kartik\date\DatePicker;
 
 
 /* @var $this yii\web\View */
@@ -35,7 +35,7 @@ use dosamigos\datepicker\DatePicker;
                                   'pluginOptions' => [
                                     'placeholder' => 'Pilih perangkat',
                                     'clearBtn' => true,
-                                    
+
                                   ],
                                   'options' => [
                                     'onchange'=>'this.form.submit()',
@@ -43,28 +43,20 @@ use dosamigos\datepicker\DatePicker;
 
                           ])->label(false); ?>
           </div><div class="col-md-3">
+            <?= $form->field($model, 'tgl')->widget(DatePicker::ClassName(),[
+                'name' => 'tgl',
+                'id' => 'tgl',
+                'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                'pluginOptions' => [
+                    'autoclose'=>false,
+                    'format' => 'yyyy-mm-dd'
+                ],
+                'options' => [
+                  'placeholder' => 'Pilih tanggal',
+                  'onchange'=>'this.form.submit()',
+                ]
+            ])->label(false); ?>
 
-            <?= $form->field($model, 'tgl')->widget(DatePicker::ClassName(),
-      [
-      'name' => 'tgl',
-      'options' => [
-          'placeholder' => 'Pilih tanggal',
-      ],
-      'clientOptions' => [
-          'format' => 'yyyy-mm-dd',
-          'todayHighlight' => true,
-          'changeDate' => false,
-          'clearBtn' => true,
-        ],
-        'clientEvents' => [
-            'clearDate' => 'function (e) {$(e.target).find("input").change();}',
-        ],
-      'options' => [
-        'onchange'=>'this.form.submit()',
-      ]
-
-      ])->label(false);
-      ?>
           </div>
 
     <?php //$form->field($model, 'kelembaban') ?>
