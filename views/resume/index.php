@@ -66,7 +66,7 @@ Modal::end();
                                             'class' => 'btn btn-success',
                                             'data-toggle'=>'modal',
                                             'data-target'=>'#myModal',
-                                            'data-title'=> 'Data Resume Mingguan',
+                                            'data-title'=> '<center>Data Resume Mingguan</center>',
                                             ]);
                                     },
                             ]
