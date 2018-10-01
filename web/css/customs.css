@@ -38,11 +38,10 @@
     cursor: pointer;
     pointer-events: auto !important;
 }
-/*.box {
-    box-shadow: 15px 25px 10px rgba(0, 0, 0, 0.1) !important;
-}*/
 
-
+.box-body{
+    padding: 20px !important;
+}
 .login-box-body,
 .register-box-body {
     padding: 30px !important;
