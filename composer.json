@@ -24,11 +24,8 @@
         "2amigos/yii2-google-maps-library": "*",
         "2amigos/yii2-date-picker-widget": "~1.0",
         "kartik-v/yii2-widget-select2": "@dev",
-<<<<<<< HEAD
-        "kartik-v/yii2-field-range": "*"
-=======
+        "kartik-v/yii2-field-range": "*",
         "janisto/yii2-timepicker": "*"
->>>>>>> a558539b7109f53189d29ae22cdcdb502bdbcd15
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
