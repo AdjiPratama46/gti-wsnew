@@ -182,8 +182,8 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                 &deg;
                                 </h3>
                                 <h4>Celcius</h4>
-
                             </div>
+                            
                         </div>
                     </div>
                 </div>

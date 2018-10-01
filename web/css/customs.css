@@ -108,3 +108,7 @@
     font-size: 90px;
     color: rgba(0,0,0,0.15);
 }
+.pad{
+    height: 235px;
+    border-bottom:7px solid rgba(0,0,0,0.15);
+}
