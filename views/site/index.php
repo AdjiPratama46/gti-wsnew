@@ -12,6 +12,11 @@ use yii\helpers\Html;
 $this->title = 'Dashboard';
 $this->params['breadcrumbs'][] = $this->title;
 $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','id');
+$this->registerJs("
+    $('.btn-box-tool').on('click ', function (event) {
+            $('.box-body').slideDown(1000);
+        })
+    ");
 ?>
 <div class="site-index">
     <div class="row">
@@ -192,12 +197,12 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box collapsed-box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Data Selengkapnya</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
+                            <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
@@ -229,5 +234,4 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
             </div>
         </div>
     </div>
-
 </div>
