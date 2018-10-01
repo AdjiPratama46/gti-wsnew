@@ -24,14 +24,6 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                             echo 'Belum Ada Data';
                         }else{
                             echo $perangkat['id'];
-                            // echo Select2::widget([
-                            //     'name' => 'id-p',
-                            //     'data' => $perangkats,
-                            //     'value' => $perangkat['id'],
-                            //     'options' => [
-                            //         'placeholder' => 'Pilih Id Perangkat',
-                            //     ],
-                            // ]);
                         }
                         ?>
                     </h3>
@@ -99,9 +91,6 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                                         <div class="icon">
                                             <i class="ion-ios-compass"></i>
                                         </div>
-                                        <!--<a href="#data-detail" class="small-box-footer">More info
-                                            <i class="fa fa-arrow-circle-right"></i>
-                                        </a>-->
                                         <div  class="small-box-footer">
                                         </div>
                                     </div>
@@ -218,11 +207,9 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-                        'emptyText' => '<center class="text-danger">Tidak ada data untuk ditampilkan</center>',
+                        'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
-
-
                             ['attribute' => 'pukul',
                               'value' => 'tgl',
                               'format' =>  ['date', 'php:H:i'],
@@ -237,7 +224,7 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
                     <?php Pjax::end(); ?>
                 </div>
                 <div class="box-footer text-center">
-                  <?php echo Html::a('Lihat data lengkap', ['data/index'], ['class' => 'uppercase']); ?>
+                  <?php echo Html::a('Lihat Data Lengkap', ['data/index']); ?>
                 </div>
             </div>
         </div>
