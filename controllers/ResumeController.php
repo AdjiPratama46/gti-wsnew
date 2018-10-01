@@ -22,7 +22,7 @@ class ResumeController extends \yii\web\Controller
             ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
             AVG(curah_hujan) AS curah_hujan,
             AVG(temperature) AS temperature
-            FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan',
+            FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
             
             'sort' =>false,
             'pagination' => [
@@ -74,7 +74,7 @@ class ResumeController extends \yii\web\Controller
             AVG(temperature) as temperature
             from data
             where id_perangkat="'.$model['id'].'" AND YEAR(tgl)="'.$tahun.'"
-            group by bulan',
+            group by bulan ORDER BY MONTH(tgl) ASC',
             'sort' =>false,
             'pagination' => [
                 'pageSize' => 10,
@@ -107,7 +107,7 @@ class ResumeController extends \yii\web\Controller
             ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
             AVG(curah_hujan) AS curah_hujan,
             AVG(temperature) AS temperature
-            FROM data WHERE id_perangkat="'.$id.'" GROUP BY bulan',
+            FROM data WHERE id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
             
             'sort' =>false,
             'pagination' => [
