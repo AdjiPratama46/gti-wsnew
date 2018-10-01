@@ -29,7 +29,7 @@ $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
                 'data' => $years,
                 'options' => ['placeholder' => 'Pilih Tahun'],
             ]); ?>
-        </div>        
+        </div>
     </div>
 </div>
 
@@ -39,7 +39,7 @@ $urlDate = Url::to(['resume/date']);
 $this->registerJs(
     "
     $('#id-perangkat').change(function(){
-        var id = $('#id-perangkat').val();    
+        var id = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlData}',
@@ -50,7 +50,7 @@ $this->registerJs(
         });
     });
     $('#id-tahun').change(function(){
-        var id = $('#id-perangkat').val(); 
+        var id = $('#id-perangkat').val();
         var date = $('#id-tahun').val();
         $.ajax({
             type :'GET',

@@ -7,6 +7,7 @@ use app\models\Perangkat;
 use app\models\Data;
 use yii\helpers\ArrayHelper;
 use kartik\date\DatePicker;
+use yii\widgets\Pjax;
 
 
 /* @var $this yii\web\View */
@@ -15,7 +16,6 @@ use kartik\date\DatePicker;
 ?>
 
 <div class="data-search">
-
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
@@ -31,6 +31,8 @@ use kartik\date\DatePicker;
             <?php $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
 
             echo $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
+                                  'name' => 'id-perangkat',
+                                  'id' => 'id-perangkat',
                                   'data' => $perangkats,
                                   'pluginOptions' => [
                                     'placeholder' => 'Pilih perangkat',
@@ -77,5 +79,4 @@ use kartik\date\DatePicker;
     </div>-->
 
     <?php ActiveForm::end(); ?>
-
 </div>

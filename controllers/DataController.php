@@ -46,13 +46,16 @@ class DataController extends Controller
                 'model' => $model,
             ]);
         }
+
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'model' => $model,
         ]);
     }
-    
+
+
     /**
      * Displays a single Data model.
      * @param integer $id
