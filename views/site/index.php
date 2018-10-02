@@ -32,13 +32,7 @@ $this->registerJs("
                         }
                         ?>
                     </h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
                 </div>
-
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-4">
@@ -88,7 +82,23 @@ $this->registerJs("
                                                 if (empty($arangin['arah_angin'])){
                                                     echo 'null';
                                                 }else{
-                                                    echo $arangin['arah_angin'];
+                                                    if ($arangin['arah_angin'] == 'W') {
+                                                        echo 'Barat';
+                                                    }elseif ($arangin['arah_angin'] == 'S') {
+                                                        echo 'Selatan';
+                                                    }elseif ($arangin['arah_angin'] == 'N') {
+                                                        echo 'Utara';
+                                                    }elseif ($arangin['arah_angin'] == 'E') {
+                                                        echo 'Timur';
+                                                    }elseif ($arangin['arah_angin'] == 'SE') {
+                                                        echo 'Tenggara';
+                                                    }elseif ($arangin['arah_angin'] == 'SW') {
+                                                        echo 'Barat Daya';
+                                                    }elseif ($arangin['arah_angin'] == 'NW') {
+                                                        echo 'Barat Laut';
+                                                    }elseif ($arangin['arah_angin'] == 'NE') {
+                                                        echo 'Timur Laut';
+                                                    }
                                                 }
                                                 ?>
                                             </h3>
