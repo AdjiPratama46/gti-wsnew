@@ -15,6 +15,11 @@ $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->
 $this->registerJs("
     $('.btn-box-tool').on('click ', function (event) {
             $('.box-body').slideDown(1000);
+            if ($('#ls').text()=='Lihat Selengkapnya') {
+                $('#ls').text('Sembunyikan');
+            }else{
+                $('#ls').text('Lihat Selengkapnya');
+            }
         })
     ");
 ?>
@@ -209,7 +214,7 @@ $this->registerJs("
         <div class="col-md-12">
             <div class="box collapsed-box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Data Selengkapnya</h3>
+                    <center><h3 class="box-title" id="ls">Lihat Selengkapnya</h3></center>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-plus"></i>
@@ -238,7 +243,7 @@ $this->registerJs("
                     ]); ?>
                     <?php Pjax::end(); ?>
                 </div>
-                <div class="box-footer text-center">
+                <div class="box-footer text-center" id="myBox">
                   <?php echo Html::a('Lihat Data Lengkap', ['data/index']); ?>
                 </div>
             </div>
