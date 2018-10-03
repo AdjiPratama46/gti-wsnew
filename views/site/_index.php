@@ -18,8 +18,12 @@ $this->registerJs("
             $('.box-body').slideDown(1000);
             if ($('#ls').text()=='Lihat Selengkapnya') {
                 $('#ls').text('Sembunyikan');
+                $('#icon').removeClass('fa fa-plus').addClass('fa fa-minus');
+                
             }else{
                 $('#ls').text('Lihat Selengkapnya');
+                $('#icon').removeClass('fa fa-minus').addClass('fa fa-plus');
+                $('#bx-ls').slideUp(1000);
             }
         })
     $('#id-perangkat').change(function(){
@@ -40,7 +44,7 @@ $this->registerJs("
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">
+                <h3 class="box-title">
                     <?php
                         if (empty($perangkat['id'])) {
                             echo 'Belum Ada Data';
@@ -50,7 +54,7 @@ $this->registerJs("
                         ?>
                     </h3>
                     <div class="box-tools pull-right">
-                    <?= Select2::widget([
+                        <?= Select2::widget([
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
                                 'value' => $perangkat['id'],
@@ -243,11 +247,11 @@ $this->registerJs("
                     <center><h3 class="box-title" id="ls">Lihat Selengkapnya</h3></center>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-plus" id="icon"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body" >
+                <div class="box-body" id="bx-ls">
                     <?php Pjax::begin(); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
