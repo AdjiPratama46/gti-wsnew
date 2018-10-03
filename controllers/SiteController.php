@@ -76,8 +76,6 @@ class SiteController extends Controller
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE 
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$model['id'].'" ')
         ->queryOne();
-        // print_r($model['id']);exit;  
-        // // print_r($perangkat);exit;  
         $suhu = Yii::$app->db->createCommand
         ('SELECT AVG(temperature) as suhu FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
@@ -88,7 +86,7 @@ class SiteController extends Controller
         ('SELECT date(tgl) AS tgl FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
         $arangin = Yii::$app->db->createCommand
-        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" GROUP BY arah_angin DESC')
+        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" GROUP BY arah_angin ORDER BY jumlah DESC')
         ->queryOne();
         $kangin = Yii::$app->db->createCommand
         ('SELECT AVG(kecepatan_angin) as kecepatan_angin FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
@@ -128,6 +126,50 @@ class SiteController extends Controller
       }
 
 
+    }
+
+    public function actionGet($id)
+    {
+        $perangkat = Yii::$app->db->createCommand
+        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE 
+        data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$id.'" ')
+        ->queryOne();
+        $suhu = Yii::$app->db->createCommand
+        ('SELECT AVG(temperature) as suhu FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
+        $kelembaban = Yii::$app->db->createCommand
+        ('SELECT AVG(kelembaban) as kelembaban FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
+        $data = Yii::$app->db->createCommand
+        ('SELECT date(tgl) AS tgl FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
+        $arangin = Yii::$app->db->createCommand
+        ('SELECT arah_angin, count(*) as jumlah FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')
+        ->queryOne();
+        $kangin = Yii::$app->db->createCommand
+        ('SELECT AVG(kecepatan_angin) as kecepatan_angin FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
+        $curjan = Yii::$app->db->createCommand
+        ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'SELECT * FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'"',
+            'sort' =>false,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        return $this->renderAjax('_index', [
+            'perangkat' => $perangkat,
+            'curjan' => $curjan,
+            'kangin' => $kangin,
+            'kelembaban' => $kelembaban,
+            'suhu' => $suhu,
+            'arangin' => $arangin,
+            'data' => $data,
+            
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
