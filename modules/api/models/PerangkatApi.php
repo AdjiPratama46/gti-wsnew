@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\api\models;
 
 use Yii;
 
@@ -17,9 +17,8 @@ use Yii;
  * @property Data[] $datas
  * @property User $user
  */
-class Perangkat extends \yii\db\ActiveRecord
+class PerangkatApi extends \yii\db\ActiveRecord
 {
-    const SCENARIO_CREATE = 'create';
     /**
      * {@inheritdoc}
      */
@@ -34,7 +33,7 @@ class Perangkat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required',
+            [['id', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required',
               'message' => '{attribute} tidak boleh kosong'
             ],
             [['id'], 'unique', 'message' => '{attribute} sudah digunakan'],
@@ -56,12 +55,7 @@ class Perangkat extends \yii\db\ActiveRecord
         ];
     }
 
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        $scenarios['create'] = ['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'];
-        return $scenarios;
-    }
+
     /**
      * {@inheritdoc}
      */
