@@ -19,7 +19,5 @@ class PapiController extends ActiveController
         }else {
             return array('status ' => false, 'data' => $model -> getErrors());
         }
-        
-
     }
 }

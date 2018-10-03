@@ -24,7 +24,8 @@ $config = [
             'bundles' => [
                 'dosamigos\google\maps\MapAsset' => [
                     'options' => [
-                        'key' => 'AIzaSyDP77inRxQtP2XCu1q0ZUcWsbY9-6KSf-g',
+                        //'key' => 'AIzaSyCEKkG9jlRbavkuE6unDPFGjZ6Ur5cYjHM',
+                        'key' => 'AIzaSyAugGeoJxH7L0f11v1UIYaLdWywftbTQoA',
                         'language' => 'id',
                         'version' => '3.1.18'
                     ]
@@ -34,7 +35,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'tYc-wH6CnxOVmQeH7GUCXCgy_Is704oq',
-            
+
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
