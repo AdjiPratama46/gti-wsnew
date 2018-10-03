@@ -25,7 +25,7 @@ $config = [
                 'dosamigos\google\maps\MapAsset' => [
                     'options' => [
                         //'key' => 'AIzaSyCEKkG9jlRbavkuE6unDPFGjZ6Ur5cYjHM',
-                        'key' => 'AIzaSyAugGeoJxH7L0f11v1UIYaLdWywftbTQoA',
+                        'key' => 'AIzaSyAXfaI-Fbkct2TMoZ5EeJVwLoDxPKco54Q',
                         'language' => 'id',
                         'version' => '3.1.18'
                     ]
