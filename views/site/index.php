@@ -12,7 +12,9 @@ use yii\helpers\Html;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $this->params['breadcrumbs'][] = $this->title;
-$perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','id');
+$sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE DATE(data.tgl)= DATE(NOW())-1 
+AND perangkat.id=data.id_perangkat AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
+$perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 $this->registerJs("
     $('.btn-box-tool').on('click ', function (event) {
             $('.box-body').slideDown(1000);
@@ -50,7 +52,9 @@ $this->registerJs("
                         ?>
                     </h3>
                     <div class="box-tools pull-right">
-                    <?= Select2::widget([
+                    <?php
+                        if (!empty($perangkats)) {
+                            echo Select2::widget([
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
                                 'value' => $perangkat['id'],
@@ -60,7 +64,7 @@ $this->registerJs("
                                     'width' => '200px',
                                 ],
                             ]); 
-                        
+                        }
                         ?>
                     </div>
                 </div>
