@@ -17,7 +17,7 @@ if (class_exists('yii\debug\Module')) {
     $this->off(\yii\web\View::EVENT_END_BODY, [\yii\debug\Module::getInstance(), 'renderToolbar']);
 }
 
-if ((Yii::$app->controller->action->id == 'login' | Yii::$app->controller->action->id == 'index' ) & Yii::$app->user->isGuest) {
+if (Yii::$app->user->isGuest) {
     echo $this->render(
         'main-login',
         ['content' => $content]
@@ -28,7 +28,7 @@ if ((Yii::$app->controller->action->id == 'login' | Yii::$app->controller->actio
         'main-signup',
         ['content' => $content]
     );
-} else {
+} else{
 
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);

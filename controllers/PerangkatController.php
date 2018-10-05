@@ -11,6 +11,7 @@ use app\models\PerangkatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 /**
  * PerangkatController implements the CRUD actions for Perangkat model.
  */
@@ -19,6 +20,20 @@ class PerangkatController extends Controller
     /**
      * {@inheritdoc}
      */
+     public function behaviors()
+       {
+           return [
+               'access' => [
+                   'class' => AccessControl::className(),
+                   'rules' => [
+                       [
+                           'allow' => true,
+                           'roles' => ['@'],
+                       ],
+                   ],
+               ],
+           ];
+       }
 
      public function render($view, $params = [])
     {
