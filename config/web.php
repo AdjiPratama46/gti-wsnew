@@ -11,6 +11,13 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
+            'downloadAction' => 'export',
+            // other module settings
+        ]
+    ],
     'components' => [
           'formatter' => [
                'dateFormat' => 'Y-M-d',
@@ -30,8 +37,10 @@ $config = [
                         'version' => '3.1.18'
                     ]
                 ]
-            ]
+            ],
+
         ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'tYc-wH6CnxOVmQeH7GUCXCgy_Is704oq',
@@ -72,6 +81,7 @@ $config = [
             // ],
         ],
 
+
     ],
     'params' => $params,
 ];
@@ -91,6 +101,8 @@ if (YII_ENV_DEV) {
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
+
+
 }
 
 return $config;

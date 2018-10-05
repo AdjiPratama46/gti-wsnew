@@ -25,7 +25,9 @@
         "2amigos/yii2-date-picker-widget": "~1.0",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-field-range": "*",
-        "janisto/yii2-timepicker": "*"
+        "janisto/yii2-timepicker": "*",
+        "kartik-v/yii2-export": "@dev",
+        "arturoliveira/yii2-excelview": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
