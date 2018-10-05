@@ -41,7 +41,7 @@ Modal::end();
     'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
-        'tahun',
+        'bulan',
         'kelembaban',
         'kecepatan_angin',
         'arah_angin',
@@ -54,7 +54,7 @@ Modal::end();
             'buttons' => [
                 'detail' => 
                     function ($url, $model, $key) {
-                        return  Html::a('Detail',['bulan','tahun' => $model['tahun']],[
+                        return  Html::a('Detail',['minggu','bulan' => $model['bulan']],[
                             'class' => 'btn btn-success',
                             'data-toggle'=>'modal',
                             'data-target'=>'#myModal',
