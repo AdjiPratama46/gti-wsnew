@@ -1,9 +1,6 @@
 <?php
-
 namespace app\models;
-
 use Yii;
-
 /**
  * This is the model class for table "perangkat".
  *
@@ -27,7 +24,6 @@ class Perangkat extends \yii\db\ActiveRecord
     {
         return 'perangkat';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -55,7 +51,6 @@ class Perangkat extends \yii\db\ActiveRecord
             [['id'], 'unique'],
         ];
     }
-
     public function scenarios()
     {
         $scenarios = parent::scenarios();
@@ -76,7 +71,6 @@ class Perangkat extends \yii\db\ActiveRecord
             'latitude' => 'Latitude',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -84,7 +78,6 @@ class Perangkat extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Data::className(), ['id_perangkat' => 'id']);
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */

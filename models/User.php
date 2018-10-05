@@ -66,7 +66,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $user = Users::find()->where(['username' =>$username])->one();
         if (($user)) {
             return new static($user);
-        }  
+        }
         // foreach (self::$users as $user) {
         //     if (strcasecmp($user['username'], $username) === 0) {
         //         return new static($user);

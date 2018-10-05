@@ -1,13 +1,10 @@
 <?php
 namespace app\controllers;
-
 use yii\rest\ActiveController;
 use app\models\Perangkat;
-
 class PapiController extends ActiveController
 {
     public $modelClass = 'app\models\Perangkat';
-
     public function actionTambah()
     {
         $model = new Perangkat();
