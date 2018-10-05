@@ -38,7 +38,6 @@ Modal::end();
     <div class="box">
         <div class="box-body">
             <br>
-            
             <?= $this->render('_search',['model' => $model]); ?>
             <br>
             <div id="tabel">
