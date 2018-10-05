@@ -42,6 +42,30 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
     }
 
+    public static function findlist($u,$p){
+      $users = Users::find();
+            foreach (self::$users as $user) {
+                if ($user->username == $u AND $user->password == $p) {
+                    return new static($user);
+                }
+            }
+
+            return null;
+        }
+
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        if ($action === 'view' or $action === 'update' or $action === 'delete')
+        {
+            if ( Yii::$app->user->can('supplier') === false
+                 or Yii::$app->user->identity->supplierID === null
+                 or $model->supplierID !== \Yii::$app->user->identity->supplierID )
+            {
+                 throw new \yii\web\ForbiddenHttpException('You can\'t '.$action.' this product.');
+            }
+
+        }
+    }
     /**
      * {@inheritdoc}
      */
@@ -54,6 +78,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
         return null;
     }
+
 
     /**
      * Finds user by username

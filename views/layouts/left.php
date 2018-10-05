@@ -4,8 +4,11 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-              <img src="images/profilephoto.png" width="160" height="160" class="img-circle" alt="User Image"/>
-
+              <?php
+              use yii\helpers\Html;
+               ?>
+               <?= Html::img('@web/images/profilephoto.png', ['alt'=>'some', 'class'=>'img-circle']);?>
+              
             </div>
             <div class="pull-left info">
                 <p id="namauser"><?= Yii::$app->user->identity->name ?></p>

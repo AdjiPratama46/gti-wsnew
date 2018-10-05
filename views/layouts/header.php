@@ -30,14 +30,16 @@ $url = Url::to(['user/update', 'id' => $id]);
 
                 <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="images/profilephoto.png" width="160" height="160" class="user-image" alt="User Image"/>
+                      <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'user-image']);?>
+
                         <span class="hidden-xs"><?= Yii::$app->user->identity->name ?></span>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" style="width:200px;" >
                         <!-- User image -->
                         <li class="user-header" style="background-color: #3963A9;">
-                          <img src="images/profilephoto.png" width="160" height="160" class="img-circle" alt="User Image"/>
+                          <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'img-circle']);?>
+
 
 
                             <p style="color:white;">
