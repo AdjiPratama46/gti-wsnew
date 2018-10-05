@@ -20,20 +20,7 @@ class PerangkatController extends Controller
     /**
      * {@inheritdoc}
      */
-     public function behaviors()
-       {
-           return [
-               'access' => [
-                   'class' => AccessControl::className(),
-                   'rules' => [
-                       [
-                           'allow' => true,
-                           'roles' => ['@'],
-                       ],
-                   ],
-               ],
-           ];
-       }
+     
 
      public function render($view, $params = [])
     {
@@ -46,6 +33,15 @@ class PerangkatController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+              'class' => AccessControl::className(),
+              'rules' => [
+                  [
+                      'allow' => true,
+                      'roles' => ['@'],
+                  ],
+              ],
+          ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
