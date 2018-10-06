@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
-$this->title = 'Data Resume';
+$this->title = 'Resume';
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs("
     $('#myModal').on('show.bs.modal', function (event) {
