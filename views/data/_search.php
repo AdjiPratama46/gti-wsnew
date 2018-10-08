@@ -27,22 +27,27 @@ use yii\widgets\Pjax;
     <?php //$form->field($model, 'id_data') ?>
     <div class="row">
       <div class="col-md-6">
-            <?php $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
+            <?php 
+            if (Yii::$app->user->identity->role =='admin') {
+                $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
+            }elseif (Yii::$app->user->identity->role =='user') {
+                $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
+            }
 
             echo $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
-                                  'name' => 'id-perangkat',
-                                  'id' => 'id-perangkat',
-                                  'data' => $perangkats,
-                                  'pluginOptions' => [
-                                    'placeholder' => 'Pilih perangkat',
-                                    'clearBtn' => true,
+                'name' => 'id-perangkat',
+                'id' => 'id-perangkat',
+                'data' => $perangkats,
+                'pluginOptions' => [
+                'placeholder' => 'Pilih perangkat',
+                'clearBtn' => true,
 
-                                  ],
-                                  'options' => [
-                                    'onchange'=>'this.form.submit()',
-                                  ]
+                ],
+                'options' => [
+                'onchange'=>'this.form.submit()',
+                ]
 
-                          ])->label(false); ?>
+        ])->label(false); ?>
           </div><div class="col-md-6">
             <?= $form->field($model, 'tgl')->widget(DatePicker::ClassName(),[
                 'name' => 'tgl',

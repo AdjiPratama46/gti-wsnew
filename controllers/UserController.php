@@ -37,7 +37,6 @@ class UserController extends Controller
                 [
                     'actions' => [
                         'index',
-                        'update',
                         'view',
                         'create',
                         'delete'

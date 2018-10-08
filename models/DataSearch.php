@@ -76,41 +76,76 @@ class DataSearch extends Data
         return $dataProvider;
     }
     private function querynya($params){
-      $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
-        $this->load($params);
-        if(empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
-            $query = Data::find()
-            ->joinWith('perangkat')
-            ->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])
-            ->andWhere(
-                [
-                  'between',
-                  'tgl',
-                  date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
-                  date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
-                  ])
-            ->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
-        }
-        elseif(!empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
-          $query = Data::find()
-          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
-              ['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
-        }
-        elseif(!empty($this->id_perangkat) && empty($this->tgl)   && !empty($perangk->id)){
-          $query = Data::find()
-          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
-              ['id_perangkat' => $perangk->id])->andWhere(
-                  [
+        if (Yii::$app->user->identity->role =='admin') {
+            $this->load($params);
+            if(empty($this->tgl) && empty($this->id_perangkat)){
+                $query = Data::find()
+                ->joinWith('perangkat')
+                ->where(
+                    [
                     'between',
                     'tgl',
                     date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
                     date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
                     ])->orderBy(['tgl' => SORT_ASC]);
+            }
+            elseif(!empty($this->tgl) && empty($this->id_perangkat)){
+                $query = Data::find()
+                ->joinWith('perangkat')->orderBy(['tgl' => SORT_ASC]);
+            }
+            elseif(!empty($this->id_perangkat) && empty($this->tgl)){
+                $query = Data::find()
+                ->joinWith('perangkat')->where(
+                        [
+                            'between',
+                            'tgl',
+                            date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                            date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                            ])->orderBy(['tgl' => SORT_ASC]);
+            }
+            else{
+                $query = Data::find()
+                ->joinWith('perangkat')->orderBy(['tgl' => SORT_ASC]);;
+            }
         }
-        else{
-          $query = Data::find()
-          ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->orderBy(['tgl' => SORT_ASC]);;
+        elseif (Yii::$app->user->identity->role =='user') {
+            $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
+            $this->load($params);
+            if(empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
+                $query = Data::find()
+                ->joinWith('perangkat')
+                ->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])
+                ->andWhere(
+                    [
+                    'between',
+                    'tgl',
+                    date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                    date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                    ])
+                ->andWhere(['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
+            }
+            elseif(!empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
+            $query = Data::find()
+            ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
+                ['id_perangkat' => $perangk->id])->orderBy(['tgl' => SORT_ASC]);
+            }
+            elseif(!empty($this->id_perangkat) && empty($this->tgl)   && !empty($perangk->id)){
+            $query = Data::find()
+            ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
+                ['id_perangkat' => $perangk->id])->andWhere(
+                    [
+                        'between',
+                        'tgl',
+                        date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                        date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                        ])->orderBy(['tgl' => SORT_ASC]);
+            }
+            else{
+            $query = Data::find()
+            ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->orderBy(['tgl' => SORT_ASC]);;
+            }
         }
+
         return $query;
     }
 }
