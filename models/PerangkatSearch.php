@@ -41,13 +41,13 @@ class PerangkatSearch extends Perangkat
      */
     public function search($params)
     {
-        // if (Yii::$app->user->identity->role =='admin') {
-        //     $query = Perangkat::find();
-        // }elseif (Yii::$app->user->identity->role =='user') {
-        //     $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
-        // }
+        if (Yii::$app->user->identity->role =='admin') {
+            $query = Perangkat::find();
+        }elseif (Yii::$app->user->identity->role =='user') {
+            $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
+        }
         
-        $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
+        // $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

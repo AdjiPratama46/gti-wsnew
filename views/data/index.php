@@ -19,11 +19,11 @@ $this->title = 'Data Harian';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-index">
-  <div class="box">
-    <div class="box-body">
-    <br>
-      <?php Pjax::begin(); ?>
-      <?php
+    <div class="box">
+        <div class="box-body" id="data">
+            <br>
+            <?php Pjax::begin(); ?>
+            <?php
       $gridColumns = [
         ['class' => 'yii\grid\SerialColumn'],
         ['attribute' => 'perangkat',
@@ -39,11 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'curah_hujan',
         'temperature',
         'kapasitas_baterai',
+        ['class' => 'yii\grid\ActionColumn',
+          'header' => 'Aksi',
+          'headerOptions'=> ['style'=> 'width:70px;'],
+        ],
       ];
       ?>
-      <div class="row">
-        <div class="col-md-6">
-          <?php
+            <div class="row">
+                <div class="col-md-6">
+                    <?php
           echo ExportMenu::widget([
 
             'dataProvider' => $dataProvider,
@@ -85,16 +89,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
           ]);
            ?>
-        </div>
-        <div class="col-md-6">
-          <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-        </div>
-      </div>
-
-
-
-
-      <?= GridView::widget([
+                </div>
+                <div class="col-md-6">
+                    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+                </div>
+            </div>
+  
+            <?= GridView::widget([
           'dataProvider' => $dataProvider,
           'filterModel' => $searchModel,
           'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
@@ -102,9 +103,8 @@ $this->params['breadcrumbs'][] = $this->title;
           'columns' =>$gridColumns,
       ]); ?>
 
+            <?php Pjax::end(); ?>
 
-      <?php Pjax::end(); ?>
-
-      </div>
-  </div>
+        </div>
+    </div>
 </div>

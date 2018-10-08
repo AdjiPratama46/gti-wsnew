@@ -80,14 +80,13 @@ class DataSearch extends Data
             $this->load($params);
             if(empty($this->tgl) && empty($this->id_perangkat)){
                 $query = Data::find()
-                ->joinWith('perangkat')
                 ->where(
                     [
-                    'between',
-                    'tgl',
-                    date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
-                    date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
-                    ])->orderBy(['tgl' => SORT_ASC]);
+                        'between',
+                        'tgl',
+                        date('Y-m-d H:i:s', mktime(0, 0, 0, date('m'), date('d')-1, date('Y'))),
+                        date('Y-m-d H:i:s', mktime(23, 59, 59, date('m'), date('d')-1, date('Y')))
+                        ])->orderBy(['tgl' => SORT_ASC]);
             }
             elseif(!empty($this->tgl) && empty($this->id_perangkat)){
                 $query = Data::find()

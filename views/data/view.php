@@ -11,22 +11,23 @@ $this->params['breadcrumbs'][] = ['label' => 'Datas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-view">
+    <div class="box">
+        <div class="box-body">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_data], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_data], [
+            <p>
+                <?= Html::a('Update', ['update', 'id' => $model->id_data], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Delete', ['delete', 'id' => $model->id_data], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+            </p>
 
-    <?= DetailView::widget([
+            <?= DetailView::widget([
         'model' => $model,
+        'options' => ['class' => 'table table-hover table-striped table-bordered detail-view'],
         'attributes' => [
             'id_data',
             'id_perangkat',
@@ -40,4 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+        </div>
+    </div>
 </div>

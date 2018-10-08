@@ -111,3 +111,6 @@
     height: 235px;
     border-bottom:7px solid rgba(0,0,0,0.15);
 }
+#data{
+    padding: 20px 40px 20px 40px  !important ;
+}
