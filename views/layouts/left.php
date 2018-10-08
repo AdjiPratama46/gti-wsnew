@@ -18,10 +18,7 @@
         </div>
 
       <hr style="border:0.5px solid #4F7BC3;width:60%;">
-      <?php
-        if (Yii::$app->user->identity->role=='admin') {
-            echo 
-            dmstr\widgets\Menu::widget(
+      <?= dmstr\widgets\Menu::widget(
                 [
                     'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                     'items' => [
@@ -29,13 +26,14 @@
                           'options' => ['id' => 'menu1']
                         ],
                         ['label' => 'Users', 'icon' => 'users', 'url' => ['user/index'],
+                            'visible' => Yii::$app->user->identity->role=='admin', 
                             'options' => ['id' => 'menu5']
                         ],
                         ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
-                          'options' => ['id' => 'menu2']
+                            'options' => ['id' => 'menu2']
                         ],
                         ['label' => 'Data Harian', 'icon' => 'calendar', 'url' => ['data/index'],
-                          'options' => ['id' => 'menu3']
+                            'options' => ['id' => 'menu3']
                         ],
                         ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
                             'options' => ['id' => 'menu4']
@@ -45,33 +43,8 @@
     
                     ],
                 ]
-                );
-        }else {
-            echo 
-            dmstr\widgets\Menu::widget(
-                [
-                    'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
-                    'items' => [
-                        ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/index'],
-                          'options' => ['id' => 'menu1']
-                        ],
-                        ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
-                          'options' => ['id' => 'menu2']
-                        ],
-                        ['label' => 'Data Harian', 'icon' => 'calendar', 'url' => ['data/index'],
-                          'options' => ['id' => 'menu3']
-                        ],
-                        ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
-                            'visible' => Yii::$app->user->identity->role=='admin',  
-                            'options' => ['id' => 'menu4']
-                        ],
-                        ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-    
-                    ],
-                ]
-                );
-        }
-      ?>
+            );
+        ?>
 
     </section>
 
