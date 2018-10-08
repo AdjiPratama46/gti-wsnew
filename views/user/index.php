@@ -17,12 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <?= Html::a('Create Users', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Tambah Users', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

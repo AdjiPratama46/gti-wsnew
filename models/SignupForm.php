@@ -20,6 +20,7 @@ class SignupForm extends Model
     public $id;
     public $authKey;
     public $accessToken;
+    public $role;
     /**
      * @return array the validation rules.
      */
@@ -33,7 +34,7 @@ class SignupForm extends Model
             [['name'], 'match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
-            ['name', 'string', 'max' => 255],
+            ['name','role', 'string', 'max' => 255],
             ['password', 'string', 'min' => 6, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
