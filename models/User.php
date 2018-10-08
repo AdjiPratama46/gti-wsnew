@@ -46,8 +46,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public static function findlist($u,$p){
-      $userr = Users::find()->all();
-      $data = ArrayHelper::toArray($userr, [
+      $user = Users::find()->all();
+      $data = ArrayHelper::toArray($user, [
           'app\models\Users' => [
               'id',
               'name',

@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-body">
     <br>
       <?php Pjax::begin(); ?>
-      <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
-
       <?php
       $gridColumns = [
         ['class' => 'yii\grid\SerialColumn'],
@@ -43,6 +41,58 @@ $this->params['breadcrumbs'][] = $this->title;
         'kapasitas_baterai',
       ];
       ?>
+      <div class="row">
+        <div class="col-md-6">
+          <?php
+          echo ExportMenu::widget([
+
+            'dataProvider' => $dataProvider,
+            'columns' => $gridColumns,
+            'target'=> '_blank',
+            'dropdownOptions' => [
+                'label' => 'Export',
+                'class' => 'btn',
+                'style' => 'position:absolute;'
+              ],
+            'columnSelectorOptions' => [
+              'label' => 'Kolom',
+              'class' => 'btn'
+            ],
+            'exportConfig' => [
+              ExportMenu::FORMAT_HTML => false,
+              ExportMenu::FORMAT_CSV => [
+                    'alertMsg' => 'Tabel data harian akan di export menjadi file CSV',
+                ],
+              ExportMenu::FORMAT_TEXT => [
+                    'alertMsg' => 'Tabel data harian akan di export menjadi file TEXT',
+                ],
+              ExportMenu::FORMAT_PDF => [
+                    'alertMsg' => 'Tabel data harian akan di export menjadi file PDF',
+                ],
+              ExportMenu::FORMAT_EXCEL => [
+                    'alertMsg' => 'Tabel data harian akan di export menjadi file EXCEL 95+',
+                ],
+              ExportMenu::FORMAT_EXCEL_X => [
+                    'alertMsg' => 'Tabel data harian akan di export menjadi file EXCEL 2007+',
+                ],
+              ],
+            'filename' => 'WS_DataHarian',
+            'messages' => [
+              'allowPopups' =>  '',
+              'confirmDownload' => 'Lanjutkan proses export ?',
+              'downloadProgress' => 'Memproses file. silahkan tunggu...',
+              'downloadComplete' => 'Download selesai.'
+            ]
+          ]);
+           ?>
+        </div>
+        <div class="col-md-6">
+          <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+      </div>
+
+
+
 
       <?= GridView::widget([
           'dataProvider' => $dataProvider,
@@ -52,54 +102,6 @@ $this->params['breadcrumbs'][] = $this->title;
           'columns' =>$gridColumns,
       ]); ?>
 
-      <hr style="border:0.5px solid #4F7BC3;width:60%;">
-          <div class="row">
-            <div class="col-md-2" align="right"><h4>Export Tabel </h4></div>
-            <div class="col-md-10">
-              <?php
-              echo ExportMenu::widget([
-
-                'dataProvider' => $dataProvider,
-                'columns' => $gridColumns,
-                'target'=> '_blank',
-                'dropdownOptions' => [
-                    'label' => 'Export',
-                    'class' => 'btn',
-                    'style' => 'position:absolute;'
-                  ],
-                'columnSelectorOptions' => [
-                  'label' => 'Kolom',
-                  'class' => 'btn'
-                ],
-                'exportConfig' => [
-                  ExportMenu::FORMAT_HTML => false,
-                  ExportMenu::FORMAT_CSV => [
-                        'alertMsg' => 'Tabel data harian akan di export menjadi file CSV',
-                    ],
-                  ExportMenu::FORMAT_TEXT => [
-                        'alertMsg' => 'Tabel data harian akan di export menjadi file TEXT',
-                    ],
-                  ExportMenu::FORMAT_PDF => [
-                        'alertMsg' => 'Tabel data harian akan di export menjadi file PDF',
-                    ],
-                  ExportMenu::FORMAT_EXCEL => [
-                        'alertMsg' => 'Tabel data harian akan di export menjadi file EXCEL 95+',
-                    ],
-                  ExportMenu::FORMAT_EXCEL_X => [
-                        'alertMsg' => 'Tabel data harian akan di export menjadi file EXCEL 2007+',
-                    ],
-                  ],
-                'filename' => 'WS_DataHarian',
-                'messages' => [
-                  'allowPopups' =>  '',
-                  'confirmDownload' => 'Lanjutkan proses export ?',
-                  'downloadProgress' => 'Memproses file. silahkan tunggu...',
-                  'downloadComplete' => 'Download selesai.'
-                ]
-              ]);
-               ?>
-             </div>
-          </div>
 
       <?php Pjax::end(); ?>
 
