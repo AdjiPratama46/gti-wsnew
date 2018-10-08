@@ -67,6 +67,7 @@ class Users extends \yii\db\ActiveRecord
             'accessToken' => 'Access Token',
             'confirm_password' => 'Password Lama',
             'new_password' => 'Password Baru',
+            'role' => 'Role',
         ];
     }
 
