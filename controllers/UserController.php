@@ -26,8 +26,17 @@ class UserController extends Controller
             'class' => AccessControl::className(),
             'rules' => [
                 [
+                    'actions' => [
+                        'index',
+                        'update',
+                        'view',
+                        'create',
+                        'delete'
+                    ],
                     'allow' => true,
-                    'roles' => ['@'],
+                    'matchCallback' => function(){
+                        return (Yii::$app->user->identity->role=='admin');
+                    }
                 ],
             ],
         ],

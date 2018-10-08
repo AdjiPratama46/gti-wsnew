@@ -37,7 +37,7 @@ class Users extends \yii\db\ActiveRecord
             [['id'], 'integer'],
             ['username' , 'email', 'message' => 'Username Harus Menggunakan Email'],
             [['username'],'unique','targetClass' => '\app\models\Users','message' => 'Username Ini Sudah Digunakan'],
-            [['authKey','accessToken'],'string'],
+            [['authKey','accessToken','role'],'string'],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['name','new_password'], 'match', 'pattern' => '/^[A-Za-z0-9 ]+$/u',
