@@ -12,6 +12,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public $password;
     public $authKey;
     public $accessToken;
+    public $role;
 
     private static $users = [
         '100' => [
@@ -49,10 +50,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       $data = ArrayHelper::toArray($userr, [
           'app\models\Users' => [
               'id',
+              'name',
               'username',
               'password',
               'authKey',
               'accessToken',
+              'role',
           ],
       ]);
 

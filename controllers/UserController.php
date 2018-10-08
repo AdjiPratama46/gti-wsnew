@@ -86,16 +86,8 @@ class UserController extends Controller
     {
         $model = new Users();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save(false)) {
-                Yii::$app->db->createCommand()->update('user',
-                [
-                    'authKey' => 'test'.$model['id'].'key',
-                    'accessToken' =>  $model['id'].'-token',
-                ] ,'id ='.$model['id'])->execute();
-                return $this->redirect(['index']);
-            }
-            
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
