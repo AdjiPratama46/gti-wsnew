@@ -68,6 +68,7 @@ class SignupForm extends Model
             'username' => $this->username,
             'name' => $this->name,
             'password' => $this->password,
+            'role' => 'user',
         ])->execute();
         $id = User::find()
         ->select(['id'])
