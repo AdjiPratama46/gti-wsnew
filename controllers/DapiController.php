@@ -24,11 +24,11 @@ class DapiController extends ActiveController
           'rules' => [
               [
                   'allow' => true,
-                  'actions' => ['dataharian'],
+                  'actions' => ['data-harian'],
                   'verbs' => ['GET']
               ],
           ]
-      
+
         ];
         //$behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_HTML;
         return $behaviors;
@@ -40,7 +40,7 @@ class DapiController extends ActiveController
         return \app\models\User::findlist($username,$password);
     }
 
-    public function actionDataharian(){
+    public function actionDataHarian(){
       $data=Data::find()->all();
 
       if(count($data)>0){
