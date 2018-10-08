@@ -75,8 +75,13 @@ $config = [
             //'showScriptName' => true,
             //'enableStrictParsing' => true,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'papi'],
-            ],
+                            ['class' => 'yii\rest\UrlRule',
+                            'controller' => 'papi'],
+
+                            ['class' => 'yii\rest\UrlRule',
+                            'controller' => 'dapi',
+                          ],
+                        ],
         ],
     ],
     'params' => $params,
