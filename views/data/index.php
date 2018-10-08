@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'alertMsg' => 'Tabel data harian akan di export menjadi file EXCEL 2007+',
                 ],
               ],
-            'filename' => 'WS_DataHarian',
+            'filename' => date('YmdHis', mktime(date('H')+5)).'_WSDataHarian',
             'messages' => [
               'allowPopups' =>  '',
               'confirmDownload' => 'Lanjutkan proses export ?',
