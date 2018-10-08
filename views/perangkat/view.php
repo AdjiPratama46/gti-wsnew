@@ -24,10 +24,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'options' => ['class' => 'table table-hover table-striped table-bordered detail-view'],
         'attributes' => [
             'id',
             'alias',
-            //'id_owner',
+            'id_owner',
+            [
+                'label' => 'Nama Pemilik',
+                'attribute' => 'user.name',
+            ],
             'tgl_instalasi',
             //'longitude',
             //'latitude',
@@ -39,6 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <br>
-    <center><?php echo Html::a('Pindahkan', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success']); ?></center>
+    <center><?php echo Html::a('Pindahkan/Ubah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-block btn-success butsub']); ?></center>
     <br>
 </div>
