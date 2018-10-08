@@ -10,12 +10,14 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="users-view box">
+<div class="users-view">
     <div class="box-body">
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-    <center><h3><?= Html::encode($this->title) ?></h3></center>
-    <br>
+        <center>
+            <h3><?= Html::encode($this->title) ?></h3>
+        </center>
+        <br>
 
         <?= DetailView::widget([
         'model' => $model,
@@ -33,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'role',
         ],
     ]) ?>
-    <br>
+        <br>
         <center><?php echo Html::a('Ubah', ['user/update', 'id' => $model->id], ['class' => 'btn btn-block btn-success butsub']); ?></center>
-    <br>
+        <br>
     </div>
 </div>

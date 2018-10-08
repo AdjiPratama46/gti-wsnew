@@ -28,12 +28,12 @@ use yii\widgets\Pjax;
     <div class="row">
       <div class="col-md-6">
             <?php 
-            if (Yii::$app->user->identity->role =='admin') {
-                $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
-            }elseif (Yii::$app->user->identity->role =='user') {
-                $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
-            }
-
+            // if (Yii::$app->user->identity->role =='admin') {
+            //     $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
+            // }elseif (Yii::$app->user->identity->role =='user') {
+            //     $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
+            // }
+            $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
             echo $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
                 'name' => 'id-perangkat',
                 'id' => 'id-perangkat',

@@ -34,7 +34,7 @@ class SignupForm extends Model
             [['name'], 'match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
-            ['name','role', 'string', 'max' => 255],
+            ['name', 'string', 'max' => 255],
             ['password', 'string', 'min' => 6, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
