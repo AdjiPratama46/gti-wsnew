@@ -93,6 +93,9 @@ class UserController extends Controller
                     'authKey' => 'test'.$model['id'].'key',
                     'accessToken' =>  $model['id'].'-token',
                 ] ,'id ='.$model['id'])->execute();
+                Yii::$app->getSession()->setFlash(
+                    'success','Berhail Menambahkan User Baru!'
+                );
                 return $this->redirect(['index']);
             }
             
@@ -142,7 +145,9 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        Yii::$app->getSession()->setFlash(
+            'success','Berhasil Menghapus User!'
+        );
         return $this->redirect(['index']);
     }
 

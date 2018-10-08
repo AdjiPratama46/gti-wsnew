@@ -59,7 +59,7 @@ class UsersSearch extends Users
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'like', 'id', $this->id
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
