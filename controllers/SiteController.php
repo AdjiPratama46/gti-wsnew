@@ -66,14 +66,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $tgls=  date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') - 1, date('Y')));
         $id_owner = Yii::$app->user->id;
         if (!Yii::$app->user->isGuest) {
-        $model = Perangkat::find()
-        ->where(['id_owner' => $id_owner])
-        ->one();
-         
+          if(Yii::$app->user->identity->role=='admin'){
+            $model = Perangkat::find()->innerJoinWith('datas')
+            ->Where(['like', 'data.tgl', $tgls])
+            ->one();
+          }else{
+            $model = Perangkat::find()->innerJoinWith('datas')
+            ->Where(['like', 'data.tgl', $tgls])
+            ->andWhere(['id_owner' => $id_owner])
+            ->one();
+          }
+
+
         $perangkat = Yii::$app->db->createCommand
-        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE 
+        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$model['id'].'" ')
         ->queryOne();
         $suhu = Yii::$app->db->createCommand
@@ -97,6 +106,18 @@ class SiteController extends Controller
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $jmluser = Yii::$app->db->createCommand
+        ('SELECT count(*) as jumlah_user FROM user')
+        ->queryOne();
+
+        $jmlperang = Yii::$app->db->createCommand
+        ('SELECT count(*) as jml FROM perangkat')
+        ->queryOne();
+
+        $paktif = Yii::$app->db->createCommand
+        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
+        ->queryOne();
+
         return $this->render('index', [
             'perangkat' => $perangkat,
             'curjan' => $curjan,
@@ -106,6 +127,9 @@ class SiteController extends Controller
             'arangin' => $arangin,
             'model' => $model,
             'data' => $data,
+            'jmluser' => $jmluser,
+            'paktif'=> $paktif,
+            'jmlperang' => $jmlperang,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -130,8 +154,9 @@ class SiteController extends Controller
 
     public function actionGet($id)
     {
+
         $perangkat = Yii::$app->db->createCommand
-        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE 
+        ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$id.'" ')
         ->queryOne();
         $suhu = Yii::$app->db->createCommand
@@ -152,6 +177,17 @@ class SiteController extends Controller
         $curjan = Yii::$app->db->createCommand
         ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
         ->queryOne();
+        $jmluser = Yii::$app->db->createCommand
+        ('SELECT count(*) as jumlah_user FROM user')
+        ->queryOne();
+
+        $jmlperang = Yii::$app->db->createCommand
+        ('SELECT count(*) as jml FROM perangkat')
+        ->queryOne();
+
+        $paktif = Yii::$app->db->createCommand
+        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
+        ->queryOne();
         $dataProvider = new SqlDataProvider([
             'sql' => 'SELECT * FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'"',
             'sort' =>false,
@@ -167,7 +203,9 @@ class SiteController extends Controller
             'suhu' => $suhu,
             'arangin' => $arangin,
             'data' => $data,
-            
+            'jmluser' => $jmluser,
+            'paktif'=> $paktif,
+            'jmlperang' => $jmlperang,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -257,5 +295,5 @@ class SiteController extends Controller
     {
         return $this->render('profile');
     }
-    
+
 }

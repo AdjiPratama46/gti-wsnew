@@ -12,9 +12,19 @@ use yii\helpers\Html;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $this->params['breadcrumbs'][] = $this->title;
-$sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE DATE(data.tgl)= DATE(NOW())-1 
-AND perangkat.id=data.id_perangkat AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
+
+if(Yii::$app->user->identity->role=='admin'){
+  $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
+  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
+
+}
+else{
+  $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
+  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
+}
+
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
+
 $this->registerJs("
     $('.btn-box-tool').on('click ', function (event) {
             $('.box-body').slideDown(1000);
@@ -38,9 +48,53 @@ $this->registerJs("
     ");
 ?>
 <div class="site-index" id="tabel">
+    <?php
+      if(Yii::$app->user->identity->role=='admin'){
+     ?>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Jumlah User</span>
+                <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-yellow"><i class="ion ion-ios-construct"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Jumlah Perangkat</span>
+                <span class="info-box-number"><?= $jmlperang['jml']?></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-yellow"><i class="ion ion-ios-construct"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Jumlah Perangkat</span>
+                <span class="info-box-number"><?= $jmlperang['jml']?></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <?php
+    }
+    ?>
+
     <div class="row">
         <div class="col-md-12">
-            <div class="box">
+            <div class="box box-info">
                 <div class="box-header with-border">
                     <h3 class="box-title">
                     <?php
@@ -63,7 +117,7 @@ $this->registerJs("
                                 'pluginOptions' => [
                                     'width' => '200px',
                                 ],
-                            ]); 
+                            ]);
                         }
                         ?>
                     </div>
@@ -233,7 +287,7 @@ $this->registerJs("
                                 </h3>
                                 <h4>Celcius</h4>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -242,7 +296,7 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="box collapsed-box">
+            <div class="box box-warning collapsed-box">
                 <div class="box-header with-border">
                     <center><h3 class="box-title" id="ls">Lihat Selengkapnya</h3></center>
                     <div class="box-tools pull-right">
