@@ -85,11 +85,19 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new Users();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save(false)) {
+                Yii::$app->db->createCommand()->update('user',
+                [
+                    'authKey' => 'test'.$model['id'].'key',
+                    'accessToken' =>  $model['id'].'-token',
+                ] ,'id ='.$model['id'])->execute();
+                Yii::$app->getSession()->setFlash(
+                    'success','Berhail Menambahkan User Baru!'
+                );
+                return $this->redirect(['index']);
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -134,7 +142,9 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        Yii::$app->getSession()->setFlash(
+            'success','Berhasil Menghapus User!'
+        );
         return $this->redirect(['index']);
     }
 
