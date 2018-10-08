@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\Users;
+use yii\helpers\ArrayHelper;
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     public $id;
@@ -28,6 +29,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
+    private static $data;
 
 
     /**
@@ -43,9 +45,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     }
 
     public static function findlist($u,$p){
-      $users = Users::find();
-            foreach (self::$users as $user) {
-                if ($user->username == $u AND $user->password == $p) {
+      $userr = Users::find()->all();
+      $data = ArrayHelper::toArray($userr, [
+          'app\models\Users' => [
+              'id',
+              'username',
+              'password',
+              'authKey',
+              'accessToken',
+          ],
+      ]);
+
+            foreach ($data as $user) {
+                if ($user['username'] == $u AND $user['password'] == $p) {
                     return new static($user);
                 }
             }
