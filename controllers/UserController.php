@@ -43,6 +43,7 @@ class UserController extends Controller
                         'delete'
                     ],
                     'allow' => true,
+                    'roles' => ['@'],
                     'matchCallback' => function(){
                         return (Yii::$app->user->identity->role=='admin');
                     }
@@ -52,6 +53,7 @@ class UserController extends Controller
                         'update',
                     ],
                     'allow' => true,
+                    'roles' => ['@'],
                     'matchCallback' => function(){
                         return (Yii::$app->user->identity->role=='user');
                     }
