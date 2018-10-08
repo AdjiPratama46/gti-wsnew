@@ -27,10 +27,28 @@ class DataController extends Controller
           'access' => [
               'class' => AccessControl::className(),
               'rules' => [
-                  [
-                      'allow' => true,
-                      'roles' => ['@'],
-                  ],
+                [
+                    'actions' => [
+                        'index',
+                        'view',
+                        'update',
+                        'create',
+                        'delete'
+                    ],
+                    'allow' => true,
+                    'matchCallback' => function(){
+                        return (Yii::$app->user->identity->role=='admin');
+                    }
+                ],
+                [
+                    'actions' => [
+                        'index',
+                    ],
+                    'allow' => true,
+                    'matchCallback' => function(){
+                        return (Yii::$app->user->identity->role=='user');
+                    }
+                ],
               ],
           ],
             'verbs' => [

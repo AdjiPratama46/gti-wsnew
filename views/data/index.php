@@ -24,26 +24,46 @@ $this->params['breadcrumbs'][] = $this->title;
             <br>
             <?php Pjax::begin(); ?>
             <?php
-      $gridColumns = [
-        ['class' => 'yii\grid\SerialColumn'],
-        ['attribute' => 'perangkat',
-          'value' => 'perangkat.alias'
-        ],
-        ['attribute' => 'pukul',
-          'value' => 'tgl',
-          'format' =>  ['date', 'php:H:i'],
-        ],
-        'kelembaban',
-        'kecepatan_angin',
-        'arah_angin',
-        'curah_hujan',
-        'temperature',
-        'kapasitas_baterai',
-        ['class' => 'yii\grid\ActionColumn',
-          'header' => 'Aksi',
-          'headerOptions'=> ['style'=> 'width:70px;'],
-        ],
-      ];
+            if (Yii::$app->user->identity->role=='admin') {
+              $gridColumns = [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' => 'perangkat',
+                  'value' => 'perangkat.alias'
+                ],
+                ['attribute' => 'pukul',
+                  'value' => 'tgl',
+                  'format' =>  ['date', 'php:H:i'],
+                ],
+                'kelembaban',
+                'kecepatan_angin',
+                'arah_angin',
+                'curah_hujan',
+                'temperature',
+                'kapasitas_baterai',
+                ['class' => 'yii\grid\ActionColumn',
+                  'header' => 'Aksi',
+                  'headerOptions'=> ['style'=> 'width:70px;'],
+                ],
+              ];
+            }elseif (Yii::$app->user->identity->role=='user') {
+              $gridColumns = [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' => 'perangkat',
+                  'value' => 'perangkat.alias'
+                ],
+                ['attribute' => 'pukul',
+                  'value' => 'tgl',
+                  'format' =>  ['date', 'php:H:i'],
+                ],
+                'kelembaban',
+                'kecepatan_angin',
+                'arah_angin',
+                'curah_hujan',
+                'temperature',
+                'kapasitas_baterai',
+              ];
+            }
+      
       ?>
             <div class="row">
                 <div class="col-md-6">
@@ -94,14 +114,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
                 </div>
             </div>
-  
+          
+          
             <?= GridView::widget([
           'dataProvider' => $dataProvider,
           'filterModel' => $searchModel,
           'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
           'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
           'columns' =>$gridColumns,
-      ]); ?>
+            ]); ?>
 
             <?php Pjax::end(); ?>
 
