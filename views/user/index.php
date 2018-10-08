@@ -39,6 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'header' => 'Aksi',
                         'template'=>'{view} {update} {delete}',
                         'buttons'=>[
+                            'view' => function ($url, $model) {	
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'view-'.$model->id , 'data-pjax' => 0]);
+                            },
                             'delete' => function ($url, $model) {	
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], ['data' => [
                                     'confirm' => 'Anda yakin akan menghapus perangkat ini?',

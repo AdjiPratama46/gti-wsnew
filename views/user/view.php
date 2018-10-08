@@ -12,19 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-view box">
     <div class="box-body">
-        <p>
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-        </p>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    <center><h3><?= Html::encode($this->title) ?></h3></center>
+    <br>
 
         <?= DetailView::widget([
         'model' => $model,
+        'options' => ['class' => 'table table-hover table-striped table-bordered detail-view'],
         'attributes' => [
             'id',
             'name',
@@ -38,6 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'role',
         ],
     ]) ?>
-
+    <br>
+        <center><?php echo Html::a('Ubah', ['user/update', 'id' => $model->id], ['class' => 'btn btn-block btn-success butsub']); ?></center>
+    <br>
     </div>
 </div>

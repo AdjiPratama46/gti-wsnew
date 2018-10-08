@@ -19,6 +19,15 @@ class UserController extends Controller
      * {@inheritdoc}
      */
 
+    public function render($view, $params = [])
+    {
+        if (\Yii::$app->request->isAjax) {
+            return $this->renderPartial($view, $params);
+        }
+        return parent::render($view, $params);
+    }
+
+    
     public function behaviors()
     {
         return [
