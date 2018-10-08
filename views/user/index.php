@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <?= Html::a('Tambah Users', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Tambah Users', ['create'], ['class' => 'modal-form btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'delete' => function ($url, $model) {	
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], ['data' => [
-                                    'confirm' => 'Anda yakin akan menghapus perangkat ini?',
+                                    'confirm' => 'Anda yakin akan menghapus user ini?',
                                     'method' => 'post',
                                 ],]);
                             }

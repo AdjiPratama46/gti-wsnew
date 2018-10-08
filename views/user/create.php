@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-create box">
     <div class="box-body">
-
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <center><h3>Tambah Users</h3></center>
         <?php $form = ActiveForm::begin(); ?>
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
