@@ -85,8 +85,6 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new Users();
-
-<<<<<<< HEAD
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save(false)) {
                 Yii::$app->db->createCommand()->update('user',
@@ -99,13 +97,7 @@ class UserController extends Controller
                 );
                 return $this->redirect(['index']);
             }
-            
-=======
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
->>>>>>> d55cd8d5dcac7085b90f0f3b8ac856362636a9cc
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
