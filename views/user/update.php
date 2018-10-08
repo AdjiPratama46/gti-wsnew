@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Users */
 
 $this->title = 'Account Setting';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 if(Yii::$app->session->hasFlash('success')){
     echo Yii::$app->session->getFlash('success');

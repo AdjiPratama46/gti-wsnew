@@ -38,6 +38,7 @@ class UserController extends Controller
                     'actions' => [
                         'index',
                         'view',
+                        'update',
                         'create',
                         'delete'
                     ],
@@ -46,13 +47,24 @@ class UserController extends Controller
                         return (Yii::$app->user->identity->role=='admin');
                     }
                 ],
+                [
+                    'actions' => [
+                        'update',
+                    ],
+                    'allow' => true,
+                    'matchCallback' => function(){
+                        return (Yii::$app->user->identity->role=='user');
+                    }
+                ],
             ],
         ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'update',
                 ],
+                
             ],
         ];
     }
