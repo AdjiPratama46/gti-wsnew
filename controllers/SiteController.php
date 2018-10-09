@@ -80,7 +80,13 @@ class SiteController extends Controller
             ->one();
           }
 
-
+        $chart = Yii::$app->db->createCommand
+        ('SELECT YEAR(tgl) as tgl,AVG(temperature) AS suhu,
+        AVG(kelembaban) as kelembaban,
+        AVG(kecepatan_angin) as kecepatan_angin,
+        AVG(curah_hujan) as curah_hujan 
+        FROM data GROUP BY YEAR (tgl) ')->queryAll();
+        // var_dump($chart);exit;
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$model['id'].'" ')
@@ -132,6 +138,7 @@ class SiteController extends Controller
             'jmlperang' => $jmlperang,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'chart' => $chart,
         ]);
       }else{
         $this->layout = '//main-login';
