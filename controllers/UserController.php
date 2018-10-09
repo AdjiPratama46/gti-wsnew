@@ -106,12 +106,14 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        $time = time();
         $model = new Users();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->save(false)) {
                 Yii::$app->db->createCommand()->update('user',
                 [
-                    'authKey' => 'test'.$model['id'].'key',
+                    // 'authKey' => 'test'.$model['id'].'key',
+                    'authKey' => base64_encode($time),
                     'accessToken' =>  $model['id'].'-token',
                 ] ,'id ='.$model['id'])->execute();
                 // $model->authKey = Yii::$app->getSecurity()->generateRandomString();
