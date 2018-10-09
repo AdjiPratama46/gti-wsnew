@@ -56,7 +56,7 @@ class DapiController extends ActiveController
     }
 
     public function actionDataHarian(){
-      $data=Data::find()->all();
+      $data=Data::find()->orderBy(['tgl' => SORT_ASC])->all();
 
       if(count($data)>0){
         return array('status'=>true, 'data'=>$data);
