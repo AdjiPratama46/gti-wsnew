@@ -1,6 +1,7 @@
 <?php
 
 use yii\grid\GridView;
+use miloschuman\highcharts\Highcharts;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use app\models\Perangkat;
@@ -308,13 +309,32 @@ $this->registerJs("
         <div class="col-md-12">
             <div class="box box-solid box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Default Box Example</h3>
+                    <h3 class="box-title">Statistik</h3>
                     <div class="box-tools pull-right">
                         <span class="label label-primary">Label</span>
                     </div>
                 </div>
                 <div class="box-body">
-                    The body of the box
+                    <?php
+                        foreach ($chart as $values) {
+                            $a[0]= ($values['tgl']); 
+                            $c[]= ($values['tgl']); 
+                            $b[]= array('type'=> 'column', 'name' =>$values['tgl'], 'data' => array((int)$values['suhu'], 
+                            (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
+                        }
+                        echo Highcharts::widget([
+                            'options' => [
+                                'title' => ['text' => 'Data Pertahun'],
+                                'xAxis' => [
+                                    'categories' => ['suhu', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                ],
+                                'yAxis' => [
+                                    'title' => ['text' => 'Jumlah Data']
+                                ],
+                                'series' => $b
+                            ]
+                           ]);
+                    ?>
                 </div>
                 <div class="box-footer">
                     The footer of the box
