@@ -52,40 +52,46 @@ $this->registerJs("
       if(Yii::$app->user->identity->role=='admin'){
      ?>
     <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua">
+                            <i class="ion ion-ios-people"></i>
+                        </span>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Jumlah User</span>
-                <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-yellow"><i class="ion ion-ios-construct"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah User</span>
+                            <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow">
+                            <i class="ion ion-ios-construct"></i>
+                        </span>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Jumlah Perangkat</span>
-                <span class="info-box-number"><?= $jmlperang['jml']?></span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-yellow"><i class="ion ion-ios-construct"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah Perangkat</span>
+                            <span class="info-box-number"><?= $jmlperang['jml']?></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow">
+                            <i class="ion ion-ios-construct"></i>
+                        </span>
 
-              <div class="info-box-content">
-                <span class="info-box-text">Jumlah Perangkat</span>
-                <span class="info-box-number"><?= $jmlperang['jml']?></span>
-              </div>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah Perangkat</span>
+                            <span class="info-box-number"><?= $jmlperang['jml']?></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <?php
@@ -106,7 +112,7 @@ $this->registerJs("
                         ?>
                     </h3>
                     <div class="box-tools pull-right">
-                    <?php
+                        <?php
                         if (!empty($perangkats)) {
                             echo Select2::widget([
                                 'name' => 'id-perangkat',
@@ -126,9 +132,12 @@ $this->registerJs("
                     <div class="row">
                         <div class="col-md-4">
                             <div class="data">
-                                <center><h4><b>Nama Perangkat</b></h4>
-                                <h4>
-                                <?php
+                                <center>
+                                    <h4>
+                                        <b>Nama Perangkat</b>
+                                    </h4>
+                                    <h4>
+                                    <?php
                                     if (empty($perangkat['alias'])) {
                                         echo 'Belum Ada Data';
 
@@ -136,21 +145,26 @@ $this->registerJs("
                                         echo $perangkat['alias'];
                                     }
                                     ?>
-                                </h4></center>
+                                    </h4>
+                                </center>
                                 <hr style="border:0.5px solid #4F7BC3;">
-                                <center><h4><b>Kordinat</b></h4>
-                                <h4>
-                                <?php
+                                <center>
+                                    <h4>
+                                        <b>Kordinat</b>
+                                    </h4>
+                                    <h4>
+                                    <?php
                                     if (empty($perangkat['latitude']) AND empty($perangkat['longitude'])) {
                                         echo 'Belum Ada Data';
                                     }else{
                                         echo $perangkat['latitude'] .','. $perangkat['longitude'];
                                     }
                                     ?>
-                                </h4></center>
+                                    </h4>
+                                </center>
                                 <hr style="border:0.5px solid #4F7BC3;">
                                 <h4 class="text-center">
-                                    <?php
+                                <?php
                                     if (empty($data['tgl'])) {
                                         echo 'Belum Ada Data';
                                     }else{
@@ -167,7 +181,7 @@ $this->registerJs("
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
                                             <h3>
-                                                <?php
+                                            <?php
                                                 if (empty($arangin['arah_angin'])){
                                                     echo 'null';
                                                 }else{
@@ -195,8 +209,7 @@ $this->registerJs("
                                         <div class="icon">
                                             <i class="ion-ios-compass"></i>
                                         </div>
-                                        <div  class="small-box-footer">
-                                        </div>
+                                        <div class="small-box-footer"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -204,7 +217,7 @@ $this->registerJs("
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
                                             <h3>
-                                                <?php
+                                            <?php
                                                 if (empty($kelembaban['kelembaban'])) {
                                                     echo '0';
                                                 }else{
@@ -217,8 +230,7 @@ $this->registerJs("
                                         <div class="icon">
                                             <i class="ion-ios-water"></i>
                                         </div>
-                                        <div  class="small-box-footer">
-                                        </div>
+                                        <div class="small-box-footer"></div>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +240,7 @@ $this->registerJs("
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
                                             <h3>
-                                                <?php
+                                            <?php
                                                 if (empty($curjan['curah_hujan'])) {
                                                     echo '0';
                                                 }else{
@@ -241,8 +253,7 @@ $this->registerJs("
                                         <div class="icon">
                                             <i class="ion-ios-rainy"></i>
                                         </div>
-                                        <div  class="small-box-footer">
-                                        </div>
+                                        <div class="small-box-footer"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -250,7 +261,7 @@ $this->registerJs("
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
                                             <h3>
-                                                <?php
+                                            <?php
                                                 if (empty($kangin['kecepatan_angin'])) {
                                                     echo '0';
                                                 }else{
@@ -263,13 +274,12 @@ $this->registerJs("
                                         <div class="icon">
                                             <i class="ion-ios-speedometer"></i>
                                         </div>
-                                        <div  class="small-box-footer">
-                                        </div>
+                                        <div class="small-box-footer"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2 " >
+                        <div class="col-md-2 ">
                             <div class="pad box-pane-right bg-green text-center" id="hov-here">
                                 <p class="text-center">Temperature</p>
                                 <div class="icon" style="max-height:100px;">
@@ -283,7 +293,7 @@ $this->registerJs("
                                         echo (round($suhu['suhu'])) ;
                                     }
                                 ?>
-                                &deg;
+                                    &deg;
                                 </h3>
                                 <h4>Celcius</h4>
                             </div>
@@ -296,16 +306,36 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-12">
+            <div class="box box-solid box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Default Box Example</h3>
+                    <div class="box-tools pull-right">
+                        <span class="label label-primary">Label</span>
+                    </div>
+                </div>
+                <div class="box-body">
+                    The body of the box
+                </div>
+                <div class="box-footer">
+                    The footer of the box
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <div class="box box-warning collapsed-box">
                 <div class="box-header with-border">
-                    <center><h3 class="box-title" id="ls">Lihat Selengkapnya</h3></center>
+                    <center>
+                        <h3 class="box-title" id="ls">Lihat Selengkapnya</h3>
+                    </center>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body" >
+                <div class="box-body">
                     <?php Pjax::begin(); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
@@ -327,7 +357,7 @@ $this->registerJs("
                     <?php Pjax::end(); ?>
                 </div>
                 <div class="box-footer text-center" id="myBox">
-                  <?php echo Html::a('Lihat Data Lengkap', ['data/index']); ?>
+                    <?php echo Html::a('Lihat Data Lengkap', ['data/index']); ?>
                 </div>
             </div>
         </div>
