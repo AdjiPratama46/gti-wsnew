@@ -32,7 +32,13 @@ class DapiController extends ActiveController
 
               [
                   'allow' => true,
-                  'actions' => ['resume'],
+                  'actions' => ['resume-bulanan'],
+                  'verbs' => ['GET']
+              ],
+
+              [
+                  'allow' => true,
+                  'actions' => ['resume-mingguan'],
                   'verbs' => ['GET']
               ],
           ]
@@ -59,21 +65,21 @@ class DapiController extends ActiveController
       }
     }
 
-    public function actionResume(){
-      //USER ID MASIH PAKAI USER YANG LOGIN DI WEB BUKAN DI API
+    public function actionResumeBulanan(){
+      //BELUM MENGGUNAKAN PARAMETER TAHUN
       $id_owner = Yii::$app->user->id;
       $model = Perangkat::find()
       ->where(['id_owner' => $id_owner])
       ->one();
 
-      $data = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban,
+      $data = Yii::$app->db->createCommand('SELECT YEAR(tgl), MONTHNAME(tgl) AS bulan,  AVG(kelembaban) AS kelembaban,
       AVG(kecepatan_angin) AS kecepatan_angin,
       (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
       AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
       ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
       AVG(curah_hujan) AS curah_hujan,
       AVG(temperature) AS temperature
-      FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')
+      FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY YEAR(tgl) ASC, MONTH(tgl) ASC')
             ->queryAll();
 
       if(count($data)>0){
@@ -82,5 +88,37 @@ class DapiController extends ActiveController
         return array('status'=>false, 'data'=>'Tidak ada data');
       }
     }
+
+    public function actionResumeMingguan()
+    {
+        //BELUM MENGGUNAKAN PARAMETER BULAN
+        
+        $id_owner = Yii::$app->user->id;
+
+        $data = Yii::$app->db->createCommand(
+          'SELECT WEEK(tgl) as minggu,
+          AVG(kelembaban) as kelembaban,
+          AVG(kecepatan_angin) as kecepatan_angin,
+            (
+              SELECT arah_angin
+              from data
+              where WEEK(tgl)= minggu
+              GROUP BY arah_angin
+              ORDER BY count(arah_angin)
+              DESC LIMIT 1
+            ) as arah_angin,
+        AVG(curah_hujan) as curah_hujan,
+        AVG(temperature) as temperature
+        from data GROUP BY Week(tgl)')->queryAll();
+
+        if(count($data)>0){
+          return array('status'=>true, 'data'=>$data);
+        }else{
+          return array('status'=>false, 'data'=>'Tidak ada data');
+        }
+    }
+
+
+
 
 }
