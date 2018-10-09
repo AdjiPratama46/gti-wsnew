@@ -114,8 +114,9 @@ class UserController extends Controller
                     'authKey' => 'test'.$model['id'].'key',
                     'accessToken' =>  $model['id'].'-token',
                 ] ,'id ='.$model['id'])->execute();
+                // $model->authKey = Yii::$app->getSecurity()->generateRandomString();
                 Yii::$app->getSession()->setFlash(
-                    'success','Berhail Menambahkan User Baru!'
+                    'success','Berhasil Menambahkan User Baru!'
                 );
                 return $this->redirect(['index']);
             }

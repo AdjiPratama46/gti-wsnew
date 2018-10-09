@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'username',
                     // 'password',
                     'role',
-                    //'accessToken',
+                    'accessToken',
 
                     ['class' => 'yii\grid\ActionColumn',
                         'header' => 'Aksi',
