@@ -96,7 +96,7 @@ class DapiController extends ActiveController
         $id_owner = Yii::$app->user->id;
 
         $data = Yii::$app->db->createCommand(
-          'SELECT MONTHNAME(tgl) as bulan, WEEK(tgl) as minggu,
+          'SELECT YEAR(tgl) as tahun ,MONTHNAME(tgl) as bulan, WEEK(tgl) as minggu,
           AVG(kelembaban) as kelembaban,
           AVG(kecepatan_angin) as kecepatan_angin,
             (
@@ -109,7 +109,7 @@ class DapiController extends ActiveController
             ) as arah_angin,
         AVG(curah_hujan) as curah_hujan,
         AVG(temperature) as temperature
-        from data GROUP BY Week(tgl)')->queryAll();
+        from data GROUP BY Year(tgl) ASC, Week(tgl)')->queryAll();
 
         if(count($data)>0){
           return array('status'=>true, 'data'=>$data);
