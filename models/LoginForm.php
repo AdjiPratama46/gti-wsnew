@@ -50,7 +50,8 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
+            $enc = sha1($this->password);
+            if (!$user || !$user->validatePassword($enc)) {
                 $this->addError($attribute, 'Password Anda Salah');
             }
         }

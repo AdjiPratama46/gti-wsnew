@@ -59,16 +59,18 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-
+        $time = time();
+        $enc = sha1($time);
         $user = new User();
         $user->username = $this->username;
         $user->name = $this->name;
-        $user->password = $this->password;        
+        $user->password = $this->password;
+        $enci = sha1($this->password);        
         Yii::$app->db->createCommand()->insert('user',
         [
             'username' => $this->username,
             'name' => $this->name,
-            'password' => $this->password,
+            'password' => $enci,
             'role' => 'user',
         ])->execute();
         $id = User::find()
@@ -79,7 +81,7 @@ class SignupForm extends Model
         
         Yii::$app->db->createCommand()->update('user',
         [
-            'authKey' => 'test'.$id['id'].'key',
+            'authKey' => base64_encode($enc),
             'accessToken' =>  $id['id'].'-token',
         ] ,'id ='.$id['id'])->execute();
 
