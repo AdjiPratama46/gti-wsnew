@@ -1519,16 +1519,16 @@
         },
         {
             "name": "kartik-v/yii2-mpdf",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-mpdf.git",
-                "reference": "5959ebb720c778312ead527cc98e5ec4b1e848f7"
+                "reference": "55730921fa30c76c4434f9f90e172dadbb982f7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/5959ebb720c778312ead527cc98e5ec4b1e848f7",
-                "reference": "5959ebb720c778312ead527cc98e5ec4b1e848f7",
+                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/55730921fa30c76c4434f9f90e172dadbb982f7c",
+                "reference": "55730921fa30c76c4434f9f90e172dadbb982f7c",
                 "shasum": ""
             },
             "require": {
@@ -1567,7 +1567,7 @@
                 "utf8",
                 "yii2"
             ],
-            "time": "2018-10-04T13:25:45+00:00"
+            "time": "2018-10-09T03:44:17+00:00"
         },
         {
             "name": "kartik-v/yii2-sortable",
