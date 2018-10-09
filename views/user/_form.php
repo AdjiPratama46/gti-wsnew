@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
             $form = ActiveForm::begin(); ?>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'username')->textInput(['maxlength' => true,'class' => 'col-md-4 form-control']) ?>
+                    <?= $form->field($model, 'username')->textInput(['maxlength' => 15,'class' => 'col-md-4 form-control']) ?>
 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
@@ -23,10 +23,10 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 10]) ?>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'new_password')->passwordInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'new_password')->passwordInput(['maxlength' => 12]) ?>
                 </div>
             </div>
             <div class="row">
@@ -44,19 +44,19 @@ use yii\widgets\ActiveForm;
             $form = ActiveForm::begin(); ?>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'username')->textInput(['maxlength' => true,'class' => 'col-md-4 form-control']) ?>
+                    <?= $form->field($model, 'username')->textInput(['maxlength' => 15,'class' => 'col-md-4 form-control']) ?>
 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?= $form->field($model, 'new_password')->passwordInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'new_password')->passwordInput(['maxlength' => 12]) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'name')->textInput(['maxlength' => 10]) ?>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => 12]) ?>
                 </div>
             </div>
             <div class="row">
