@@ -109,7 +109,7 @@ class DapiController extends ActiveController
             ) as arah_angin,
         AVG(curah_hujan) as curah_hujan,
         AVG(temperature) as temperature
-        from data GROUP BY Year(tgl) ASC, Week(tgl)')->queryAll();
+        from data GROUP BY  Week(tgl) ORDER BY Year(tgl) ASC, Week(tgl) ASC')->queryAll();
 
         if(count($data)>0){
           return array('status'=>true, 'data'=>$data);
