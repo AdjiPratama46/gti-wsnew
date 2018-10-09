@@ -19,7 +19,7 @@ $this->title = 'Data Harian';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="data-index">
-    <div class="box">
+    <div class="box box-info">
         <div class="box-body" id="data">
             <br>
             <?php Pjax::begin(); ?>

@@ -35,7 +35,7 @@ echo '...';
 Modal::end();
 ?>
 <div class="resume-index">
-    <div class="box">
+    <div class="box box-info">
         <div class="box-body">
             <br>
             <?= $this->render('_search',['model' => $model]); ?>

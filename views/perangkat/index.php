@@ -13,7 +13,7 @@ $this->title = 'Perangkat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perangkat-index">
-    <div class="box">
+    <div class="box box-info">
         <div class="box-body">
             <br>
             <?php Pjax::begin(); ?>
