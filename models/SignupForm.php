@@ -34,7 +34,7 @@ class SignupForm extends Model
             [['name'], 'match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
-            ['name', 'string', 'max' => 10],
+            ['name', 'string', 'max' => 20],
             ['password', 'string', 'min' => 6,'max' => 12, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
@@ -65,7 +65,8 @@ class SignupForm extends Model
         $user->username = $this->username;
         $user->name = $this->name;
         $user->password = $this->password;
-        $enci = sha1($this->password);        
+        $enci = sha1($this->password);
+        $md = md5($time);
         Yii::$app->db->createCommand()->insert('user',
         [
             'username' => $this->username,
@@ -82,7 +83,7 @@ class SignupForm extends Model
         Yii::$app->db->createCommand()->update('user',
         [
             'authKey' => base64_encode($enc),
-            'accessToken' =>  $id['id'].'-token',
+            'accessToken' =>  sha1($md),
         ] ,'id ='.$id['id'])->execute();
 
         return $user;

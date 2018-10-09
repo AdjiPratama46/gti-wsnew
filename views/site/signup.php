@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'username',$fieldUsername)->textInput(['maxlength' => 30,'placeholder' => 'Masukkan Username'])->label(false) ?>
 
-        <?= $form->field($model, 'name',$fieldName)->textInput(['maxlength' => 10,'placeholder' => 'Masukkan Nama'])->label(false) ?>
+        <?= $form->field($model, 'name',$fieldName)->textInput(['maxlength' => 25,'placeholder' => 'Masukkan Nama'])->label(false) ?>
 
         <?= $form->field($model, 'password',$fieldPassword)->passwordInput(['maxlength' => 12,'placeholder' => 'Masukkan Password'])->label(false) ?>
 

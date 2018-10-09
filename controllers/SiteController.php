@@ -81,12 +81,32 @@ class SiteController extends Controller
           }
 
         $chart = Yii::$app->db->createCommand
-        ('SELECT YEAR(tgl) as tgl,AVG(temperature) AS suhu,
-        AVG(kelembaban) as kelembaban,
-        AVG(kecepatan_angin) as kecepatan_angin,
-        AVG(curah_hujan) as curah_hujan 
-        FROM data GROUP BY YEAR (tgl) ')->queryAll();
-        // var_dump($chart);exit;
+        ('SELECT
+        DAYNAME(tgl) AS hari,
+        AVG(kelembaban) AS kelembaban,
+        AVG(kecepatan_angin) AS kecepatan_angin,
+        (
+            SELECT
+                arah_angin
+            FROM
+                data
+            WHERE
+                DAYNAME (tgl) = hari
+            GROUP BY
+                arah_angin
+            ORDER BY
+                count(arah_angin) DESC
+            LIMIT 1
+        ) AS arah_angin,
+        AVG(curah_hujan) AS curah_hujan,
+        AVG(temperature) AS suhu
+    FROM
+        data
+    GROUP BY
+        hari')->queryAll();
+        $pie = Yii::$app->db->createCommand
+        ('SELECT arah_angin,COUNT(arah_angin)AS jumlah FROM data GROUP BY arah_angin')->queryAll();
+        // print_r($pie);exit;
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$model['id'].'" ')
@@ -139,6 +159,7 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'chart' => $chart,
+            'pie' => $pie,
         ]);
       }else{
         $this->layout = '//main-login';

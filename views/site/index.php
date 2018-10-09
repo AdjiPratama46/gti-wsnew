@@ -305,43 +305,90 @@ $this->registerJs("
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-solid box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Statistik</h3>
-                    <div class="box-tools pull-right">
-                        <span class="label label-primary">Label</span>
+    <?php
+    if (Yii::$app->user->identity->role=='admin') { ?>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Statistik</h3>
+                    </div>
+                    <div class="box-body">
+                        <?php
+                            foreach ($chart as $values) {
+                                $a[0]= ($values['hari']); 
+                                $c[]= ($values['hari']); 
+                                $b[]= array('type'=> 'column', 'name' =>$values['hari'], 'data' => array((int)$values['suhu'], 
+                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
+                            }
+                            echo Highcharts::widget([
+                                'options' => [
+                                    'title' => ['text' => 'Data Perhari'],
+                                    'xAxis' => [
+                                        'categories' => ['suhu', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                    ],
+                                    'yAxis' => [
+                                        'title' => ['text' => 'Jumlah Data']
+                                    ],
+                                    'series' => $b
+                                ]
+                            ]);
+                        ?>
+                    </div>
+                    <div class="box-footer">
+                        <p class="text-center">
+                            <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                            <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </p>
                     </div>
                 </div>
-                <div class="box-body">
+            </div>
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Statistik Suhu</h3>
+                    </div>
+                    <div class="box-body">
                     <?php
-                        foreach ($chart as $values) {
-                            $a[0]= ($values['tgl']); 
-                            $c[]= ($values['tgl']); 
-                            $b[]= array('type'=> 'column', 'name' =>$values['tgl'], 'data' => array((int)$values['suhu'], 
-                            (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
-                        }
-                        echo Highcharts::widget([
-                            'options' => [
-                                'title' => ['text' => 'Data Pertahun'],
-                                'xAxis' => [
-                                    'categories' => ['suhu', 'kelembaban', 'kecepatan_angin','curah_hujan']
-                                ],
-                                'yAxis' => [
-                                    'title' => ['text' => 'Jumlah Data']
-                                ],
-                                'series' => $b
-                            ]
-                           ]);
+                     foreach( $pie as $pieh){
+                        $arah = $pieh['arah_angin'];
+                        $jmlh = $pieh['jumlah'];
+                        $hasil[] = array($arah, 
+                        (int)$jmlh );
+                     }
                     ?>
-                </div>
-                <div class="box-footer">
-                    The footer of the box
+                        <?= Highcharts::widget([
+                                'options' => [
+                                    'title' => ['text' => 'Data Suhu '],
+                                    'plotOptions' => [
+                                        'pie' => [
+                                            'cursor' => 'pointer',
+                                        ],
+                                    ],
+                                    'series' => [
+                                        [ 
+                                            'type' => 'pie',
+                                            'name' => 'Elements',
+                                            'data' => $hasil,
+                                        ] 
+                                    ],
+                                ],
+                            ]);
+                        ?>
+                    </div>
+                    <div class="box-footer">
+                        <p class="text-center">
+                            <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                            <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <?php } ?>
+    
     <div class="row">
         <div class="col-md-12">
             <div class="box box-warning collapsed-box">
