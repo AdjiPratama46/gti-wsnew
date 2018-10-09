@@ -72,7 +72,7 @@ class DapiController extends ActiveController
       ->where(['id_owner' => $id_owner])
       ->one();
 
-      $data = Yii::$app->db->createCommand('SELECT YEAR(tgl), MONTHNAME(tgl) AS bulan,  AVG(kelembaban) AS kelembaban,
+      $data = Yii::$app->db->createCommand('SELECT YEAR(tgl) As tahun, MONTHNAME(tgl) AS bulan,  AVG(kelembaban) AS kelembaban,
       AVG(kecepatan_angin) AS kecepatan_angin,
       (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
       AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
@@ -92,11 +92,11 @@ class DapiController extends ActiveController
     public function actionResumeMingguan()
     {
         //BELUM MENGGUNAKAN PARAMETER BULAN
-        
+
         $id_owner = Yii::$app->user->id;
 
         $data = Yii::$app->db->createCommand(
-          'SELECT WEEK(tgl) as minggu,
+          'SELECT MONTHNAME(tgl) as bulan, WEEK(tgl) as minggu,
           AVG(kelembaban) as kelembaban,
           AVG(kecepatan_angin) as kecepatan_angin,
             (
