@@ -60,7 +60,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
       ]);
 
             foreach ($data as $user) {
-                if ($user['username'] == $u AND $user['password'] == $p) {
+                if ($user['username'] == $u AND $user['password'] == sha1($p)) {
                     return new static($user);
                 }
             }
