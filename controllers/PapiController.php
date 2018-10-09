@@ -29,7 +29,13 @@ class PapiController extends ActiveController
 
               [
                   'allow' => true,
-                  'actions' => ['find-by-id','list-perangkat'],
+                  'actions' => ['find-by-id'],
+                  'verbs' => ['GET']
+              ],
+
+              [
+                  'allow' => true,
+                  'actions' => ['list-perangkat'],
                   'verbs' => ['GET']
               ],
 
@@ -57,7 +63,7 @@ class PapiController extends ActiveController
         return \app\models\User::findlist($username,$password);
     }
 
-    
+
     public function actionCreate()
     {
         $params=$_REQUEST;
