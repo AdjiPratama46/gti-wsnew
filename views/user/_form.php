@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="profile-index box">
+<div class="profile-index box box-info">
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

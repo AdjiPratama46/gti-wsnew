@@ -11,7 +11,7 @@ $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-index">
-    <div class="box">
+    <div class="box box-info">
         <div class="box-body">
         <br>
         <?php Pjax::begin(); ?>
