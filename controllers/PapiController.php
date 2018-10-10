@@ -11,8 +11,8 @@ class PapiController extends ActiveController
 {
     public $modelClass = 'app\models\Perangkat';
 
-    public function behaviors()
-    {
+    public function behaviors(){
+
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBasicAuth::className(),
@@ -50,6 +50,20 @@ class PapiController extends ActiveController
                   'actions' => ['delete'],
                   'verbs' => ['DELETE']
               ],
+
+              /*
+              [
+                  'actions' => [
+                      'create',
+                      'update',
+                  ],
+                  'allow' => false,
+                  'roles' => ['@'],
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='admin');
+                  }
+              ],
+              */
           ]
 
         ];
@@ -57,19 +71,16 @@ class PapiController extends ActiveController
         return $behaviors;
     }
 
+    public function auth($username, $password){
 
-    public function auth($username, $password)
-    {
         return \app\models\User::findlist($username,$password);
     }
 
-
-    public function actionCreate()
-    {
+    //MENAMBAHKAN PERANGKAT
+    public function actionCreate(){
         $params=$_REQUEST;
         $model = new Perangkat();
         $model->attributes=$params;
-
         if ($model->save()) {
       	  return array('status ' => true);
         }
@@ -79,6 +90,7 @@ class PapiController extends ActiveController
         }
     }
 
+    //UPDATE / PINDAH PERANGKAT ( YANG DIMILIKI USER )
     public function actionUpdate($id){
       $params=$_REQUEST;
 
@@ -95,6 +107,7 @@ class PapiController extends ActiveController
 
     }
 
+    //MENAMPILKAN DAFTAR PERANGKAT ( YANG DIMILIKI USER )
     public function actionListPerangkat(){
       $id_owner = Yii::$app->user->id;
       $data=Perangkat::find()->where(['id_owner' => $id_owner ])->all();
@@ -106,6 +119,7 @@ class PapiController extends ActiveController
       }
     }
 
+    //MENCARI PERANGKAT BERDASARKAN ID ( YANG DIMILIKI USER )
     public function actionFindById($id){
       $data=Perangkat::find()->where(['id' => $id])->one();
 
@@ -116,8 +130,8 @@ class PapiController extends ActiveController
       }
     }
 
-    public function actionDelete($id)
-    {
+    //MENGHAPUS PERANGKAT ( YANG DIMILIKI USER )
+    public function actionDelete($id){
         $model=$this->findModel($id);
 
         if($model->delete())
