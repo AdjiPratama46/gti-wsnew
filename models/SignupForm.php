@@ -39,7 +39,7 @@ class SignupForm extends Model
             [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
             ],
-            [['username'], 'match', 'pattern' => '/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/',
+            [['username'], 'match', 'pattern' => '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
               'message' => '{attribute} Tidak Boleh Mengandung Simbol'
             ],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],

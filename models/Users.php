@@ -45,7 +45,7 @@ class Users extends \yii\db\ActiveRecord
             [['name'], 'match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
-            [['username'], 'match', 'pattern' => '/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/',
+            [['username'], 'match', 'pattern' => '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
               'message' => '{attribute} Tidak Boleh Mengandung Simbol'
             ],
             [['password'], 'required','message' => 'Password Baru Tidak Boleh Kosong'],
