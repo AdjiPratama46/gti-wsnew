@@ -81,13 +81,13 @@ $this->registerJs("
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-yellow">
-                            <i class="ion ion-ios-construct"></i>
+                        <span class="info-box-icon bg-red">
+                            <i class="ion ion-ios-download"></i>
                         </span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Jumlah Perangkat</span>
-                            <span class="info-box-number"><?= $jmlperang['jml']?></span>
+                            <span class="info-box-text">Jumlah Data Masuk Hari Ini</span>
+                            <span class="info-box-number"><?= $dasuk['jml']?></span>
                         </div>
                     </div>
                 </div>
@@ -309,7 +309,7 @@ $this->registerJs("
     if (Yii::$app->user->identity->role=='admin') { ?>
         <div class="row">
             <div class="col-md-6">
-                <div class="box box-success">
+                <div class="box  box-solid box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik</h3>
                     </div>
@@ -345,7 +345,7 @@ $this->registerJs("
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="box box-danger">
+                <div class="box  box-solid box-danger">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik Suhu</h3>
                     </div>
@@ -391,7 +391,7 @@ $this->registerJs("
     
     <div class="row">
         <div class="col-md-12">
-            <div class="box box-warning collapsed-box">
+            <div class="box  box-solid box-warning collapsed-box">
                 <div class="box-header with-border">
                     <center>
                         <h3 class="box-title" id="ls">Lihat Selengkapnya</h3>

@@ -146,6 +146,10 @@ class SiteController extends Controller
         ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
         ->queryOne();
 
+        $dasuk = Yii::$app->db->createCommand
+        ('SELECT count(*) as jml FROM data WHERE DAY(tgl)=DAY(NOW())')
+        ->queryOne();
+
         return $this->render('index', [
             'perangkat' => $perangkat,
             'curjan' => $curjan,
@@ -158,6 +162,7 @@ class SiteController extends Controller
             'jmluser' => $jmluser,
             'paktif'=> $paktif,
             'jmlperang' => $jmlperang,
+            'dasuk' => $dasuk,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'chart' => $chart,
