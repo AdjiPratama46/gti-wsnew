@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-
 /**
  * This is the model class for table "user".
  *
@@ -48,7 +47,8 @@ class Users extends \yii\db\ActiveRecord
             //[['new_password'],'required','message' => 'Password Baru Tidak Boleh Kosong'],
             ['new_password', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             ['confirm_password', 'string', 'min' => 6, 'max' => 18, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
-            ['confirm_password', 'compare', 'compareAttribute' => 'password','message' => 'Password Tidak Sesuai'],
+            // ['confirm_password', 'compare', 'compareAttribute' => 'password','message' => 'Password Tidak Sesuai'],
+            // ['confirm_password','validateCP'],
             [['name', 'username', 'password','confirm_password','authKey', 'accessToken'], 'string', 'max' => 255],
         ];
     }
@@ -56,6 +56,7 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    
     public function attributeLabels()
     {
         return [
@@ -78,4 +79,6 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Perangkat::className(), ['id_owner' => 'id']);
     }
+    
+    
 }

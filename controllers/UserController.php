@@ -142,18 +142,27 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($model->load(Yii::$app->request->post())) {
-          if(!empty($model->new_password)){
-            $model->password = $model->new_password;
-          }
-
-            if($model->save(false)){
+            $eci = sha1($model->confirm_password);
+            $pas = $model->password;
+            // echo $eci.' '.$pas;exit;
+            if ($eci != $pas) {
                 Yii::$app->getSession()->setFlash(
-                    'success','Data saved!'
+                    'danger','Password Lama Tidak Sesuai, Coba Masukkan Kembali Dengan Benar'
                 );
+            }else{
+                if(!empty($model->new_password)){
+                    $model->password = sha1($model->new_password);
+                  }
+                    if($model->save(false)){
+                        Yii::$app->getSession()->setFlash(
+                            'success','Data saved!'
+                        );
+                    }
+                    return $this->redirect(['update', 'id' => $model->id]);
             }
-            return $this->redirect(['update', 'id' => $model->id]);
+          
         }
 
         return $this->render('update', [
