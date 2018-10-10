@@ -7,9 +7,17 @@ use app\models\Perangkat;
 use app\models\Data;
 use kartik\date\DatePicker;
 
-$perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
-$sql = 'SELECT YEAR(tgl) as tgl FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY tgl ORDER BY tgl DESC';
-$years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
+
+if (Yii::$app->user->identity->role=="admin") {
+    $query = 'SELECT * FROM perangkat,data WHERE perangkat.id=data.id_perangkat';
+    $perangkats = ArrayHelper::map(Data::findBySql($query)->all(),'perangkat.id','perangkat.alias');
+    $sql = 'SELECT YEAR(tgl) as tgl FROM data GROUP BY tgl ORDER BY tgl DESC';
+    $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
+}elseif (Yii::$app->user->identity->role=="user") {
+    $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
+    $sql = 'SELECT YEAR(tgl) as tgl FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY tgl ORDER BY tgl DESC';
+    $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
+}
 ?>
 <div class="resume-search">
     <div class="row">

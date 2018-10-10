@@ -82,7 +82,7 @@ class SiteController extends Controller
 
         $chart = Yii::$app->db->createCommand
         ('SELECT
-        DAYNAME(tgl) AS hari,
+        MONTHNAME(tgl) AS bulan,
         AVG(kelembaban) AS kelembaban,
         AVG(kecepatan_angin) AS kecepatan_angin,
         (
@@ -90,8 +90,7 @@ class SiteController extends Controller
                 arah_angin
             FROM
                 data
-            WHERE
-                DAYNAME (tgl) = hari
+            WHERE MONTHNAME(tgl) = bulan
             GROUP BY
                 arah_angin
             ORDER BY
@@ -99,13 +98,16 @@ class SiteController extends Controller
             LIMIT 1
         ) AS arah_angin,
         AVG(curah_hujan) AS curah_hujan,
-        AVG(temperature) AS suhu
+        AVG(temperature) AS temperature
     FROM
         data
+    WHERE YEAR (tgl) = YEAR (NOW())
     GROUP BY
-        hari')->queryAll();
+        bulan
+    ORDER BY
+        MONTH (tgl) ASC')->queryAll();
         $pie = Yii::$app->db->createCommand
-        ('SELECT arah_angin,COUNT(arah_angin)AS jumlah FROM data GROUP BY arah_angin')->queryAll();
+        ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin')->queryAll();
         // print_r($pie);exit;
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE

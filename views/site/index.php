@@ -316,16 +316,16 @@ $this->registerJs("
                     <div class="box-body">
                         <?php
                             foreach ($chart as $values) {
-                                $a[0]= ($values['hari']); 
-                                $c[]= ($values['hari']); 
-                                $b[]= array('type'=> 'column', 'name' =>$values['hari'], 'data' => array((int)$values['suhu'], 
+                                $a[0]= ($values['bulan']); 
+                                $c[]= ($values['bulan']); 
+                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'], 
                                 (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
                             }
                             echo Highcharts::widget([
                                 'options' => [
-                                    'title' => ['text' => 'Data Perhari'],
+                                    'title' => ['text' => 'Data Tahun 2018'],
                                     'xAxis' => [
-                                        'categories' => ['suhu', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                        'categories' => ['temperature', 'kelembaban', 'kecepatan_angin','curah_hujan']
                                     ],
                                     'yAxis' => [
                                         'title' => ['text' => 'Jumlah Data']

@@ -27,22 +27,37 @@ class ResumeController extends \yii\web\Controller
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
         ->one();
+        if (Yii::$app->user->identity->role=="admin") {
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban,
+                AVG(kecepatan_angin) AS kecepatan_angin,(SELECT arah_angin FROM data 
+                WHERE MONTHNAME(tgl) = bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC
+                LIMIT 1) AS arah_angin,AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature
+                FROM data  GROUP BY bulan ORDER BY MONTH (tgl) ASC',
 
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban,
-            AVG(kecepatan_angin) AS kecepatan_angin,
-            (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
-            AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
-            ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
-            AVG(curah_hujan) AS curah_hujan,
-            AVG(temperature) AS temperature
-            FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
-
-            'sort' =>false,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }elseif (Yii::$app->user->identity->role=="user") {
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban,
+                AVG(kecepatan_angin) AS kecepatan_angin,
+                (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
+                AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
+                ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
+                AVG(curah_hujan) AS curah_hujan,
+                AVG(temperature) AS temperature
+                FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
+    
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }
+        
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -56,20 +71,39 @@ class ResumeController extends \yii\web\Controller
         $model = Perangkat::find()
         ->where(['id_owner' => $id_owner])
         ->one();
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT WEEK(tgl) as minggu,AVG(kelembaban) as kelembaban,
-            AVG(kecepatan_angin) as kecepatan_angin,
-            (SELECT arah_angin from data where id_perangkat="'.$model['id'].'" AND WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-            AVG(curah_hujan) as curah_hujan,
-            AVG(temperature) as temperature
-            from data
-            where id_perangkat="'.$model['id'].'" AND MONTHNAME(tgl)="'.$bulan.'"
-            group by minggu',
-            'sort' =>false,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
+        if (Yii::$app->user->identity->role=="admin") {
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT WEEK(tgl) as minggu,AVG(kelembaban) as kelembaban,
+                AVG(kecepatan_angin) as kecepatan_angin,
+                (SELECT arah_angin from data where WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
+                AVG(curah_hujan) as curah_hujan,
+                AVG(temperature) as temperature
+                from data
+                where MONTHNAME(tgl)="'.$bulan.'"
+                group by minggu',
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }
+        elseif(Yii::$app->user->identity->role=="user"){
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT WEEK(tgl) as minggu,AVG(kelembaban) as kelembaban,
+                AVG(kecepatan_angin) as kecepatan_angin,
+                (SELECT arah_angin from data where id_perangkat="'.$model['id'].'" AND WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
+                AVG(curah_hujan) as curah_hujan,
+                AVG(temperature) as temperature
+                from data
+                where id_perangkat="'.$model['id'].'" AND MONTHNAME(tgl)="'.$bulan.'"
+                group by minggu',
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }
+        
         return $this->renderAjax('dataMinggu',[
             'dataProvider' => $dataProvider,
         ]);
@@ -137,22 +171,40 @@ class ResumeController extends \yii\web\Controller
 
     public function actionDate($id,$tgl)
     {
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT MONTHNAME(tgl) as bulan,AVG(kelembaban) as kelembaban,
-            AVG(kecepatan_angin) as kecepatan_angin,
-            (SELECT arah_angin from data where id_perangkat="'.$id.'" AND MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-            AVG(curah_hujan) as curah_hujan,
-            AVG(temperature) as temperature
-            from data
-            where id_perangkat="'.$id.'" AND YEAR(tgl)="'.$tgl.'"
-            group by bulan ORDER BY MONTH(tgl) ASC',
-
-            'sort' =>false,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
-
+        if (Yii::$app->user->identity->role=="admin") {
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT MONTHNAME(tgl) as bulan,AVG(kelembaban) as kelembaban,
+                AVG(kecepatan_angin) as kecepatan_angin,
+                (SELECT arah_angin from data WHERE MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
+                AVG(curah_hujan) as curah_hujan,
+                AVG(temperature) as temperature
+                from data
+                where YEAR(tgl)="'.$tgl.'"
+                group by bulan ORDER BY MONTH(tgl) ASC',
+    
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }
+        elseif(Yii::$app->user->identity->role=="user"){
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT MONTHNAME(tgl) as bulan,AVG(kelembaban) as kelembaban,
+                AVG(kecepatan_angin) as kecepatan_angin,
+                (SELECT arah_angin from data where id_perangkat="'.$id.'" AND MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
+                AVG(curah_hujan) as curah_hujan,
+                AVG(temperature) as temperature
+                from data
+                where id_perangkat="'.$id.'" AND YEAR(tgl)="'.$tgl.'"
+                group by bulan ORDER BY MONTH(tgl) ASC',
+    
+                'sort' =>false,
+                'pagination' => [
+                    'pageSize' => 10,
+                ],
+            ]);
+        }
         return $this->renderAjax('_indexthn', [
             'dataProvider' => $dataProvider,
 
