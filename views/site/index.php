@@ -27,8 +27,8 @@ else{
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 
 $this->registerJs("
-    $('.btn-box-tool').on('click ', function (event) {
-            $('.box-body').slideDown(1000);
+    $('#bx-tl').on('click ', function (event) {
+            $('#bx-bd').slideDown(500);
             if ($('#ls').text()=='Lihat Selengkapnya') {
                 $('#ls').text('Sembunyikan');
             }else{
@@ -312,6 +312,10 @@ $this->registerJs("
                 <div class="box  box-solid box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="box-body">
                         <?php
@@ -347,7 +351,11 @@ $this->registerJs("
             <div class="col-md-6">
                 <div class="box  box-solid box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Statistik Suhu</h3>
+                        <h3 class="box-title">Statistik Temperature</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="box-body">
                     <?php
@@ -359,18 +367,33 @@ $this->registerJs("
                      }
                     ?>
                         <?= Highcharts::widget([
+                            'scripts' => [
+                                'highcharts-3d',   
+                             ],
                                 'options' => [
-                                    'title' => ['text' => 'Data Suhu '],
+                                    'chart' => ['type' => 'pie',
+                                        'options3d'=>[
+                                            'enabled'=>true,
+                                            'alpha'=>45,
+                                            'beta'=>0,
+                                        ]  
+                                    ],
+                                    'title' => ['text' => 'Data Temperature Tahun 2018 '],
                                     'plotOptions' => [
                                         'pie' => [
                                             'cursor' => 'pointer',
+                                            'allowPointSelect' => true,
+                                            'depth'=> 35,
+                                            'dataLabels' => [
+                                                'enabled' => true,
+                                            ]
                                         ],
+                                        
                                     ],
                                     'series' => [
                                         [ 
-                                            'type' => 'pie',
-                                            'name' => 'Elements',
                                             'data' => $hasil,
+                                            'name' => 'Jumlah'
                                         ] 
                                     ],
                                 ],
@@ -391,18 +414,18 @@ $this->registerJs("
     
     <div class="row">
         <div class="col-md-12">
-            <div class="box  box-solid box-warning collapsed-box">
+            <div class="box box-solid box-warning collapsed-box">
                 <div class="box-header with-border">
                     <center>
                         <h3 class="box-title" id="ls">Lihat Selengkapnya</h3>
                     </center>
-                    <div class="box-tools pull-right">
+                    <div class="box-tools pull-right" id="bx-tl">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" id="bx-bd">
                     <?php Pjax::begin(); ?>
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
