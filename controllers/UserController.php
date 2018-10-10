@@ -142,7 +142,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
+        // echo Yii::$app->user->identity->role;exit;
         if ($model->load(Yii::$app->request->post())) {
             $eci = sha1($model->confirm_password);
             $pas = $model->password;
