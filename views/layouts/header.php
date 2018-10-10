@@ -5,9 +5,11 @@ use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
 $id = Yii::$app->user->identity->id;
-$url = Url::to(['user/update', 'id' => $id]);
+$url = Url::to(['user/index']);
+$uba = Yii::$app->db->createCommand
+('SELECT COUNT(*)as ubar FROM perangkat WHERE DATE(tgl_instalasi)=DATE(NOW())')
+->queryOne();
 ?>
-
 <header class="main-header" style="position:fixed;width:100%;border-bottom:1px solid #4F7BC3;">
 
       <a href="<?php  Url::to(['site/index']); ?>" class="logo" style="background-color:#2F5189;" >
@@ -26,8 +28,27 @@ $url = Url::to(['user/update', 'id' => $id]);
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-
-
+            
+            <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="label label-warning"><?= $uba['ubar'] ?></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="header">Kamu mempunyai <?= $uba['ubar'] ?> notifikasi</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a href=" <?= $url ?> ">
+                                        <i class="fa fa-users text-aqua"></i>
+                                        <?= $uba['ubar'] ?> Member baru hari ini
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                </ul>
+            </li>
                 <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'user-image']);?>
