@@ -42,6 +42,10 @@ class Maps extends Model
         'center' => $coords,
         'zoom' => 5,
         'width' => '100%' ,
+        'streetView' => false,
+        'streetViewControl' => false,
+        'streetViewControlOptions' => false,
+        'mapMaker' => false,
     ]);
     for($x=0;$x<sizeof($data_lat);$x++){
       $coord = new LatLng(['lat' => $data_lat[$x], 'lng' => $data_long[$x]]);
