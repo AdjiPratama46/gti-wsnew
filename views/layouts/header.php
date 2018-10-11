@@ -22,7 +22,17 @@ $pe = $per['perba'];
 $da = $dasuk['jml'];
 $ub = $uba['ubar'];
 $tot = $ub+$pe+$da;
-// echo $tot;exit;
+$this->registerJs("
+    $('#fs').on('click ', function (event) {
+        if ($('#io').hasClass('fa-arrows-alt')) {
+            $('#io').removeClass('fa-arrows-alt').addClass('fa-compress');
+            document.documentElement.webkitRequestFullscreen();
+        }else{
+            $('#io').removeClass('fa-compress').addClass('fa-arrows-alt');
+            document.webkitExitFullscreen();
+        }
+        })
+    ");
 ?>
 <header class="main-header" style="position:fixed;width:100%;border-bottom:1px solid #4F7BC3;">
 
@@ -42,7 +52,11 @@ $tot = $ub+$pe+$da;
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-            
+            <li class="notifications-menu">
+                <a id="fs">
+                    <i class="fa fa-arrows-alt" id="io"></i>
+                </a>
+            </li>
             <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell-o"></i>

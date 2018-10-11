@@ -114,3 +114,6 @@
 #data{
     padding: 20px 40px 20px 40px  !important ;
 }
+#fs{
+    cursor: pointer;
+}
