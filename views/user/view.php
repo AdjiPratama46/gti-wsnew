@@ -33,6 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'authKey',
             'accessToken',
             'role',
+            // [
+            //     'attribute' => 'perangkat.alias',
+            //     'label' => 'Perangkat',
+            // ],
         ],
     ]) ?>
         <br>

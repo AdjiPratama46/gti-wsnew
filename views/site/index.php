@@ -86,7 +86,7 @@ $this->registerJs("
                         </span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Jumlah Data Masuk Hari Ini</span>
+                            <span class="info-box-text">Jumlah Data Masuk Kemarin</span>
                             <span class="info-box-number"><?= $dasuk['jml']?></span>
                         </div>
                     </div>

@@ -85,6 +85,9 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Perangkat::className(), ['id_owner' => 'id']);
     }
-    
+    public function getPerangkat()
+    {
+        return $this->hasOne(Perangkat::className(), ['id_owner' => 'id']);
+    }
     
 }

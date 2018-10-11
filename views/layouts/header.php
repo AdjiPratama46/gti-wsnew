@@ -9,6 +9,18 @@ $url = Url::to(['user/index']);
 $uba = Yii::$app->db->createCommand
 ('SELECT COUNT(*)as ubar FROM perangkat WHERE DATE(tgl_instalasi)=DATE(NOW())')
 ->queryOne();
+$per = Yii::$app->db->createCommand
+('SELECT COUNT(*) AS perba FROM perangkat WHERE DATE(tgl_instalasi) = DATE(NOW())')
+->queryOne();
+$dasuk = Yii::$app->db->createCommand
+('SELECT count(*) as jml FROM data WHERE DAY(tgl)=DAY(NOW())')
+->queryOne();
+
+$pe = $per['perba'];
+$da = $dasuk['jml'];
+$ub = $uba['ubar'];
+$tot = $ub+$pe+$da;
+// echo $tot;exit;
 ?>
 <header class="main-header" style="position:fixed;width:100%;border-bottom:1px solid #4F7BC3;">
 
@@ -32,19 +44,37 @@ $uba = Yii::$app->db->createCommand
             <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell-o"></i>
-                    <span class="label label-warning"><?= $uba['ubar'] ?></span>
+                    <?php
+                    if ($tot > 0) { ?>
+                        <span class="label label-warning"><?= $tot ?> </span>
+                    <?php } ?>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header">Kamu mempunyai <?= $uba['ubar'] ?> notifikasi</li>
+                    <li class="header">
+                        <?php 
+                            if ($tot <= 0) {
+                                echo 'Belum ada notifikasi';
+                            }else {
+                                echo 'Kamu mempunyai '.$tot.' notifikasi'; ?> 
+                        </li>
                         <li>
                             <ul class="menu">
                                 <li>
                                     <a href=" <?= $url ?> ">
                                         <i class="fa fa-users text-aqua"></i>
-                                        <?= $uba['ubar'] ?> Member baru hari ini
+                                        <?= $uba['ubar'] ?> Member baru telah bergabung
+                                    </a>
+                                    <a href=" <?= $url ?> ">
+                                        <i class="ion ion-ios-construct text-aqua"></i>
+                                        <?= $per['perba'] ?> Perangkat baru hari ini
+                                    </a>
+                                    <a href=" <?= $url ?> ">
+                                        <i class="ion ion-ios-download text-aqua"></i>
+                                        <?= $dasuk['jml'] ?> Data baru hari ini
                                     </a>
                                 </li>
                             </ul>
+                        <?php } ?>
                         </li>
                     </li>
                 </ul>
