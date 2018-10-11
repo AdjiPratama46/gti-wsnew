@@ -52,13 +52,13 @@ $this->registerJs("
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-                <li class="notifications-menu">
-                    <a id="fs">
-                        <i class="fa fa-arrows-alt" id="io"></i>
-                    </a>
-                </li>
                 <?php
                     if (Yii::$app->user->identity->role =='admin') { ?>
+                        <li class="notifications-menu">
+                            <a id="fs">
+                                <i class="fa fa-arrows-alt" id="io"></i>
+                            </a>
+                        </li>
                         <li class="dropdown notifications-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell-o"></i>
