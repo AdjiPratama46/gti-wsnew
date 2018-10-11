@@ -42,6 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     <br>
-    <center><?php echo Html::a('Pindahkan/Ubah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-block btn-success butsub']); ?></center>
+    <center><?php
+          if(Yii::$app->user->identity->role!='admin'){
+            echo Html::a('Pindahkan/Ubah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-block btn-success butsub']);
+          }
+             ?></center>
     <br>
 </div>

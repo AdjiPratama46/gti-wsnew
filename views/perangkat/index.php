@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
             <?php Pjax::begin(); ?>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <?php echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']); ?>
+            <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?>
             <br><br>
             <?php
             if (Yii::$app->user->identity->role =='admin') {
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'latitude',
                         ['class' => 'yii\grid\ActionColumn',
                         'header' => 'Aksi',
-                        'template'=>'{view} {update} {delete}',
+                        'template'=>'{view} {delete}'/*'{update}'*/,
                         'headerOptions'=> ['style'=> 'width:80px;'],
                         'buttons'=>[
                             'delete' => function ($url, $model) {
@@ -111,14 +111,9 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'latitude',
                         [
                         'header' => 'Aksi',
-                        'headerOptions'=> ['style'=> 'width:118px;'],
                         'content' => function($model) {
                             return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0])
-                            .'&nbsp;'.
-                              Html::a('Hapus', ['delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-xs','data' => [
-                                    'confirm' => 'Anda yakin akan menghapus perangkat ini?',
-                                    'method' => 'post',
-                                ],])
+
                           ;
                         }
                       ],
