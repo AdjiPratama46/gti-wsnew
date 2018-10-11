@@ -318,7 +318,7 @@ $this->registerJs("
     <?php
     if (Yii::$app->user->identity->role=='admin') { ?>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="box  box-solid box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik</h3>
@@ -358,7 +358,7 @@ $this->registerJs("
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="box  box-solid box-danger">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik Temperature</h3>
