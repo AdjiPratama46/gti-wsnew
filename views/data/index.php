@@ -16,7 +16,7 @@ use arturoliveira\ExcelView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Data Harian';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['data/index']];
 ?>
 <div class="data-index">
     <div class="box box-info">

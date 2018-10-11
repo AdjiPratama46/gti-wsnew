@@ -9,7 +9,7 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
 $this->title = 'Resume';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['resume/index']];
 $this->registerJs("
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
