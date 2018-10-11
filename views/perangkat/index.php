@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <br><br>
             <?php
             if (Yii::$app->user->identity->role =='admin') {
-                echo 
+                echo
                 GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-    
+
                         'id',
                         'id_owner',
                         'alias',
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                       ],
                             ])
                         ],
-                        
+
                         'longitude',
                         'latitude',
                         ['class' => 'yii\grid\ActionColumn',
@@ -61,16 +61,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'template'=>'{view} {update} {delete}',
                         'headerOptions'=> ['style'=> 'width:80px;'],
                         'buttons'=>[
-                            'delete' => function ($url, $model) {	
+                            'delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], ['data' => [
                                     'confirm' => 'Anda yakin akan menghapus perangkat ini?',
                                     'method' => 'post',
                                 ],]);
                             },
-                            'update' => function ($url, $model) {	
+                            'update' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0]);
                             },
-                            'view' => function ($url, $model) {	
+                            'view' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['perangkat/view', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0]);
                             },
                         ]
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ]);
             }elseif (Yii::$app->user->identity->role =='user') {
-                echo 
+                echo
                 GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'emptyText' => '<center class="text-danger">Tidak Ada Data Untuk Ditampilkan</center>',
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-    
+
                         'id',
                         'alias',
                         [
@@ -130,13 +130,14 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <br>
-    <hr style="border:0.5px solid #4F7BC3;width:60%;">
     <br>
-    <div style="background-color:#fff;padding:10px;">
-        <h3>
+    <div class="box box-danger">
+        <center><h3>
             <icon class="glyphicon glyphicon-map-marker"></icon>
             Peta Lokasi
-        </h3>
+        </h3></center>
+        <div class="box-body">
         <?= $map->display() ?>
+      </div>
     </div>
 </div>
