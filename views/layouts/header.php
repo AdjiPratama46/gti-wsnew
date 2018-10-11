@@ -5,7 +5,9 @@ use yii\helpers\Url;
 /* @var $this \yii\web\View */
 /* @var $content string */
 $id = Yii::$app->user->identity->id;
-$url = Url::to(['user/index']);
+$urlu = Url::to(['user/index']);
+$urlp = Url::to(['perangkat/index']);
+$urld = Url::to(['data/index']);
 $uba = Yii::$app->db->createCommand
 ('SELECT COUNT(*)as ubar FROM perangkat WHERE DATE(tgl_instalasi)=DATE(NOW())')
 ->queryOne();
@@ -60,15 +62,15 @@ $tot = $ub+$pe+$da;
                         <li>
                             <ul class="menu">
                                 <li>
-                                    <a href=" <?= $url ?> ">
+                                    <a href=" <?= $urlu ?> ">
                                         <i class="fa fa-users text-aqua"></i>
                                         <?= $uba['ubar'] ?> Member baru telah bergabung
                                     </a>
-                                    <a href=" <?= $url ?> ">
+                                    <a href=" <?= $urlp ?> ">
                                         <i class="ion ion-ios-construct text-aqua"></i>
                                         <?= $per['perba'] ?> Perangkat baru hari ini
                                     </a>
-                                    <a href=" <?= $url ?> ">
+                                    <a href=" <?= $urld ?> ">
                                         <i class="ion ion-ios-download text-aqua"></i>
                                         <?= $dasuk['jml'] ?> Data baru hari ini
                                     </a>
