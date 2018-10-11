@@ -9,11 +9,11 @@ use yii\helpers\Url;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 /* @var $this yii\web\View */
+use yii\widgets\Breadcrumbs;
 
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
-$this->params['breadcrumbs'][] = $this->title;
-
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
@@ -66,6 +66,16 @@ $this->registerJs("
                             <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
                         </div>
                     </div>
+                    <!-- <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3></h3>
+                            <p>Jumlah User</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-ios-people"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">Lihat Lainnya <i class="fa fa-arrow-circle-right"></i></a>
+                    </div> -->
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
@@ -86,7 +96,7 @@ $this->registerJs("
                         </span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">Jumlah Data Masuk Kemarin</span>
+                            <span class="info-box-text">Jumlah Data Masuk</span>
                             <span class="info-box-number"><?= $dasuk['jml']?></span>
                         </div>
                     </div>

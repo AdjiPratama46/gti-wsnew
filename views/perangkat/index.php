@@ -10,7 +10,7 @@ use dosamigos\datepicker\DatePicker;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Perangkat';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/index']];
 ?>
 <div class="perangkat-index">
     <div class="box box-info">
