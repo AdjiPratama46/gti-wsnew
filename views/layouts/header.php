@@ -67,11 +67,11 @@ $tot = $ub+$pe+$da;
                                         <?= $uba['ubar'] ?> Member baru telah bergabung
                                     </a>
                                     <a href=" <?= $urlp ?> ">
-                                        <i class="ion ion-ios-construct text-aqua"></i>
+                                        <i class="ion ion-ios-construct text-yellow"></i>
                                         <?= $per['perba'] ?> Perangkat baru hari ini
                                     </a>
                                     <a href=" <?= $urld ?> ">
-                                        <i class="ion ion-ios-download text-aqua"></i>
+                                        <i class="ion ion-ios-download text-red"></i>
                                         <?= $dasuk['jml'] ?> Data baru hari ini
                                     </a>
                                 </li>

@@ -147,7 +147,7 @@ class SiteController extends Controller
         ->queryOne();
 
         $dasuk = Yii::$app->db->createCommand
-        ('SELECT count(*) as jml FROM data WHERE DAY(tgl)=DAY(NOW())-1')
+        ('SELECT count(*) as jml FROM data')
         ->queryOne();
 
         return $this->render('index', [
