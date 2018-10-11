@@ -52,49 +52,52 @@ $this->registerJs("
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-            <li class="notifications-menu">
-                <a id="fs">
-                    <i class="fa fa-arrows-alt" id="io"></i>
-                </a>
-            </li>
-            <li class="dropdown notifications-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-bell-o"></i>
-                    <?php
-                    if ($tot > 0) { ?>
-                        <span class="label label-warning"><?= $tot ?> </span>
-                    <?php } ?>
-                </a>
-                <ul class="dropdown-menu">
-                    <li class="header">
-                        <?php 
-                            if ($tot <= 0) {
-                                echo 'Belum ada notifikasi';
-                            }else {
-                                echo 'Kamu mempunyai '.$tot.' notifikasi'; ?> 
-                        </li>
-                        <li>
-                            <ul class="menu">
+                <li class="notifications-menu">
+                    <a id="fs">
+                        <i class="fa fa-arrows-alt" id="io"></i>
+                    </a>
+                </li>
+                <?php
+                    if (Yii::$app->user->identity->role =='admin') { ?>
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell-o"></i>
+                                <?php
+                                    if ($tot > 0) { ?>
+                                        <span class="label label-warning"><?= $tot ?> </span>
+                                <?php } ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">
+                                    <?php 
+                                        if ($tot <= 0) {
+                                            echo 'Belum ada notifikasi';
+                                        }else {
+                                            echo 'Kamu mempunyai '.$tot.' notifikasi'; ?> 
+                                </li>
                                 <li>
-                                    <a href=" <?= $urlu ?> ">
-                                        <i class="fa fa-users text-aqua"></i>
-                                        <?= $uba['ubar'] ?> Member baru telah bergabung
-                                    </a>
-                                    <a href=" <?= $urlp ?> ">
-                                        <i class="ion ion-ios-construct text-yellow"></i>
-                                        <?= $per['perba'] ?> Perangkat baru hari ini
-                                    </a>
-                                    <a href=" <?= $urld ?> ">
-                                        <i class="ion ion-ios-download text-red"></i>
-                                        <?= $dasuk['jml'] ?> Data baru hari ini
-                                    </a>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href=" <?= $urlu ?> ">
+                                                <i class="fa fa-users text-aqua"></i>
+                                                <?= $uba['ubar'] ?> Member baru telah bergabung
+                                            </a>
+                                            <a href=" <?= $urlp ?> ">
+                                                <i class="ion ion-ios-construct text-yellow"></i>
+                                                <?= $per['perba'] ?> Perangkat baru hari ini
+                                            </a>
+                                            <a href=" <?= $urld ?> ">
+                                                <i class="ion ion-ios-download text-red"></i>
+                                                <?= $dasuk['jml'] ?> Data baru hari ini
+                                            </a>
+                                        </li>
+                                    </ul>
+                                <?php } ?>
                                 </li>
                             </ul>
-                        <?php } ?>
-                        </li>
-                    </li>
-                </ul>
-            </li>
+                        </li> 
+                <?php } ?>
+            
                 <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'user-image']);?>
