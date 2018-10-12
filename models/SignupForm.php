@@ -35,6 +35,7 @@ class SignupForm extends Model
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
             ['name', 'string', 'max' => 20],
+            [['tgl_buat'], 'safe'],
             ['password', 'string', 'min' => 6,'max' => 12, 'tooShort' => '{attribute} Setidaknya Harus Memiliki 6 Karakter'],
             [['password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
@@ -70,24 +71,17 @@ class SignupForm extends Model
         $user->password = $this->password;
         $enci = sha1($this->password);
         $md = md5($time);
+        date_default_timezone_set("Asia/Jakarta");
         Yii::$app->db->createCommand()->insert('user',
         [
             'username' => $this->username,
             'name' => $this->name,
             'password' => $enci,
-            'role' => 'user',
-        ])->execute();
-        $id = User::find()
-        ->select(['id'])
-        ->where(['username' => $this->username])
-        ->asArray()
-        ->one();
-        
-        Yii::$app->db->createCommand()->update('user',
-        [
             'authKey' => base64_encode($enc),
             'accessToken' =>  sha1($md),
-        ] ,'id ='.$id['id'])->execute();
+            'role' => 'user',
+            'tgl_buat' => date('Y-m-d H:i:s'),
+        ])->execute();
 
         return $user;
     }

@@ -149,7 +149,6 @@ class SiteController extends Controller
         $dasuk = Yii::$app->db->createCommand
         ('SELECT count(*) as jml FROM data')
         ->queryOne();
-
         return $this->render('index', [
             'perangkat' => $perangkat,
             'curjan' => $curjan,

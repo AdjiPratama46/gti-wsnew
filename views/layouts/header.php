@@ -9,7 +9,7 @@ $urlu = Url::to(['user/index']);
 $urlp = Url::to(['perangkat/index']);
 $urld = Url::to(['data/index']);
 $uba = Yii::$app->db->createCommand
-('SELECT COUNT(*)as ubar FROM perangkat WHERE DATE(tgl_instalasi)=DATE(NOW())')
+('SELECT COUNT(*)as ubar FROM user WHERE DATE(tgl_buat)=DATE(NOW())')
 ->queryOne();
 $per = Yii::$app->db->createCommand
 ('SELECT COUNT(*) AS perba FROM perangkat WHERE DATE(tgl_instalasi) = DATE(NOW())')
@@ -78,18 +78,33 @@ $this->registerJs("
                                 <li>
                                     <ul class="menu">
                                         <li>
-                                            <a href=" <?= $urlu ?> ">
+                                        <?php 
+                                            if ($uba['ubar'] >0 ) { ?>
+                                                <a href=" <?= $urlu ?> ">
                                                 <i class="fa fa-users text-aqua"></i>
-                                                <?= $uba['ubar'] ?> Member baru telah bergabung
+                                                <?= $uba['ubar'] ?> Member baru telah bergabung 
                                             </a>
+                                        <?php
+                                            }
+                                        ?>
+                                        <?php 
+                                            if ($per['perba'] >0 ) { ?>
                                             <a href=" <?= $urlp ?> ">
                                                 <i class="ion ion-ios-construct text-yellow"></i>
                                                 <?= $per['perba'] ?> Perangkat baru hari ini
                                             </a>
+                                        <?php
+                                            }
+                                        ?>
+                                        <?php 
+                                            if ($dasuk['jml'] >0 ) { ?>
                                             <a href=" <?= $urld ?> ">
                                                 <i class="ion ion-ios-download text-red"></i>
                                                 <?= $dasuk['jml'] ?> Data baru hari ini
                                             </a>
+                                        <?php
+                                            }
+                                        ?>
                                         </li>
                                     </ul>
                                 <?php } ?>

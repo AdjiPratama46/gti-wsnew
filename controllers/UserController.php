@@ -110,15 +110,17 @@ class UserController extends Controller
         $enc = sha1($time);
         $model = new Users();
         $md = md5($time);
+        date_default_timezone_set("Asia/Jakarta");
+        // echo date('Y-m-d H:i:s');exit;
         if ($model->load(Yii::$app->request->post())) {
             $enci = sha1($model->password); 
             if ($model->save(false)) {
                 Yii::$app->db->createCommand()->update('user',
                 [
-                    // 'authKey' => 'test'.$model['id'].'key',
                     'password' =>  $enci,
                     'authKey' => base64_encode($enc),
                     'accessToken' =>  sha1($md),
+                    'tgl_buat' => date('Y-m-d H:i:s'),
                 ] ,'id ='.$model['id'])->execute();
                 // $model->authKey = Yii::$app->getSecurity()->generateRandomString();
                 Yii::$app->getSession()->setFlash(

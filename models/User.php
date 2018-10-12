@@ -13,6 +13,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public $authKey;
     public $accessToken;
     public $role;
+    public $tgl_buat;
 
     // private static $users = [
     //     '100' => [

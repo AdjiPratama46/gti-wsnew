@@ -30,12 +30,12 @@ class LoginForm extends Model
             [['username'], 'required', 'message' => 'Username Tidak Boleh Kosong'],
             [['password'], 'required', 'message' => 'Password Tidak Boleh Kosong'],
             ['username' , 'email', 'message' => 'Username Harus Menggunakan Email'],
-            // ['username' , 'email', 'message' => 'Username Harus Menggunakan Email'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
             ['username', 'validateUsername'],
+            ['password', 'validatePassword'],
+            
         ];
     }
 
@@ -51,7 +51,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validateUsername($this->username)) {
-                $this->addError($attribute, 'Username Anda Salah');
+                $this->addError($attribute, 'Username Yang Dimasukkan Salah');
             }
         }
     }
@@ -61,7 +61,7 @@ class LoginForm extends Model
             $user = $this->getUser();
             $enc = sha1($this->password);
             if (!$user || !$user->validatePassword($enc)) {
-                $this->addError($attribute, 'Password Anda Salah');
+                $this->addError($attribute, 'Password Yang Dimasukkan Salah');
             }
         }
     }
