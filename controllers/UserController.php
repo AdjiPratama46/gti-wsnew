@@ -27,7 +27,7 @@ class UserController extends Controller
         return parent::render($view, $params);
     }
 
-    
+
     public function behaviors()
     {
         return [
@@ -40,7 +40,8 @@ class UserController extends Controller
                         'view',
                         'update',
                         'create',
-                        'delete'
+                        'delete',
+                        'resetpw'
                     ],
                     'allow' => true,
                     'roles' => ['@'],
@@ -66,7 +67,7 @@ class UserController extends Controller
                     'delete' => ['POST'],
                     'update',
                 ],
-                
+
             ],
         ];
     }
@@ -113,7 +114,7 @@ class UserController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         // echo date('Y-m-d H:i:s');exit;
         if ($model->load(Yii::$app->request->post())) {
-            $enci = sha1($model->password); 
+            $enci = sha1($model->password);
             if ($model->save(false)) {
                 Yii::$app->db->createCommand()->update('user',
                 [
@@ -177,6 +178,20 @@ class UserController extends Controller
         ]);
     }
 
+    //MERESET PASSWORD MENJADI QWERTY
+    public function actionResetpw($id)
+    {
+      $model = $this->findModel($id);
+      $pw=sha1('qwerty');
+       Yii::$app->db->createCommand()
+        ->update('user', ['password' => $pw], 'id='.$id)
+        ->execute();
+        Yii::$app->getSession()->setFlash(
+            'success','Password user berhasil di reset!'
+        );
+        return $this->redirect(['update', 'id' => $model->id]);
+    }
+
     /**
      * Deletes an existing Users model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -208,4 +223,6 @@ class UserController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }
