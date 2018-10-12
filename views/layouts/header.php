@@ -21,6 +21,13 @@ $dasuk = Yii::$app->db->createCommand
 $pe = $per['perba'];
 $da = $dasuk['jml'];
 $ub = $uba['ubar'];
+if ($pe >0) {
+    $pe=1;
+}elseif ($da>0) {
+    $da=1;
+}elseif ($ub>0) {
+    $ub=1;
+}
 $tot = $ub+$pe+$da;
 $this->registerJs("
     $('#fs').on('click ', function (event) {
