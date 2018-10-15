@@ -34,6 +34,7 @@ if (Yii::$app->user->identity->role=="admin") {
             <?= Select2::widget([
                 'name' => 'id-tahun',
                 'id' => 'id-tahun',
+                'value' => date('Y'),
                 'data' => $years,
                 'options' => ['placeholder' => 'Pilih Tahun'],
             ]); ?>
@@ -48,10 +49,11 @@ $this->registerJs(
     "
     $('#id-perangkat').change(function(){
         var id = $('#id-perangkat').val();
+        var date = $('#id-tahun').val();
         $.ajax({
             type :'GET',
             url : '{$urlData}',
-            data:'id='+id,
+            data:'id='+id+'&tgl='+date,
             success : function(data){
                 $('#tabel').html(data);
             }
