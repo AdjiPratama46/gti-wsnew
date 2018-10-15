@@ -1,5 +1,4 @@
 <?php
-
 use yii\grid\GridView;
 use miloschuman\highcharts\Highcharts;
 use yii\widgets\Pjax;
@@ -10,7 +9,6 @@ use kartik\select2\Select2;
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 use yii\widgets\Breadcrumbs;
-
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $urlC = Url::to(['site/chart']);
@@ -18,15 +16,12 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
-
 }
 else{
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
 }
-
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
-
 $this->registerJs("
     $('#bx-tl').on('click ', function (event) {
         $('#bx-bd').slideDown(500);
@@ -150,7 +145,6 @@ $this->registerJs("
                                     <?php
                                     if (empty($perangkat['alias'])) {
                                         echo 'Belum Ada Data';
-
                                     }else{
                                         echo $perangkat['alias'];
                                     }
@@ -321,11 +315,10 @@ $this->registerJs("
                     <h3 class="box-title">Statistik</h3>
                     <div class="box-tools pull-right">
                         <?= Select2::widget([
-                                'name' => 'id-perangkat',
-                                'value' => $perangkat['id'],
+                                'name' => 'xxx',
                                 'data' => $perangkats,
                                 'size' => Select2::SMALL,
-                                'options' => ['placeholder' => 'Pilih Data'],
+                                'options' => ['placeholder' => 'Pilih Perangkat'],
                                 'pluginOptions' => [
                                     'width' => '200px',
                                 ],
@@ -335,25 +328,25 @@ $this->registerJs("
                 </div>
                 <div class="box-body" id="ch">
                     <?php
-                    if ($chart != null) {
-                        foreach ($chart as $values) {
-                            $a[0]= ($values['bulan']); 
-                            $c[]= ($values['bulan']); 
-                            $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'], 
-                            (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
-                        }
-                        echo Highcharts::widget([
-                            'options' => [
-                                'title' => ['text' => 'Data Tahun 2018'],
-                                'xAxis' => [
-                                    'categories' => ['temperature', 'kelembaban', 'kecepatan_angin','curah_hujan']
-                                ],
-                                'yAxis' => [
-                                    'title' => ['text' => 'Jumlah Data']
-                                ],
-                                'series' => $b
-                            ]
-                        ]); ?>
+                            foreach ($chart as $values) {
+                                $a[0]= ($values['bulan']); 
+                                $c[]= ($values['bulan']); 
+                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'], 
+                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
+                            }
+                            echo Highcharts::widget([
+                                'options' => [
+                                    'title' => ['text' => 'Data Tahun 2018'],
+                                    'xAxis' => [
+                                        'categories' => ['temperature', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                    ],
+                                    'yAxis' => [
+                                        'title' => ['text' => 'Jumlah Data']
+                                    ],
+                                    'series' => $b
+                                ]
+                            ]);
+                        ?>
                         <div class="row">
                             <div class="col-md-3">
                                 <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
@@ -368,10 +361,6 @@ $this->registerJs("
                                 <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
                             </div>
                         </div>
-                    <?php }else { ?>
-                        <p class="text-center">Belum Ada Data</p>
-                    <?php } ?>
-                    
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
@@ -394,50 +383,45 @@ $this->registerJs("
                 </div>
                 <div class="box-body">
                     <?php
-                    if ($pie !=null) {
-                        foreach( $pie as $pieh){
-                            $arah = $pieh['arah_angin'];
-                            $jmlh = $pieh['jumlah'];
-                            $hasil[] = array($arah, 
-                            (int)$jmlh );
-                         }
-                        ?>
-                        <?= Highcharts::widget([
-                                'scripts' => [
-                                    'highcharts-3d',   
-                                 ],
-                                    'options' => [
-                                        'chart' => ['type' => 'pie',
-                                            'options3d'=>[
-                                                'enabled'=>true,
-                                                'alpha'=>45,
-                                                'beta'=>0,
-                                            ]  
-                                        ],
-                                        'title' => ['text' => 'Data Temperature Tahun 2018 '],
-                                        'plotOptions' => [
-                                            'pie' => [
-                                                'cursor' => 'pointer',
-                                                'allowPointSelect' => true,
-                                                'depth'=> 35,
-                                                'dataLabels' => [
-                                                    'enabled' => true,
-                                                ]
-                                            ],
-                                            
-                                        ],
-                                        'series' => [
-                                            [ 
-                                                'data' => $hasil,
-                                                'name' => 'Jumlah'
-                                            ] 
-                                        ],
+                     foreach( $pie as $pieh){
+                        $arah = $pieh['arah_angin'];
+                        $jmlh = $pieh['jumlah'];
+                        $hasil[] = array($arah, 
+                        (int)$jmlh );
+                     }
+                    ?>
+                    <?= Highcharts::widget([
+                            'scripts' => [
+                                'highcharts-3d',   
+                             ],
+                                'options' => [
+                                    'chart' => ['type' => 'pie',
+                                        'options3d'=>[
+                                            'enabled'=>true,
+                                            'alpha'=>45,
+                                            'beta'=>0,
+                                        ]  
                                     ],
-                                ]);
-                    }else {
-                        echo 'Belum ada data';
-                    }
-                     
+                                    'title' => ['text' => 'Data Temperature Tahun 2018 '],
+                                    'plotOptions' => [
+                                        'pie' => [
+                                            'cursor' => 'pointer',
+                                            'allowPointSelect' => true,
+                                            'depth'=> 35,
+                                            'dataLabels' => [
+                                                'enabled' => true,
+                                            ]
+                                        ],
+                                        
+                                    ],
+                                    'series' => [
+                                        [ 
+                                            'data' => $hasil,
+                                            'name' => 'Jumlah'
+                                        ] 
+                                    ],
+                                ],
+                            ]);
                         ?>
                 </div>
                 <div class="box-footer">

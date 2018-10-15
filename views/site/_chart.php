@@ -52,7 +52,7 @@ $this->registerJs("
 ?>
 
 <div class="box-body" id="ch">
-<?php
+    <?php
         foreach ($chart as $values) {
             $b[] = (int)$values[$id]; 
             $c[] = $values['bulan'];
@@ -97,5 +97,5 @@ $this->registerJs("
         <div class="col-md-3">
             <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
         </div>
-    </div>
+    </div>  
 </div>
