@@ -13,6 +13,7 @@ use yii\widgets\Breadcrumbs;
 
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
+$urlC = Url::to(['site/chart']);
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
@@ -49,9 +50,20 @@ $this->registerJs("
             }
         });
     });
+    $('#data-choose').change(function(){
+        var id = $('#data-choose').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
     ");
 ?>
-<div class="site-index" id="tabel">
+<div class="site-index-user" id="tabel">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-info">
@@ -260,16 +272,24 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="box  box-solid box-success">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Statistik</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus" id="io"></i>
-                        </button>
+                        <?= Select2::widget([
+                                'name' => 'data-choose',
+                                'id' => 'data-choose',
+                                'data' => ['temperature'=>'Temperature','kelembaban' => 'Kelembaban','kecepatan_angin' => 'Kecepatan Angin','curah_hujan'=>'Curah Hujan'],
+                                'size' => Select2::SMALL,
+                                'options' => ['placeholder' => 'Pilih Data'],
+                                'pluginOptions' => [
+                                    'width' => '200px',
+                                ],
+                            ]);
+                        ?>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" id="ch">
                     <?php
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 

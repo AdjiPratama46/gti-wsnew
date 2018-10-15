@@ -283,6 +283,20 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+
+    public function actionChart($id){
+        $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS kelembaban 
+        FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')->queryAll();
+        
+        $dasuk = Yii::$app->db->createCommand
+        ('SELECT count(*) as jml FROM data')
+        ->queryAll();
+
+        return $this->renderAjax('_chart',[
+            'chart' => $chart,
+            'id' => $id,
+        ]);
+    }
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
