@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82496e0f3f88cda217f0fa83694edfb2",
+    "content-hash": "37c541b7c3c751d9b2d2d791719df6b9",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -795,6 +795,45 @@
                 "yii2"
             ],
             "time": "2018-07-24T14:47:13+00:00"
+        },
+        {
+            "name": "enochzg/yii2-mosquitto",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EnochZg/yii2-mosquitto.git",
+                "reference": "621ced1ceccb77df41aff27ff20c530f3a549582"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EnochZg/yii2-mosquitto/zipball/621ced1ceccb77df41aff27ff20c530f3a549582",
+                "reference": "621ced1ceccb77df41aff27ff20c530f3a549582",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "enochzg\\mosquitto\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "EnochZg",
+                    "email": "15989529532@163.com"
+                }
+            ],
+            "description": "yii2-mosquitto",
+            "keywords": [
+                "helper",
+                "mosquitto",
+                "push",
+                "yii2"
+            ],
+            "time": "2016-03-19T07:12:41+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
