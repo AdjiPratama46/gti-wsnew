@@ -58,10 +58,11 @@ $this->registerJs("
     });
     $('#bc').click(function(){
         var id = $('#bc').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
