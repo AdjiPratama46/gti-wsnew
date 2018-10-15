@@ -321,6 +321,7 @@ $this->registerJs("
                 </div>
                 <div class="box-body" id="ch">
                     <?php
+                        if ($chart != null) {
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
                                 $c[]= ($values['bulan']); 
@@ -339,21 +340,26 @@ $this->registerJs("
                                     'series' => $b
                                 ]
                             ]);
-                        ?>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
-                            </div>
+                    ?>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
                         </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                        </div>
+                    </div>
+                    <?php
+                        }else {
+                            echo 'Data Belum Ada';
+                        }   
+                    ?>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
@@ -376,46 +382,51 @@ $this->registerJs("
                 </div>
                 <div class="box-body">
                     <?php
-                     foreach( $pie as $pieh){
-                        $arah = $pieh['arah_angin'];
-                        $jmlh = $pieh['jumlah'];
-                        $hasil[] = array($arah, 
-                        (int)$jmlh );
-                     }
-                    ?>
-                    <?= Highcharts::widget([
-                            'scripts' => [
-                                'highcharts-3d',   
-                             ],
-                                'options' => [
-                                    'chart' => ['type' => 'pie',
-                                        'options3d'=>[
-                                            'enabled'=>true,
-                                            'alpha'=>45,
-                                            'beta'=>0,
-                                        ]  
-                                    ],
-                                    'title' => ['text' => 'Data Temperature Tahun 2018 '],
-                                    'plotOptions' => [
-                                        'pie' => [
-                                            'cursor' => 'pointer',
-                                            'allowPointSelect' => true,
-                                            'depth'=> 35,
-                                            'dataLabels' => [
-                                                'enabled' => true,
-                                            ]
+                        if ($pie != null) {
+                            foreach( $pie as $pieh){
+                                $arah = $pieh['arah_angin'];
+                                $jmlh = $pieh['jumlah'];
+                                $hasil[] = array($arah, 
+                                (int)$jmlh );
+                             }
+                            
+                            echo Highcharts::widget([
+                                    'scripts' => [
+                                        'highcharts-3d',   
+                                     ],
+                                        'options' => [
+                                            'chart' => ['type' => 'pie',
+                                                'options3d'=>[
+                                                    'enabled'=>true,
+                                                    'alpha'=>45,
+                                                    'beta'=>0,
+                                                ]  
+                                            ],
+                                            'title' => ['text' => 'Data Temperature Tahun 2018 '],
+                                            'plotOptions' => [
+                                                'pie' => [
+                                                    'cursor' => 'pointer',
+                                                    'allowPointSelect' => true,
+                                                    'depth'=> 35,
+                                                    'dataLabels' => [
+                                                        'enabled' => true,
+                                                    ]
+                                                ],
+                                                
+                                            ],
+                                            'series' => [
+                                                [ 
+                                                    'data' => $hasil,
+                                                    'name' => 'Jumlah'
+                                                ] 
+                                            ],
                                         ],
-                                        
-                                    ],
-                                    'series' => [
-                                        [ 
-                                            'data' => $hasil,
-                                            'name' => 'Jumlah'
-                                        ] 
-                                    ],
-                                ],
-                            ]);
-                        ?>
+                                    ]);
+                        }else {
+                            echo 'Data Belum Ada';
+                        }
+                     
+                    ?>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
