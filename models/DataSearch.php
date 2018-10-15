@@ -18,7 +18,7 @@ class DataSearch extends Data
     public function rules()
     {
         return [
-            [['id_data', 'kapasitas_baterai'], 'integer'],
+            [['id_data'], 'integer'],
             [['id_perangkat', 'tgl', 'arah_angin', 'perangkat','pukul'], 'safe'],
             [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature'], 'number'],
         ];
@@ -66,7 +66,7 @@ class DataSearch extends Data
             'kecepatan_angin' => $this->kecepatan_angin,
             'curah_hujan' => $this->curah_hujan,
             'temperature' => $this->temperature,
-            'kapasitas_baterai' => $this->kapasitas_baterai,
+            
         ]);
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])

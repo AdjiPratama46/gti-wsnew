@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'arah_angin',
             'curah_hujan',
             'temperature',
-            'kapasitas_baterai',
         ],
     ]) ?>
 

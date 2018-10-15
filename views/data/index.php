@@ -33,7 +33,6 @@ if (Yii::$app->user->identity->role=='admin') {
     'arah_angin',
     'curah_hujan',
     'temperature',
-    'kapasitas_baterai',
     ['class' => 'yii\grid\ActionColumn',
       'header' => 'Aksi',
       'headerOptions'=> ['style'=> 'width:70px;'],
@@ -55,7 +54,6 @@ elseif (Yii::$app->user->identity->role=='user') {
     'arah_angin',
     'curah_hujan',
     'temperature',
-    'kapasitas_baterai',
   ];
 }
 

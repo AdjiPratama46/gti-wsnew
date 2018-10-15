@@ -28,7 +28,6 @@ use yii\widgets\ActiveForm;
 
             <?= $form->field($model, 'temperature')->textInput() ?>
 
-            <?= $form->field($model, 'kapasitas_baterai')->textInput() ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
