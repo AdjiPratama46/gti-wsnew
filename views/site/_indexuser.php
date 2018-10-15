@@ -1,7 +1,6 @@
 <?php
-
-use miloschuman\highcharts\Highcharts;
 use yii\grid\GridView;
+use miloschuman\highcharts\Highcharts;
 use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use app\models\Perangkat;
@@ -9,33 +8,32 @@ use yii\helpers\Url;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 /* @var $this yii\web\View */
-
+use yii\widgets\Breadcrumbs;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
-$this->params['breadcrumbs'][] = $this->title;
+$urlC = Url::to(['site/chart']);
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
-
 }
 else{
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
 }
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
-
 $this->registerJs("
     $('#bx-tl').on('click ', function (event) {
-            $('#bx-bd').slideDown(500);
-            if ($('#ls').text()=='Lihat Selengkapnya') {
-                $('#ls').text('Sembunyikan');
-                $('#ix').removeClass('fa-plus').addClass('fa-minus');
-            }else{
-                $('#bx-bd').slideUp(500);
-                $('#ls').text('Lihat Selengkapnya');
-                $('#ix').removeClass('fa-minus').addClass('fa-plus');
-            }
-        })
+        $('#bx-bd').slideDown(500);
+        if ($('#ls').text()=='Lihat Selengkapnya') {
+            $('#ls').text('Sembunyikan');
+            $('#ix').removeClass('fa-plus').addClass('fa-minus');
+        }else{
+            $('#bx-bd').slideUp(500);
+            $('#ls').text('Lihat Selengkapnya');
+            $('#io').removeClass('fa-minus').addClass('fa-plus');
+        }
+    })
     $('#id-perangkat').change(function(){
         var id = $('#id-perangkat').val();
         $.ajax({
@@ -47,9 +45,64 @@ $this->registerJs("
             }
         });
     });
+    $('#data-choose').change(function(){
+        var id = $('#data-choose').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bct').click(function(){
+        var id = $('#bct').attr('name');
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bck').click(function(){
+        var id = $('#bck').attr('name');
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcu').click(function(){
+        var id = $('#bcu').attr('name');
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcka').click(function(){
+        var id = $('#bcka').attr('name');
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
     ");
 ?>
-<div class="site-index" id="tabel">
+<div class="site-index-user" id="tabel">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-info">
@@ -92,7 +145,6 @@ $this->registerJs("
                                     <?php
                                     if (empty($perangkat['alias'])) {
                                         echo 'Belum Ada Data';
-
                                     }else{
                                         echo $perangkat['alias'];
                                     }
@@ -258,16 +310,16 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="box  box-solid box-success">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Statistik</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus" id="io"></i>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
                         </button>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" id="ch">
                     <?php
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
@@ -288,6 +340,20 @@ $this->registerJs("
                                 ]
                             ]);
                         ?>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                            </div>
+                        </div>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">

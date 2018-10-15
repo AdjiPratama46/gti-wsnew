@@ -314,16 +314,9 @@ $this->registerJs("
                 <div class="box-header with-border">
                     <h3 class="box-title">Statistik</h3>
                     <div class="box-tools pull-right">
-                        <?= Select2::widget([
-                                'name' => 'xxx',
-                                'data' => $perangkats,
-                                'size' => Select2::SMALL,
-                                'options' => ['placeholder' => 'Pilih Perangkat'],
-                                'pluginOptions' => [
-                                    'width' => '200px',
-                                ],
-                            ]);
-                        ?>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="box-body" id="ch">
