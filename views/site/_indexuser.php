@@ -56,12 +56,24 @@ $this->registerJs("
             }
         });
     });
-    $('#bct').click(function(){
-        var id = $('#bct').attr('name');
+    $('#bc').click(function(){
+        var id = $('#bc').attr('name');
         $.ajax({
             type :'GET',
             url : '{$urlC}',
             data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bct').click(function(){
+        var id = $('#bct').attr('name');
+        var idp = $('#id-perangkat').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -69,10 +81,11 @@ $this->registerJs("
     });
     $('#bck').click(function(){
         var id = $('#bck').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -80,10 +93,11 @@ $this->registerJs("
     });
     $('#bcu').click(function(){
         var id = $('#bcu').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -91,10 +105,11 @@ $this->registerJs("
     });
     $('#bcka').click(function(){
         var id = $('#bcka').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -310,17 +325,34 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="box box-success">
+            <div class="box box-solid box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Statistik</h3>
-                    <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col-md-4"><h3 class="box-title">Statistik</h3></div>
+                        <div class="col-md-4 text-center">
+                            <?php
+                            if ($chart != null) { ?>
+                                <button type="button" class="btn btn-default btn-flat" id="bc" name="all">
+                                    All
+                                </button>
+                            <?php }
+                            ?>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                    
+                    
                 </div>
                 <div class="box-body" id="ch">
                     <?php
+                        if ($chart != null) {
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
                                 $c[]= ($values['bulan']); 
@@ -339,21 +371,26 @@ $this->registerJs("
                                     'series' => $b
                                 ]
                             ]);
-                        ?>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
-                            </div>
+                    ?>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
                         </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                        </div>
+                    </div>
+                    <?php
+                        }else {
+                            echo 'Belum Ada Data';
+                        }   
+                    ?>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
@@ -376,46 +413,51 @@ $this->registerJs("
                 </div>
                 <div class="box-body">
                     <?php
-                     foreach( $pie as $pieh){
-                        $arah = $pieh['arah_angin'];
-                        $jmlh = $pieh['jumlah'];
-                        $hasil[] = array($arah, 
-                        (int)$jmlh );
-                     }
-                    ?>
-                    <?= Highcharts::widget([
-                            'scripts' => [
-                                'highcharts-3d',   
-                             ],
-                                'options' => [
-                                    'chart' => ['type' => 'pie',
-                                        'options3d'=>[
-                                            'enabled'=>true,
-                                            'alpha'=>45,
-                                            'beta'=>0,
-                                        ]  
-                                    ],
-                                    'title' => ['text' => 'Data Temperature Tahun 2018 '],
-                                    'plotOptions' => [
-                                        'pie' => [
-                                            'cursor' => 'pointer',
-                                            'allowPointSelect' => true,
-                                            'depth'=> 35,
-                                            'dataLabels' => [
-                                                'enabled' => true,
-                                            ]
+                        if ($pie != null) {
+                            foreach( $pie as $pieh){
+                                $arah = $pieh['arah_angin'];
+                                $jmlh = $pieh['jumlah'];
+                                $hasil[] = array($arah, 
+                                (int)$jmlh );
+                             }
+                            
+                            echo Highcharts::widget([
+                                    'scripts' => [
+                                        'highcharts-3d',   
+                                     ],
+                                        'options' => [
+                                            'chart' => ['type' => 'pie',
+                                                'options3d'=>[
+                                                    'enabled'=>true,
+                                                    'alpha'=>45,
+                                                    'beta'=>0,
+                                                ]  
+                                            ],
+                                            'title' => ['text' => 'Data Temperature Tahun 2018 '],
+                                            'plotOptions' => [
+                                                'pie' => [
+                                                    'cursor' => 'pointer',
+                                                    'allowPointSelect' => true,
+                                                    'depth'=> 35,
+                                                    'dataLabels' => [
+                                                        'enabled' => true,
+                                                    ]
+                                                ],
+                                                
+                                            ],
+                                            'series' => [
+                                                [ 
+                                                    'data' => $hasil,
+                                                    'name' => 'Jumlah'
+                                                ] 
+                                            ],
                                         ],
-                                        
-                                    ],
-                                    'series' => [
-                                        [ 
-                                            'data' => $hasil,
-                                            'name' => 'Jumlah'
-                                        ] 
-                                    ],
-                                ],
-                            ]);
-                        ?>
+                                    ]);
+                        }else {
+                            echo 'Belum Ada Data';
+                        }
+                     
+                    ?>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">

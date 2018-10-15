@@ -56,12 +56,24 @@ $this->registerJs("
             }
         });
     });
-    $('#bct').click(function(){
-        var id = $('#bct').attr('name');
+    $('#bc').click(function(){
+        var id = $('#bc').attr('name');
         $.ajax({
             type :'GET',
             url : '{$urlC}',
             data:'id='+id,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bct').click(function(){
+        var id = $('#bct').attr('name');
+        var idp = $('#id-perangkat').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -69,10 +81,11 @@ $this->registerJs("
     });
     $('#bck').click(function(){
         var id = $('#bck').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -80,10 +93,11 @@ $this->registerJs("
     });
     $('#bcu').click(function(){
         var id = $('#bcu').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -91,10 +105,11 @@ $this->registerJs("
     });
     $('#bcka').click(function(){
         var id = $('#bcka').attr('name');
+        var idp = $('#id-perangkat').val();
         $.ajax({
             type :'GET',
             url : '{$urlC}',
-            data:'id='+id,
+            data:'id='+id+'&idp='+idp,
             success : function(data){
                 $('#ch').html(data);
             }
@@ -310,14 +325,30 @@ $this->registerJs("
     </div>
     <div class="row">
         <div class="col-md-8">
-            <div class="box box-success">
+            <div class="box box-solid box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Statistik</h3>
-                    <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col-md-4"><h3 class="box-title">Statistik</h3></div>
+                        <div class="col-md-4 text-center">
+                            <?php
+                            if ($chart != null) { ?>
+                                <button type="button" class="btn btn-default btn-flat" id="bc" name="all">
+                                    All
+                                </button>
+                            <?php }
+                            ?>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                    
+                    
                 </div>
                 <div class="box-body" id="ch">
                     <?php
@@ -357,7 +388,7 @@ $this->registerJs("
                     </div>
                     <?php
                         }else {
-                            echo 'Data Belum Ada';
+                            echo 'Belum Ada Data';
                         }   
                     ?>
                 </div>
@@ -423,7 +454,7 @@ $this->registerJs("
                                         ],
                                     ]);
                         }else {
-                            echo 'Data Belum Ada';
+                            echo 'Belum Ada Data';
                         }
                      
                     ?>
