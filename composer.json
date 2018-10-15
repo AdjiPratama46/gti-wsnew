@@ -29,7 +29,8 @@
         "kartik-v/yii2-export": "@dev",
         "arturoliveira/yii2-excelview": "*",
         "2amigos/yii2-chartjs-widget": "~2.0",
-        "miloschuman/yii2-highcharts-widget": "dev-master"
+        "miloschuman/yii2-highcharts-widget": "dev-master",
+        "enochzg/yii2-mosquitto": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
