@@ -190,33 +190,14 @@ class SiteController extends Controller
     public function actionGet($id)
     {
         $chart = Yii::$app->db->createCommand
-        ('SELECT
-        MONTHNAME(tgl) AS bulan,
-        AVG(kelembaban) AS kelembaban,
-        AVG(kecepatan_angin) AS kecepatan_angin,
-        (
-            SELECT
-                arah_angin
-            FROM
-                data
-            WHERE MONTHNAME(tgl) = bulan
-            GROUP BY
-                arah_angin
-            ORDER BY
-                count(arah_angin) DESC
-            LIMIT 1
-        ) AS arah_angin,
-        AVG(curah_hujan) AS curah_hujan,
-        AVG(temperature) AS temperature
-    FROM
-        data
-    WHERE YEAR (tgl) = YEAR (NOW())
-    GROUP BY
-        bulan
-    ORDER BY
-        MONTH (tgl) ASC')->queryAll();
+        ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+        (SELECT arah_angin FROM data WHERE MONTHNAME(tgl) = bulan AND id_perangkat="'.$id.'" GROUP BY arah_angin ORDER BY count(arah_angin) DESC
+        LIMIT 1) AS arah_angin, AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature FROM data
+        WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH (tgl) ASC')
+        ->queryAll();
         $pie = Yii::$app->db->createCommand
-        ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin')->queryAll();
+        ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin ')
+        ->queryAll();
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
         data.id_perangkat=perangkat.id AND DATE(data.tgl) = DATE(NOW())-1 AND data.id_perangkat ="'.$id.'" ')
