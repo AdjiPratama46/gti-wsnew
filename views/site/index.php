@@ -28,13 +28,16 @@ $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 
 $this->registerJs("
     $('#bx-tl').on('click ', function (event) {
-            $('#bx-bd').slideDown(500);
-            if ($('#ls').text()=='Lihat Selengkapnya') {
-                $('#ls').text('Sembunyikan');
-            }else{
-                $('#ls').text('Lihat Selengkapnya');
-            }
-        })
+        $('#bx-bd').slideDown(500);
+        if ($('#ls').text()=='Lihat Selengkapnya') {
+            $('#ls').text('Sembunyikan');
+            $('#ix').removeClass('fa-plus').addClass('fa-minus');
+        }else{
+            $('#bx-bd').slideUp(500);
+            $('#ls').text('Lihat Selengkapnya');
+            $('#io').removeClass('fa-minus').addClass('fa-plus');
+        }
+    })
     $('#id-perangkat').change(function(){
         var id = $('#id-perangkat').val();
         $.ajax({
@@ -323,7 +326,8 @@ $this->registerJs("
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik</h3>
                         <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus" id="io"></i>
                             </button>
                         </div>
                     </div>
@@ -431,7 +435,7 @@ $this->registerJs("
                     </center>
                     <div class="box-tools pull-right" id="bx-tl">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-plus" id="ix"></i>
                         </button>
                     </div>
                 </div>
