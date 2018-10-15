@@ -14,8 +14,8 @@ $this->registerJs("
     $('#myModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)
         var modal = $(this)
-        var title = button.data('title') 
-        var href = button.attr('href') 
+        var title = button.data('title')
+        var href = button.attr('href')
         modal.find('.modal-title').html(title)
         modal.find('.modal-body').html('<div class=\"progress\"><div class=\"progress-bar progress-bar-striped active\" aria-valuenow=\"100\" style=\"width:100%\"></div></div>')
         $.post(href)
@@ -29,9 +29,9 @@ Modal::begin([
     'id' => 'myModal',
     'header' => '<h4 class="modal-title">...</h4>',
 ]);
- 
+
 echo '...';
- 
+
 Modal::end();
 ?>
 <div class="resume-index">
@@ -49,6 +49,8 @@ Modal::end();
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         'bulan',
+                        //'id_perangkat',
+                        //'tahun',
                         'kelembaban',
                         'kecepatan_angin',
                         'arah_angin',
@@ -59,9 +61,9 @@ Modal::end();
                             'header' => 'Aksi',
                             'template' => '{detail}',
                             'buttons' => [
-                                'detail' => 
+                                'detail' =>
                                     function ($url, $model, $key) {
-                                        return  Html::a('Detail',['minggu','bulan' => $model['bulan']],[
+                                        return  Html::a('Detail',['minggu','bulan' => $model['bulan'], 'id' => $model['id_perangkat'],'tahun' => $model['tahun']],[
                                             'class' => 'btn btn-success',
                                             'data-toggle'=>'modal',
                                             'data-target'=>'#myModal',
