@@ -81,31 +81,11 @@ class SiteController extends Controller
           }
 
         $chart = Yii::$app->db->createCommand
-        ('SELECT
-        MONTHNAME(tgl) AS bulan,
-        AVG(kelembaban) AS kelembaban,
-        AVG(kecepatan_angin) AS kecepatan_angin,
-        (
-            SELECT
-                arah_angin
-            FROM
-                data
-            WHERE MONTHNAME(tgl) = bulan
-            GROUP BY
-                arah_angin
-            ORDER BY
-                count(arah_angin) DESC
-            LIMIT 1
-        ) AS arah_angin,
-        AVG(curah_hujan) AS curah_hujan,
-        AVG(temperature) AS temperature
-    FROM
-        data
-    WHERE YEAR (tgl) = YEAR (NOW())
-    GROUP BY
-        bulan
-    ORDER BY
-        MONTH (tgl) ASC')->queryAll();
+        ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+        (SELECT arah_angin FROM data WHERE MONTHNAME(tgl) = bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC
+        LIMIT 1 ) AS arah_angin,AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature FROM data
+        WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
+        ->queryAll();
         $pie = Yii::$app->db->createCommand
         ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin')->queryAll();
         // print_r($pie);exit;
@@ -149,24 +129,45 @@ class SiteController extends Controller
         $dasuk = Yii::$app->db->createCommand
         ('SELECT count(*) as jml FROM data')
         ->queryOne();
-        return $this->render('index', [
-            'perangkat' => $perangkat,
-            'curjan' => $curjan,
-            'kangin' => $kangin,
-            'kelembaban' => $kelembaban,
-            'suhu' => $suhu,
-            'arangin' => $arangin,
-            'model' => $model,
-            'data' => $data,
-            'jmluser' => $jmluser,
-            'paktif'=> $paktif,
-            'jmlperang' => $jmlperang,
-            'dasuk' => $dasuk,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'chart' => $chart,
-            'pie' => $pie,
-        ]);
+        if (Yii::$app->user->identity->role=='user') {
+            return $this->render('indexuser', [
+                'perangkat' => $perangkat,
+                'curjan' => $curjan,
+                'kangin' => $kangin,
+                'kelembaban' => $kelembaban,
+                'suhu' => $suhu,
+                'arangin' => $arangin,
+                'model' => $model,
+                'data' => $data,
+                'jmluser' => $jmluser,
+                'paktif'=> $paktif,
+                'jmlperang' => $jmlperang,
+                'dasuk' => $dasuk,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'chart' => $chart,
+                'pie' => $pie,
+            ]);
+        }else {
+            return $this->render('index', [
+                'perangkat' => $perangkat,
+                'curjan' => $curjan,
+                'kangin' => $kangin,
+                'kelembaban' => $kelembaban,
+                'suhu' => $suhu,
+                'arangin' => $arangin,
+                'model' => $model,
+                'data' => $data,
+                'jmluser' => $jmluser,
+                'paktif'=> $paktif,
+                'jmlperang' => $jmlperang,
+                'dasuk' => $dasuk,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'chart' => $chart,
+                'pie' => $pie,
+            ]);
+        }
       }else{
         $this->layout = '//main-login';
           if (!Yii::$app->user->isGuest) {
@@ -259,22 +260,41 @@ class SiteController extends Controller
                 'pageSize' => 10,
             ],
         ]);
-        return $this->renderAjax('_index', [
-            'perangkat' => $perangkat,
-            'curjan' => $curjan,
-            'kangin' => $kangin,
-            'kelembaban' => $kelembaban,
-            'suhu' => $suhu,
-            'arangin' => $arangin,
-            'data' => $data,
-            'jmluser' => $jmluser,
-            'paktif'=> $paktif,
-            'jmlperang' => $jmlperang,
-            'dataProvider' => $dataProvider,
-            'dasuk' => $dasuk,
-            'chart' => $chart,
-            'pie' => $pie,
-        ]);
+        if (Yii::$app->user->identity->role=='user') {
+            return $this->renderAjax('_indexuser', [
+                'perangkat' => $perangkat,
+                'curjan' => $curjan,
+                'kangin' => $kangin,
+                'kelembaban' => $kelembaban,
+                'suhu' => $suhu,
+                'arangin' => $arangin,
+                'data' => $data,
+                'jmluser' => $jmluser,
+                'paktif'=> $paktif,
+                'jmlperang' => $jmlperang,
+                'dasuk' => $dasuk,
+                'dataProvider' => $dataProvider,
+                'chart' => $chart,
+                'pie' => $pie,
+            ]);
+        }else {
+            return $this->renderAjax('_index', [
+                'perangkat' => $perangkat,
+                'curjan' => $curjan,
+                'kangin' => $kangin,
+                'kelembaban' => $kelembaban,
+                'suhu' => $suhu,
+                'arangin' => $arangin,
+                'data' => $data,
+                'jmluser' => $jmluser,
+                'paktif'=> $paktif,
+                'jmlperang' => $jmlperang,
+                'dasuk' => $dasuk,
+                'dataProvider' => $dataProvider,
+                'chart' => $chart,
+                'pie' => $pie,
+            ]);
+        }
     }
 
     /**
