@@ -66,7 +66,7 @@ class DataSearch extends Data
             'kecepatan_angin' => $this->kecepatan_angin,
             'curah_hujan' => $this->curah_hujan,
             'temperature' => $this->temperature,
-            
+
         ]);
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
@@ -108,9 +108,11 @@ class DataSearch extends Data
             }
         }
         elseif (Yii::$app->user->identity->role =='user') {
-            $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
             $this->load($params);
+            $perangk = Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
+
             if(empty($this->tgl) && empty($this->id_perangkat) && !empty($perangk->id)){
+
                 $query = Data::find()
                 ->joinWith('perangkat')
                 ->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])
@@ -131,7 +133,7 @@ class DataSearch extends Data
             elseif(!empty($this->id_perangkat) && empty($this->tgl)   && !empty($perangk->id)){
             $query = Data::find()
             ->joinWith('perangkat')->where(['perangkat.id_owner' =>Yii::$app->user->identity->id])->andWhere(
-                ['id_perangkat' => $perangk->id])->andWhere(
+                ['id_perangkat' => $this->id_perangkat])->andWhere(
                     [
                         'between',
                         'tgl',
