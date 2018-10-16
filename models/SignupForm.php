@@ -41,7 +41,7 @@ class SignupForm extends Model
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Angka'
             ],
             [['username'], 'match', 'pattern' => '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
-              'message' => '{attribute} Tidak Boleh Mengandung Simbol'
+              'message' => '{attribute} Tidak Boleh Mengandung Simbol Atau Huruf Besar'
             ],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['username'],'unique','targetClass' => '\app\models\Users','message' => 'Username Ini Sudah Digunakan'],
