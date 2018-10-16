@@ -12,6 +12,7 @@ use yii\widgets\Breadcrumbs;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $urlC = Url::to(['site/chart']);
+$perangkatid = $perangkat['id'];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
@@ -58,7 +59,7 @@ $this->registerJs("
     });
     $('#bc').click(function(){
         var id = $('#bc').attr('name');
-        var idp = $('#id-perangkat').val();
+        var idp = '{$perangkatid}';
         $.ajax({
             type :'GET',
             url : '{$urlC}',
@@ -70,7 +71,7 @@ $this->registerJs("
     });
     $('#bct').click(function(){
         var id = $('#bct').attr('name');
-        var idp = $('#id-perangkat').val();
+        var idp = '{$perangkatid}';
         $.ajax({
             type :'GET',
             url : '{$urlC}',
@@ -82,7 +83,7 @@ $this->registerJs("
     });
     $('#bck').click(function(){
         var id = $('#bck').attr('name');
-        var idp = $('#id-perangkat').val();
+        var idp = '{$perangkatid}';
         $.ajax({
             type :'GET',
             url : '{$urlC}',
@@ -94,7 +95,7 @@ $this->registerJs("
     });
     $('#bcu').click(function(){
         var id = $('#bcu').attr('name');
-        var idp = $('#id-perangkat').val();
+        var idp = '{$perangkatid}';
         $.ajax({
             type :'GET',
             url : '{$urlC}',
@@ -106,7 +107,7 @@ $this->registerJs("
     });
     $('#bcka').click(function(){
         var id = $('#bcka').attr('name');
-        var idp = $('#id-perangkat').val();
+        var idp = '{$perangkatid}';
         $.ajax({
             type :'GET',
             url : '{$urlC}',
@@ -403,9 +404,9 @@ $this->registerJs("
             </div>
         </div>
         <div class="col-md-4">
-            <div class="box  box-solid box-danger">
+            <div class="box  box-solid box-danger" id="bx-dg">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Statistik Temperature</h3>
+                    <h3 class="box-title">Statistik Arah Angin</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -434,7 +435,7 @@ $this->registerJs("
                                                     'beta'=>0,
                                                 ]  
                                             ],
-                                            'title' => ['text' => 'Data Temperature Tahun 2018 '],
+                                            'title' => ['text' => 'Data Arah Angin Tahun 2018 '],
                                             'plotOptions' => [
                                                 'pie' => [
                                                     'cursor' => 'pointer',
@@ -442,7 +443,8 @@ $this->registerJs("
                                                     'depth'=> 35,
                                                     'dataLabels' => [
                                                         'enabled' => true,
-                                                    ]
+                                                    ],
+                                                    'showInLegend' => true
                                                 ],
                                                 
                                             ],
