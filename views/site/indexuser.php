@@ -421,8 +421,8 @@ $this->registerJs("
                                 $jmlh = $pieh['jumlah'];
                                 $hasil[] = array($arah, 
                                 (int)$jmlh );
-                             }
-                            
+                                $jack[]=array($arah);
+                            }
                             echo Highcharts::widget([
                                     'scripts' => [
                                         'highcharts-3d',   
