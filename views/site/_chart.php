@@ -53,7 +53,15 @@ $('#bcka').click(function(){
 
 <div class="box-body" id="ch">
     <?php
-    echo $idp;
+    if ($id == 'temperature') {
+        $name = 'Temperature';
+    }elseif ($id == 'kelembaban') {
+        $name = 'Kelembaban';
+    }elseif ($id == 'kecepatan_angin') {
+        $name = 'Kecepatan Angin';
+    }elseif ($id == 'curah_hujan') {
+        $name = 'Curah Hujan';
+    }
     if ($id == 'all') {
         foreach ($chart as $values) {
             $a[0]= ($values['bulan']); 
@@ -81,7 +89,7 @@ $('#bcka').click(function(){
         echo Highcharts::widget([
             'options' => [
                 'chart' => ['type' => 'line'],
-                'title' => ['text' => 'Data '.$id.' Tahun 2018'],
+                'title' => ['text' => 'Data '.$name.' Tahun 2018'],
                 'xAxis' => [
                     'categories' =>$c
                 ],
@@ -98,7 +106,7 @@ $('#bcka').click(function(){
                 ],
                 'series' => [[
                     'data' => $b,
-                    'name' =>  $id
+                    'name' =>  $name
                     ]
                 ]
             ]
