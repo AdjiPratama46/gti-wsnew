@@ -47,7 +47,7 @@ class Users extends \yii\db\ActiveRecord
             ],
             [['tgl_buat'], 'safe'],
             [['username'], 'match', 'pattern' => '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
-              'message' => '{attribute} Tidak Boleh Mengandung Simbol'
+              'message' => '{attribute} Tidak Boleh Mengandung Simbol Atau Huruf Besar'
             ],
             [['password'], 'required','message' => 'Password Baru Tidak Boleh Kosong'],
             [['confirm_password'], 'required','message' => 'Password Lama Tidak Boleh Kosong'],
