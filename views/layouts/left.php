@@ -8,7 +8,7 @@
               use yii\helpers\Html;
                ?>
                <?= Html::img('@web/images/profilephoto.png', ['alt'=>'some', 'class'=>'img-circle']);?>
-              
+
             </div>
             <div class="pull-left info">
                 <p id="namauser"><?= Yii::$app->user->identity->name ?></p>
@@ -26,7 +26,7 @@
                           'options' => ['id' => 'menu1']
                         ],
                         ['label' => 'Users', 'icon' => 'users', 'url' => ['user/index'],
-                            'visible' => Yii::$app->user->identity->role=='admin', 
+                            'visible' => Yii::$app->user->identity->role=='admin',
                             'options' => ['id' => 'menu5']
                         ],
                         ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
@@ -38,9 +38,12 @@
                         ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
                             'options' => ['id' => 'menu4']
                         ],
-                        
+                        ['label' => 'Mqtt', 'icon' => 'list-alt', 'url' => ['mqtt/index'],
+                            'options' => ['id' => 'menu4']
+                        ],
+
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-    
+
                     ],
                 ]
             );
