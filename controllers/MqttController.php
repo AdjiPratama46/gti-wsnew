@@ -3,13 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\phpMQTT;
+use app\models\MQTTClient;
 use yii\helpers\Html;
 use app\models\PerangkatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use immusen\mqtt\base\BaseController;
 /**
  * PerangkatController implements the CRUD actions for Perangkat model.
  */
@@ -30,6 +31,13 @@ class MqttController extends Controller
       ];
   }
 
+  public function actionSub($symbol = 'global')
+    {
+        //Check offline msg demo
+        $msg = $this->server->redis->get('mqtt_notice_offline_@' . $symbol);
+        return $this->publish([$this->fd], $this->topic, $msg);
+    }
+
   public function actionIndex()
   {
 
@@ -37,45 +45,38 @@ class MqttController extends Controller
   }
 
   public function actionPubl(){
-      $server = "lumba-studio.id";     // change if necessary
-      $port = 1883;                     // change if necessary
-      $username = "";                   // set your username
-      $password = "";                   // set your password
-      $client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
-      $mqtt = new phpMQTT($server, $port, $client_id);
-      if ($mqtt->connect(true, NULL, $username, $password)) {
-        $mqtt->publish("/cuaca/unpad/config", "Hello World! at " , 0);
-        echo "success";
-        $mqtt->close();
-      } else {
-          echo "Time out!\n";
+      $client = new MQTTClient('lumba-studio.id', 1883);
+      $client->setAuthentication('','');
+      $client->setEncryption('cacerts.pem');
+      $success = $client->sendConnect(123456);  // set your client ID
+      if ($success) {
+          $sc=$client->sendPublish('percobaan', 'mantap', 1);
+          if($sc){
+            echo "mantap";
+          }
+          $client->sendDisconnect();
       }
+      $client->close();
   }
 
   public function actionSubs(){
-      $server = "lumba-studio.id";     // change if necessary
-      $port = 1883;                     // change if necessary
-      $username = "";                   // set your username
-      $password = "";                   // set your password
-      $client_id = "phpMQTT-publisher"; // make sure this is unique for connecting to sever - you could use uniqid()
-      $mqtt = new phpMQTT($server, $port, $client_id);
-      if(!$mqtt->connect(true,NULL,$username,$password)){
-        exit(1);
-      }
+    $client = new MQTTClient('lumba-studio.id', 1883);
+    $client->setAuthentication('','');
+    $client->setEncryption('cacerts.pem');
+    $success = $client->sendConnect(123456);  // set your client ID
+    if ($success) {
+        $client->sendSubscribe('percobaan');
+        $messages = $client->getPublishMessages();  // now read and acknowledge all messages waiting
+        foreach ($messages as $message) {
+            echo $message['topic'] .': '. $message['message'] . PHP_EOL;
+        }
+        $client->sendDisconnect();
+    }
+    $client->close();
 
-      //currently subscribed topics
-      $topics['percobaan'] = array("qos"=>0, "function"=>"procmsg");
-      $mqtt->subscribe($topics,0);
-
-      while($mqtt->proc()){
-      }
-
-      $mqtt->close();
-      function procmsg($topic,$msg){
-        echo "Msg Recieved: $msg";
-      }
 
   }
+
 
 
 

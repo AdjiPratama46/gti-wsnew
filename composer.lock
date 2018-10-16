@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "37c541b7c3c751d9b2d2d791719df6b9",
+    "content-hash": "0e91dfd94dd0a3886a1b01efac186f46",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -1112,6 +1112,51 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+            "name": "immusen/yii2-swoole-mqtt",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/immusen/yii2-swoole-mqtt.git",
+                "reference": "f8d8f9300ec18f6ea67a1dd86acbeee01b522686"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/immusen/yii2-swoole-mqtt/zipball/f8d8f9300ec18f6ea67a1dd86acbeee01b522686",
+                "reference": "f8d8f9300ec18f6ea67a1dd86acbeee01b522686",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "immusen\\mqtt\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "immusen",
+                    "email": "immusen@gmail.com"
+                }
+            ],
+            "description": "MQTT server for Yii2 base on swoole 4, Resolve topic as a route reflect into controller/action/param, And support redis pub/sub to trigger async task from your web application",
+            "keywords": [
+                "extension",
+                "iot",
+                "mqtt",
+                "mqtt server",
+                "redis",
+                "swoole",
+                "yii2"
+            ],
+            "time": "2018-10-15T06:53:48+00:00"
+        },
+        {
             "name": "janisto/yii2-timepicker",
             "version": "1.1.0",
             "source": {
@@ -1168,6 +1213,43 @@
                 "yii2"
             ],
             "time": "2015-11-12T10:16:09+00:00"
+        },
+        {
+            "name": "karpy47/php-mqtt-client",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/karpy47/php-mqtt-client.git",
+                "reference": "834fbfb6903e7d4f0f8945d371c9ffeac3df7a6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/karpy47/php-mqtt-client/zipball/834fbfb6903e7d4f0f8945d371c9ffeac3df7a6c",
+                "reference": "834fbfb6903e7d4f0f8945d371c9ffeac3df7a6c",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "karpy47\\php-mqtt-client\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "karpy47"
+                }
+            ],
+            "description": "MQTT 3.1.1 library for PHP with TLS support",
+            "keywords": [
+                "client",
+                "mqtt",
+                "php"
+            ],
+            "time": "2017-08-09T14:58:09+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
