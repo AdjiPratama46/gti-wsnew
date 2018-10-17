@@ -36,7 +36,7 @@ $this->registerJs("
         }else{
             $('#bx-bd').slideUp(500);
             $('#ls').text('Lihat Selengkapnya');
-            $('#io').removeClass('fa-minus').addClass('fa-plus');
+            $('#ix').removeClass('fa-minus').addClass('fa-plus');
         }
     })
     $('#id-perangkat').change(function(){
