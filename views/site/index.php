@@ -25,7 +25,8 @@ else{
 }
 
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
-
+$perangkatid = $perangkat['id'];
+$urlC = Url::to(['site/chart']);
 $this->registerJs("
     $('#bx-tl').on('click ', function (event) {
         $('#bx-bd').slideDown(500);
@@ -46,6 +47,66 @@ $this->registerJs("
             data:'id='+id,
             success : function(data){
                 $('#tabel').html(data);
+            }
+        });
+    });
+    $('#bc').click(function(){
+        var id = $('#bc').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bct').click(function(){
+        var id = $('#bct').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bck').click(function(){
+        var id = $('#bck').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcu').click(function(){
+        var id = $('#bcu').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcka').click(function(){
+        var id = $('#bcka').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
             }
         });
     });
@@ -321,7 +382,7 @@ $this->registerJs("
     <?php
     if (Yii::$app->user->identity->role=='admin') { ?>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="box  box-solid box-success">
                     <div class="box-header with-border">
                         <h3 class="box-title">Statistik</h3>
@@ -331,7 +392,7 @@ $this->registerJs("
                             </button>
                         </div>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body" id="ch">
                         <?php
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
@@ -352,6 +413,20 @@ $this->registerJs("
                                 ]
                             ]);
                         ?>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-footer">
                         <p class="text-center">
@@ -362,10 +437,10 @@ $this->registerJs("
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="box  box-solid box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Statistik Temperature</h3>
+                        <h3 class="box-title">Statistik Arah Angin</h3>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                             </button>
@@ -392,7 +467,7 @@ $this->registerJs("
                                             'beta'=>0,
                                         ]  
                                     ],
-                                    'title' => ['text' => 'Data Temperature Tahun 2018 '],
+                                    'title' => ['text' => 'Data Arah Angin Tahun 2018 '],
                                     'plotOptions' => [
                                         'pie' => [
                                             'cursor' => 'pointer',
@@ -400,7 +475,8 @@ $this->registerJs("
                                             'depth'=> 35,
                                             'dataLabels' => [
                                                 'enabled' => true,
-                                            ]
+                                            ],
+                                            'showInLegend' => true
                                         ],
                                         
                                     ],

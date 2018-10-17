@@ -156,22 +156,14 @@ class SiteController extends Controller
         }else {
             $chart = Yii::$app->db->createCommand
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            (SELECT arah_angin FROM data WHERE MONTHNAME(tgl) = bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC
-            LIMIT 1 ) AS arah_angin,AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature FROM data
+            AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature FROM data
             WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
-            ('SELECT
-            CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-            END AS arah_angin,
-                COUNT(arah_angin) AS jumlah
-            FROM
-                data
-            WHERE
-                YEAR (tgl) = YEAR (NOW())
-            GROUP BY
-                arah_angin')->queryAll();
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" 
+            WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" 
+            WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW())
+            GROUP BY arah_angin')->queryAll();
         
             return $this->render('index', [
                 'perangkat' => $perangkat,
