@@ -38,7 +38,7 @@ class MqttController extends Controller
   {
       $model = new Konfigurasi();
       $mdl= Konfigurasi::find()
-      ->orderBy(['timestamp' => SORT_ASC])
+      ->orderBy(['timestamp' => SORT_DESC])
       ->one();
 
 
@@ -90,6 +90,8 @@ class MqttController extends Controller
         $messages = $client->getPublishMessages();  // now read and acknowledge all messages waiting
         foreach ($messages as $message) {
             echo $message['topic'] .': '. $message['message'] . PHP_EOL;
+            //$myArray = explode(',', $message['message']);
+            //print_r ($myArray);
         }
         $client->sendDisconnect();
     }
