@@ -23,7 +23,8 @@ else{
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
 }
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
-
+$perangkatid = $perangkat['id'];
+$urlC = Url::to(['site/chart']);
 $this->registerJs("
     $('#bx-tl').on('click ', function (event) {
             $('#bx-bd').slideDown(500);
@@ -44,6 +45,66 @@ $this->registerJs("
             data:'id='+id,
             success : function(data){
                 $('#tabel').html(data);
+            }
+        });
+    });
+    $('#bc').click(function(){
+        var id = $('#bc').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bct').click(function(){
+        var id = $('#bct').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bck').click(function(){
+        var id = $('#bck').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcu').click(function(){
+        var id = $('#bcu').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
+    $('#bcka').click(function(){
+        var id = $('#bcka').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
             }
         });
     });
@@ -318,7 +379,7 @@ $this->registerJs("
                             </button>
                         </div>
                     </div>
-                    <div class="box-body">
+                    <div class="box-body" id="ch">
                         <?php
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
@@ -339,6 +400,20 @@ $this->registerJs("
                                 ]
                             ]);
                         ?>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="box-footer">
                         <p class="text-center">
@@ -387,7 +462,8 @@ $this->registerJs("
                                             'depth'=> 35,
                                             'dataLabels' => [
                                                 'enabled' => true,
-                                            ]
+                                            ],
+                                            'showInLegend' => true,
                                         ],
                                         
                                     ],
