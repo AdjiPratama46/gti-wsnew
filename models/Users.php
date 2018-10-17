@@ -46,8 +46,8 @@ class Users extends \yii\db\ActiveRecord
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
             [['tgl_buat'], 'safe'],
-            [['username'], 'match', 'pattern' => '/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
-              'message' => '{attribute} Tidak Boleh Mengandung Simbol Atau Huruf Besar'
+            [['username'], 'match', 'pattern' => '/^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/',
+              'message' => '{attribute} Tidak Boleh Mengandung Simbol'
             ],
             [['password'], 'required','message' => 'Password Baru Tidak Boleh Kosong'],
             [['confirm_password'], 'required','message' => 'Password Lama Tidak Boleh Kosong'],

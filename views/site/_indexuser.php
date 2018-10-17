@@ -24,17 +24,6 @@ else{
 }
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 $this->registerJs("
-    $('#bx-tl').on('click ', function (event) {
-        $('#bx-bd').slideDown(500);
-        if ($('#ls').text()=='Lihat Selengkapnya') {
-            $('#ls').text('Sembunyikan');
-            $('#ix').removeClass('fa-plus').addClass('fa-minus');
-        }else{
-            $('#bx-bd').slideUp(500);
-            $('#ls').text('Lihat Selengkapnya');
-            $('#io').removeClass('fa-minus').addClass('fa-plus');
-        }
-    })
     $('#id-perangkat').change(function(){
         var id = $('#id-perangkat').val();
         $.ajax({
@@ -43,17 +32,6 @@ $this->registerJs("
             data:'id='+id,
             success : function(data){
                 $('#tabel').html(data);
-            }
-        });
-    });
-    $('#data-choose').change(function(){
-        var id = $('#data-choose').val();
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id,
-            success : function(data){
-                $('#ch').html(data);
             }
         });
     });
@@ -117,6 +95,17 @@ $this->registerJs("
             }
         });
     });
+    $('#bx-tl').on('click ', function (event) {
+        $('#bx-bd').slideDown(500);
+        if ($('#ls').text()=='Lihat Selengkapnya') {
+            $('#ls').text('Sembunyikan');
+            $('#ix').removeClass('fa-plus').addClass('fa-minus');
+        }else{
+            $('#bx-bd').slideUp(500);
+            $('#ls').text('Lihat Selengkapnya');
+            $('#ix').removeClass('fa-minus').addClass('fa-plus');
+        }
+    })
     ");
 ?>
 <div class="site-index-user" id="tabel">
@@ -325,34 +314,19 @@ $this->registerJs("
             </div>
         </div>
     </div>
+    <!-- chart -->
+    
     <div class="row">
         <div class="col-md-7">
             <div class="box box-solid box-success">
-                <div class="box-header with-border">
-                    <div class="row">
-                        <div class="col-md-4"><h3 class="box-title">Statistik</h3></div>
-                        <div class="col-md-4 text-center">
-                            <?php
-                            if ($chart != null) { ?>
-                                <button type="button" class="btn btn-default btn-flat" id="bc" name="all">
-                                    All
-                                </button>
-                            <?php }
-                            ?>
-                            
-                        </div>
-                        <div class="col-md-4">
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
+                <div class="box-header">
+                    <h3 class="box-title">Statistik</h3>
                 </div>
-                <div class="box-body" id="ch">
+                <?php
+                    if (empty($chart)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                    <?php }else { ?>
+                        <div class="box-body" id="ch">
                     <?php
                         if ($chart != null) {
                             foreach ($chart as $values) {
@@ -374,6 +348,7 @@ $this->registerJs("
                                 ]
                             ]);
                     ?>
+                    <br>
                     <div class="row">
                         <div class="col-md-3">
                             <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
@@ -389,10 +364,19 @@ $this->registerJs("
                         </div>
                     </div>
                     <?php
-                        }else {
-                            echo 'Belum Ada Data';
-                        }   
+                        }  
                     ?>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4 text-center">
+                        <?php
+                        if ($chart != null) { ?>
+                            <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
+                                All
+                            </button>
+                        <?php }
+                        ?>
+                    </div>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
@@ -401,18 +385,24 @@ $this->registerJs("
                         </a>
                     </p>
                 </div>
+                <?php    }
+                ?>
+                
             </div>
         </div>
         <div class="col-md-5">
-            <div class="box  box-solid box-danger" id="bx-dg">
-                <div class="box-header with-border">
+            <div class="box box-solid box-danger" id="bx-dg">
+                <div class="box-header">
                     <h3 class="box-title">Statistik Arah Angin</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
                 </div>
+                <?php if (empty($chart)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                        <style>
+                        #bx-dg{
+                            padding-bottom:0px;
+                        }
+                        </style>
+                <?php }else { ?>
                 <div class="box-body">
                     <?php
                         if ($pie != null) {
@@ -422,7 +412,6 @@ $this->registerJs("
                                 $hasil[] = array($arah, 
                                 (int)$jmlh );
                             }
-                            
                             echo Highcharts::widget([
                                     'scripts' => [
                                         'highcharts-3d',   
@@ -469,6 +458,7 @@ $this->registerJs("
                         </a>
                     </p>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -484,9 +474,7 @@ $this->registerJs("
                         <button
                             type="button"
                             class="btn btn-box-tool"
-                            data-widget="collapse"
-                            data-toggle="tooltip"
-                            title="Collapse">
+                            data-widget="collapse">
                             <i class="fa fa-plus" id="ix"></i>
                         </button>
                     </div>
