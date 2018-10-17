@@ -29,37 +29,37 @@ use kartik\select2\Select2;
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
           <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-        </div>"])->textInput(['maxlength' => true]) ?>
+        </div>"])->textInput(['maxlength' => true, 'value' => $mdl->frekuensi]) ?>
 
     <?= $form->field($model, 'ip_server', [
       'template' => "
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
           <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-        </div>"])->textInput(['maxlength' => true]) ?>
+        </div>"])->textInput(['maxlength' => true, 'value' => $mdl->ip_server]) ?>
 
         <?= $form->field($model, 'no_hp', [
           'template' => "
             <div class='row'>
               <div class='col-md-4' align='right'>{label}</div>
               <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-            </div>"])->textInput(['maxlength' => true]) ?>
+            </div>"])->textInput(['maxlength' => true, 'value' => $mdl->no_hp]) ?>
 
     <?= $form->field($model, 'gsm_to', [
       'template' => "
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
           <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-        </div>"])->textInput(['maxlength' => true]) ?>
+        </div>"])->textInput(['maxlength' => true, 'value' => $mdl->gsm_to]) ?>
 
     <?= $form->field($model, 'gps_to', [
       'template' => "
         <div class='row'>
           <div class='col-md-4' align='right'>{label}</div>
           <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-        </div>"])->textInput(['maxlength' => true]) ?>
+        </div>"])->textInput(['maxlength' => true, 'value' => $mdl->gps_to]) ?>
 
-    
+
 
     <div class="form-group">
         <center><?= Html::submitButton('Simpan', ['class' => 'btn btn-success']) ?></center>

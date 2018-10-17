@@ -51,7 +51,7 @@ class Konfigurasi extends \yii\db\ActiveRecord
             'gsm_to' => 'GSM Time Out',
             'gps_to' => 'GPS Time Out',
             'timestamp' => 'Timestamp',
-            'no_hp' => 'No. HP',
+            'no_hp' => 'Sms Server (NO. HP)',
         ];
     }
 }

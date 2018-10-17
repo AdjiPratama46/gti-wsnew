@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <div class="box-body">
         <?= $this->render('_form', [
             'model' => $model,
+            'mdl' => $mdl,
         ]) ?>
        </div>
        <?= Html::a('Subscribe', ['mqtt/subs'])?>

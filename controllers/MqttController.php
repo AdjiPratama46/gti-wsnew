@@ -37,6 +37,10 @@ class MqttController extends Controller
   public function actionIndex()
   {
       $model = new Konfigurasi();
+      $mdl= Konfigurasi::find()
+      ->orderBy(['timestamp' => SORT_ASC])
+      ->one();
+
 
       if ($model->load(Yii::$app->request->post())) {
         $client = new MQTTClient('lumba-studio.id', 1883);
@@ -70,6 +74,7 @@ class MqttController extends Controller
 
       return $this->render('create', [
           'model' => $model,
+          'mdl' => $mdl,
       ]);
   }
 
