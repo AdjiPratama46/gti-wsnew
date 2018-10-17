@@ -314,13 +314,19 @@ $this->registerJs("
             </div>
         </div>
     </div>
+    <!-- chart -->
+    
     <div class="row">
         <div class="col-md-7">
             <div class="box box-solid box-success">
                 <div class="box-header">
                     <h3 class="box-title">Statistik</h3>
                 </div>
-                <div class="box-body" id="ch">
+                <?php
+                    if (empty($chart)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                    <?php }else { ?>
+                        <div class="box-body" id="ch">
                     <?php
                         if ($chart != null) {
                             foreach ($chart as $values) {
@@ -358,9 +364,7 @@ $this->registerJs("
                         </div>
                     </div>
                     <?php
-                        }else {
-                            echo 'Belum Ada Data';
-                        }   
+                        }  
                     ?>
                 </div>
                 <div class="row">
@@ -381,6 +385,9 @@ $this->registerJs("
                         </a>
                     </p>
                 </div>
+                <?php    }
+                ?>
+                
             </div>
         </div>
         <div class="col-md-5">
@@ -388,6 +395,14 @@ $this->registerJs("
                 <div class="box-header">
                     <h3 class="box-title">Statistik Arah Angin</h3>
                 </div>
+                <?php if (empty($chart)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                        <style>
+                        #bx-dg{
+                            padding-bottom:0px;
+                        }
+                        </style>
+                <?php }else { ?>
                 <div class="box-body">
                     <?php
                         if ($pie != null) {
@@ -443,6 +458,7 @@ $this->registerJs("
                         </a>
                     </p>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>
