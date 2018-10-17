@@ -42,7 +42,7 @@ class MqttController extends Controller
       ->one();
 
 
-      if ($model->load(Yii::$app->request->post())) {
+      if ($model->load(Yii::$app->request->post()) && $model->save()) {
         $client = new MQTTClient('lumba-studio.id', 1883);
         $client->setAuthentication('','');
         $client->setEncryption('cacerts.pem');
@@ -54,7 +54,7 @@ class MqttController extends Controller
             $sc=$client->sendPublish('percobaan/satu', $msg, 1);
             if($sc){
 
-              $model->save();
+
               Yii::$app->getSession()->setFlash(
                   'success', 'Berhasil menyimpan data'
               );
@@ -84,7 +84,7 @@ class MqttController extends Controller
     $client = new MQTTClient('lumba-studio.id', 1883);
     $client->setAuthentication('','');
     $client->setEncryption('cacerts.pem');
-    $success = $client->sendConnect(12345678);  // set your client ID
+    $success = $client->sendConnect(123456789);  // set your client ID
     if ($success) {
         $client->sendSubscribe('percobaan/satu');
         $messages = $client->getPublishMessages();  // now read and acknowledge all messages waiting

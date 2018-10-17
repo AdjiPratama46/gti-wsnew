@@ -32,7 +32,9 @@
         "miloschuman/yii2-highcharts-widget": "dev-master",
         "enochzg/yii2-mosquitto": "^1.0",
         "immusen/yii2-swoole-mqtt": "~1.0",
-        "karpy47/php-mqtt-client": "^1.0"
+        "karpy47/php-mqtt-client": "^1.0",
+        "2amigos/yii2-date-time-picker-widget": "~1.0",
+        "kartik-v/yii2-widget-timepicker": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
