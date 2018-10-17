@@ -38,20 +38,33 @@ class MqttController extends Controller
   {
       $model = new Konfigurasi();
 
-      if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      if ($model->load(Yii::$app->request->post())) {
         $client = new MQTTClient('lumba-studio.id', 1883);
         $client->setAuthentication('','');
         $client->setEncryption('cacerts.pem');
         $success = $client->sendConnect(123456);
+
         $msg=$model->frekuensi.','.$model->ip_server.','.$model->no_hp.','.$model->gsm_to.','.$model->gps_to;
+
         if ($success) {
             $sc=$client->sendPublish('percobaan/satu', $msg, 1);
             if($sc){
-              echo "mantap";
+
+              $model->save();
+              Yii::$app->getSession()->setFlash(
+                  'success', 'Berhasil menyimpan data'
+              );
             }
             $client->sendDisconnect();
         }
+        else{
+          Yii::$app->getSession()->setFlash(
+              'danger', 'Kesalahan dalam publish'
+          );
+        }
         $client->close();
+
+
         return $this->redirect(['mqtt/index']);
       }
 
