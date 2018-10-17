@@ -326,7 +326,7 @@ $this->registerJs("
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="box box-solid box-success">
                 <div class="box-header with-border">
                     <div class="row">
@@ -403,7 +403,7 @@ $this->registerJs("
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="box  box-solid box-danger" id="bx-dg">
                 <div class="box-header with-border">
                     <h3 class="box-title">Statistik Arah Angin</h3>
@@ -421,8 +421,8 @@ $this->registerJs("
                                 $jmlh = $pieh['jumlah'];
                                 $hasil[] = array($arah, 
                                 (int)$jmlh );
-                                $jack[]=array($arah);
                             }
+                            
                             echo Highcharts::widget([
                                     'scripts' => [
                                         'highcharts-3d',   

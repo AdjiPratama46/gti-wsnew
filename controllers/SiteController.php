@@ -129,7 +129,9 @@ class SiteController extends Controller
             AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
-            ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND 
             YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')
             ->queryAll();
@@ -159,7 +161,17 @@ class SiteController extends Controller
             WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
-            ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin')->queryAll();
+            ('SELECT
+            CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
+            END AS arah_angin,
+                COUNT(arah_angin) AS jumlah
+            FROM
+                data
+            WHERE
+                YEAR (tgl) = YEAR (NOW())
+            GROUP BY
+                arah_angin')->queryAll();
         
             return $this->render('index', [
                 'perangkat' => $perangkat,
@@ -208,7 +220,9 @@ class SiteController extends Controller
         WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH (tgl) ASC')
         ->queryAll();
         $pie = Yii::$app->db->createCommand
-        ('SELECT arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin ')
+        ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+        WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
+        END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin ')
         ->queryAll();
         $perangkat = Yii::$app->db->createCommand
         ('SELECT perangkat.id,perangkat.alias,perangkat.longitude,perangkat.latitude,data.tgl FROM perangkat,data WHERE
