@@ -30,7 +30,7 @@ class Perangkat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'], 'required',
+            [['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude','altitude'], 'required',
               'message' => '{attribute} tidak boleh kosong'
             ],
             [['id'], 'unique', 'message' => '{attribute} sudah digunakan'],
@@ -54,7 +54,7 @@ class Perangkat extends \yii\db\ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios['create'] = ['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude'];
+        $scenarios['create'] = ['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude', 'altitude'];
         return $scenarios;
     }
     /**
@@ -69,6 +69,7 @@ class Perangkat extends \yii\db\ActiveRecord
             'tgl_instalasi' => 'Tanggal Instalasi',
             'longitude' => 'Longitude',
             'latitude' => 'Latitude',
+            'altitude' => 'Altitude',
         ];
     }
     /**

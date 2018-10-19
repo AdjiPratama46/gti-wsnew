@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Nama Pemilik',
                 'attribute' => 'user.name',
             ],
+            'altitude',
             'tgl_instalasi',
             //'longitude',
             //'latitude',

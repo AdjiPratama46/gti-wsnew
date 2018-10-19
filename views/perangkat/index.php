@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
 
                         'longitude',
                         'latitude',
+                        'altitude',
                         ['class' => 'yii\grid\ActionColumn',
                         'header' => 'Aksi',
                         'template'=>'{view} {delete}'/*'{update}'*/,
@@ -108,6 +109,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         ],
                         'longitude',
                         'latitude',
+                        'altitude',
                         [
                         'header' => 'Aksi',
                         'content' => function($model) {
