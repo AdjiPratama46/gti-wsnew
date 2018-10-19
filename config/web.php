@@ -84,8 +84,10 @@ $config = [
                             'controller' => 'papi'],
 
                             ['class' => 'yii\rest\UrlRule',
-                            'controller' => 'dapi',
-                          ],
+                            'controller' => 'dapi'],
+
+                            ['class' => 'yii\rest\UrlRule',
+                            'controller' => 'upi'],
                         ],
         ],
     ],

@@ -12,7 +12,7 @@ use yii\base\Model;
  * @property User|null $user This property is read-only.
  *
  */
-class SignupForm extends Model
+class SignupForm extends \yii\db\ActiveRecord
 {
     public $username;
     public $name;
@@ -24,6 +24,10 @@ class SignupForm extends Model
     /**
      * @return array the validation rules.
      */
+    public static function tableName()
+    {
+        return 'user';
+    }
     public function rules()
     {
         return [
