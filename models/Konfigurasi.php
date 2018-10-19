@@ -38,8 +38,9 @@ class Konfigurasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'frekuensi', 'ip_server', 'no_hp'], 'required'],
-            [['gsm_to_h','gsm_to_m','gps_to_h','gps_to_m'], 'required'],
+            [['id_user', 'frekuensi', 'ip_server', 'no_hp','gsm_to_h','gsm_to_m','gps_to_h','gps_to_m'], 'required',
+              'message'=> '{attribute} Tidak boleh kosong'
+            ],
             [['id_user'], 'integer'],
             [['timestamp', 'gsm_to', 'gps_to'], 'safe'],
             [['frekuensi', 'ip_server', 'gsm_to', 'gps_to','no_hp'], 'string', 'max' => 255],
