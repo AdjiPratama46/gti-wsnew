@@ -54,10 +54,20 @@ class UpiController extends ActiveController
         }else{
             return array('status ' => false, 'data' => $model -> getErrors());
         }
-        
-        
-        
-        
     }
+    
+    //UPDATE USER
+    public function actionUpdate(){
+        $params=$_REQUEST;
+        $model = $this->findModel($id);
 
+        $model->attributes=$params;
+  
+        if ($model->save()) {
+          return array('status ' => true);
+        }
+        else{
+          return array('status ' => false, 'data' => $model -> getErrors());
+        }
+    }
 }
