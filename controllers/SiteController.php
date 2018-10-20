@@ -187,6 +187,7 @@ class SiteController extends Controller
                 'dataProvider' => $dataProvider,
                 'chart' => $chart,
                 'pie' => $pie,
+                'teud' => $teud,
             ]);
         }
       }else{
@@ -243,6 +244,9 @@ class SiteController extends Controller
         $curjan = Yii::$app->db->createCommand
         ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
         ->queryOne();
+        $teud = Yii::$app->db->createCommand
+        ('SELECT AVG(tekanan_udara) as tekanan_udara FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$id.'" ')
+        ->queryOne();
         $jmluser = Yii::$app->db->createCommand
         ('SELECT count(*) as jumlah_user FROM user')
         ->queryOne();
@@ -280,6 +284,7 @@ class SiteController extends Controller
                 'dataProvider' => $dataProvider,
                 'chart' => $chart,
                 'pie' => $pie,
+                'teud' => $teud
             ]);
         }else {
             return $this->renderAjax('_index', [
@@ -297,6 +302,7 @@ class SiteController extends Controller
                 'dataProvider' => $dataProvider,
                 'chart' => $chart,
                 'pie' => $pie,
+                'teud' => $teud
             ]);
         }
     }
