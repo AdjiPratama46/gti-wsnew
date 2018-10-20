@@ -103,6 +103,10 @@ class SiteController extends Controller
         $curjan = Yii::$app->db->createCommand
         ('SELECT AVG(curah_hujan) as curah_hujan FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
         ->queryOne();
+        $teud = Yii::$app->db->createCommand
+        ('SELECT AVG(tekanan_udara) as tekanan_udara FROM data WHERE DATE(tgl) = DATE(NOW())-1 AND id_perangkat= "'.$model['id'].'" ')
+        ->queryOne();
+
         $searchModel = new DataSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -124,7 +128,7 @@ class SiteController extends Controller
         if (Yii::$app->user->identity->role=='user') {
             $chart = Yii::$app->db->createCommand
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature FROM data, perangkat,user WHERE
+            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"
             AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')
             ->queryAll();
@@ -148,6 +152,7 @@ class SiteController extends Controller
                 'paktif'=> $paktif,
                 'jmlperang' => $jmlperang,
                 'dasuk' => $dasuk,
+                'teud' => $teud,
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'chart' => $chart,
@@ -156,7 +161,7 @@ class SiteController extends Controller
         }else {
             $chart = Yii::$app->db->createCommand
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature FROM data
+            AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
             WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
@@ -208,7 +213,7 @@ class SiteController extends Controller
         $chart = Yii::$app->db->createCommand
         ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
         (SELECT arah_angin FROM data WHERE MONTHNAME(tgl) = bulan AND id_perangkat="'.$id.'" GROUP BY arah_angin ORDER BY count(arah_angin) DESC
-        LIMIT 1) AS arah_angin, AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature FROM data
+        LIMIT 1) AS arah_angin, AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
         WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH (tgl) ASC')
         ->queryAll();
         $pie = Yii::$app->db->createCommand
@@ -306,12 +311,12 @@ class SiteController extends Controller
         $id_owner = Yii::$app->user->id;
         if ($id=='all' && !empty($idp)) {
             $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature FROM data, perangkat,user WHERE
+            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND data.id_perangkat="'.$idp.'"
             AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
         }elseif ($id=='all' && empty($idp)) {
             $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature FROM data, perangkat,user WHERE
+            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"AND YEAR(tgl)=YEAR(NOW()) 
             GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
         }elseif (empty($idp)) {

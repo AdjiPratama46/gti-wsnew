@@ -95,6 +95,18 @@ $this->registerJs("
             }
         });
     });
+    $('#btu').click(function(){
+        var id = $('#btu').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch').html(data);
+            }
+        });
+    });
     $('#bx-tl').on('click ', function (event) {
         $('#bx-bd').slideDown(500);
         if ($('#ls').text()=='Lihat Selengkapnya') {
@@ -182,9 +194,9 @@ $this->registerJs("
                                 </h4>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-red">
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
@@ -220,7 +232,7 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-yellow">
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
@@ -241,9 +253,30 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <p class="text-center">Temperature</p>
+                                            <h3>
+                                            <?php
+                                                if (empty($suhu['suhu'])) {
+                                                    echo '0';
+                                                }else{
+                                                    echo (round($suhu['suhu'])) ;
+                                                }
+                                            ?>
+                                                &deg;
+                                            </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-thermometer"></i>
+                                        </div>
+                                        <div class="small-box-footer"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
@@ -264,7 +297,7 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-primary">
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
@@ -285,33 +318,35 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 ">
-                            <div class="pad box-pane-right bg-green text-center" id="hov-here">
-                                <p class="text-center">Temperature</p>
-                                <div class="icon" style="max-height:100px;">
-                                    <i class="ion-ios-thermometer big" id="hov-lah"></i>
+                                <div class="col-md-4">
+                                    <div class="small-box bg-maroon">
+                                        <div class="inner">
+                                            <p class="text-center">Tekanan Udara</p>
+                                            <h3>
+                                            <?php
+                                                if (empty($teud['tekanan_udara'])) {
+                                                    echo '0';
+                                                }else{
+                                                    echo (round($teud['tekanan_udara'])) ;
+                                                }
+                                            ?>
+                                                mb
+                                            </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-timer"></i>
+                                        </div>
+                                        <div class="small-box-footer"></div>
+                                    </div>
                                 </div>
-                                <h3>
-                                <?php
-                                    if (empty($suhu['suhu'])) {
-                                        echo '0';
-                                    }else{
-                                        echo (round($suhu['suhu'])) ;
-                                    }
-                                ?>
-                                    &deg;
-                                </h3>
-                                <h4>Celcius</h4>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- chart -->
     
     <div class="row">
@@ -331,13 +366,13 @@ $this->registerJs("
                                 $a[0]= ($values['bulan']); 
                                 $c[]= ($values['bulan']); 
                                 $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'], 
-                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] )); 
+                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] )); 
                             }
                             echo Highcharts::widget([
                                 'options' => [
                                     'title' => ['text' => 'Data Tahun 2018'],
                                     'xAxis' => [
-                                        'categories' => ['temperature', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                        'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
                                     ],
                                     'yAxis' => [
                                         'title' => ['text' => 'Jumlah Data']
@@ -348,33 +383,33 @@ $this->registerJs("
                     ?>
                     <br>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
                         </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
+                                    All
+                            </button>
                         </div>
                     </div>
                     <?php
                         }  
                     ?>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 text-center">
-                        <?php
-                        if ($chart != null) { ?>
-                            <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
-                                All
-                            </button>
-                        <?php }
-                        ?>
-                    </div>
                 </div>
                 <div class="box-footer">
                     <p class="text-center">
@@ -489,11 +524,29 @@ $this->registerJs("
                               'value' => 'tgl',
                               'format' =>  ['date', 'php:H:i'],
                             ],
-                            'kelembaban',
-                            'kecepatan_angin',
+                            [
+                                'attribute' => 'kelembaban',
+                                'format'=>['decimal',2]
+                            ],
+                            [
+                                'attribute' => 'kecepatan_angin',
+                                'format'=>['decimal',2]
+                            ],
+                            
                             'arah_angin',
-                            'curah_hujan',
-                            'temperature',
+                              
+                            [
+                                'attribute' => 'curah_hujan',
+                                'format'=>['decimal',2]
+                            ],
+                            [
+                                'attribute' => 'temperature',
+                                'format'=>['decimal',2]
+                            ],
+                            [
+                                'attribute' => 'tekanan_udara',
+                                'format'=>['decimal',2]
+                            ],
                         ],
                     ]); ?>
                     <?php Pjax::end(); ?>
