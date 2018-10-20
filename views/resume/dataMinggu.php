@@ -13,11 +13,33 @@ $this->title = 'Data Minggu';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'minggu',
-            'kelembaban',
-            'kecepatan_angin',
+            [
+                'attribute' => 'kelembaban',
+                'format'=>['decimal',2]
+            ],
+            [
+                'attribute' => 'kecepatan_angin',
+                'format'=>['decimal',2]
+            ],
+            
             'arah_angin',
-            'curah_hujan',
-            'temperature',
+              
+            [
+                'attribute' => 'curah_hujan',
+                'format'=>['decimal',2]
+            ],
+            [
+                'attribute' => 'temperature',
+                'format'=>['decimal',2]
+            ],
+            [
+                'attribute' => 'tekanan_udara',
+                'format'=>['decimal',2]
+            ],
+            [
+                'attribute' => 'tekanan_udara',
+                'format'=>['decimal',2]
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?>

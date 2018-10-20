@@ -54,6 +54,7 @@ elseif (Yii::$app->user->identity->role=='user') {
     'arah_angin',
     'curah_hujan',
     'temperature',
+    'tekanan_udara'
   ];
 }
 

@@ -28,6 +28,7 @@ $this->registerJs("
 Modal::begin([
     'id' => 'myModal',
     'header' => '<h4 class="modal-title">...</h4>',
+    'size'   => 'modal-lg',
 ]);
 
 echo '...';
@@ -42,11 +43,29 @@ Modal::end();
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'bulan',
-        'kelembaban',
-        'kecepatan_angin',
+        [
+            'attribute' => 'kelembaban',
+            'format'=>['decimal',2]
+        ],
+        [
+            'attribute' => 'kecepatan_angin',
+            'format'=>['decimal',2]
+        ],
+        
         'arah_angin',
-        'curah_hujan',
-        'temperature',
+          
+        [
+            'attribute' => 'curah_hujan',
+            'format'=>['decimal',2]
+        ],
+        [
+            'attribute' => 'temperature',
+            'format'=>['decimal',2]
+        ],
+        [
+            'attribute' => 'tekanan_udara',
+            'format'=>['decimal',2]
+        ],
         [
             'class' => 'yii\grid\ActionColumn',
             'header' => 'Aksi',

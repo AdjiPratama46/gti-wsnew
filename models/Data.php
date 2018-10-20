@@ -35,9 +35,9 @@ class Data extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_perangkat', 'kelembaban', 'kecepatan_angin', 'arah_angin', 'curah_hujan', 'temperature'], 'required'],
+            [['id_perangkat', 'kelembaban', 'kecepatan_angin', 'arah_angin', 'curah_hujan', 'temperature','tekanan_udara'], 'required'],
             [['tgl'], 'safe'],
-            [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature'], 'number'],
+            [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature','tekanan_udara'], 'number'],
             [['id_perangkat', 'arah_angin'], 'string', 'max' => 255],
             [['id_perangkat'], 'exist', 'skipOnError' => true, 'targetClass' => Perangkat::className(), 'targetAttribute' => ['id_perangkat' => 'id']],
         ];
@@ -57,6 +57,7 @@ class Data extends \yii\db\ActiveRecord
             'arah_angin' => 'Arah Angin',
             'curah_hujan' => 'Curah Hujan',
             'temperature' => 'Temperature',
+            'tekanan_udara' => 'Tekanan Udara'
         ];
     }
 

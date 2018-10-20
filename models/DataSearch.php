@@ -20,7 +20,7 @@ class DataSearch extends Data
         return [
             [['id_data'], 'integer'],
             [['id_perangkat', 'tgl', 'arah_angin', 'perangkat','pukul'], 'safe'],
-            [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature'], 'number'],
+            [['kelembaban', 'kecepatan_angin', 'curah_hujan', 'temperature','tekanan_udara'], 'number'],
         ];
     }
     /**
@@ -66,7 +66,7 @@ class DataSearch extends Data
             'kecepatan_angin' => $this->kecepatan_angin,
             'curah_hujan' => $this->curah_hujan,
             'temperature' => $this->temperature,
-
+            'tekanan_udara' => $this->tekanan_udara,
         ]);
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
