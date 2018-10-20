@@ -9,7 +9,7 @@ $('#bc').click(function(){
     $.ajax({
         type :'GET',
         url : '{$urlC}',
-        data:'id='+id+'&idp='$idp,
+        data:'id='+id+'&idp=$idp',
         success : function(data){
             $('#ch').html(data);
         }
@@ -64,7 +64,7 @@ $('#btu').click(function(){
     $.ajax({
         type :'GET',
         url : '{$urlC}',
-        data:'id='+id+'&idp='$idp,
+        data:'id='+id+'&idp=$idp',
         success : function(data){
             $('#ch').html(data);
         }
