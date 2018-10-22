@@ -116,7 +116,7 @@ class UpiController extends ActiveController
         }
     }
 
-      //MENAMPILKAN USER BERDASARKAN ID
+      //MENAMPILKAN USER 
     public function actionList(){
         $data=UserAPI::find()->all();
         
