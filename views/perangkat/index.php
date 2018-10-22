@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
             <?php Pjax::begin(); ?>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <!-- <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?> -->
+            <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?>
             <?php
             if (Yii::$app->user->identity->role =='admin') {
                 echo

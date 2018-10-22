@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->renderAjax('_form', [
         'model' => $model,
+        'perangkt' => $perangkt,
     ]) ?>
 
 </div>

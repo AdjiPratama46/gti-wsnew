@@ -17,11 +17,6 @@ $config = [
         ]
     ],
     'components' => [
-          'mosquitto' => [
-              'class' => 'enochzg\mosquitto\Mosquitto',
-              'host' => 'lumba-studio.id',
-              'port' => '1883',
-          ],
           'formatter' => [
                'dateFormat' => 'Y-M-d',
                'datetimeFormat' => 'Y-m-d H:i:s',

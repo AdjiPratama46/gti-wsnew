@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Perangkat;
+use app\models\Temptable;
+use app\models\Tperangkat;
 use app\models\Maps;
 use app\models\Data;
 use yii\helpers\Html;
@@ -12,6 +14,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 /**
  * PerangkatController implements the CRUD actions for Perangkat model.
  */
@@ -20,7 +23,7 @@ class PerangkatController extends Controller
     /**
      * {@inheritdoc}
      */
-     
+
 
      public function render($view, $params = [])
     {
@@ -66,7 +69,7 @@ class PerangkatController extends Controller
         }elseif (Yii::$app->user->identity->role =='user') {
             $map = $showmap->showMaps(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all());
         }
-        
+
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -96,19 +99,74 @@ class PerangkatController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+
     public function actionCreate()
     {
-        $model = new Perangkat();
+        $model = new Tperangkat();
+        $perangkt = ArrayHelper::map(Temptable::find()->select('id_perangkat')->distinct()->all(),'id_perangkat','id_perangkat');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          Yii::$app->getSession()->setFlash(
-              'success','Perangkat tersimpan !'
-          );
-            return $this->redirect(['perangkat/index']);
+        if ($model->load(Yii::$app->request->post())) {
+
+
+            $dataM = Temptable::find()->where(['id_perangkat'=>$model->idp])->orderBy(['timestamp' => SORT_ASC])->all();
+            $jml=0;
+            $idnya='id:';
+            foreach ($dataM as $datas) {
+                $model1 = new Perangkat();
+
+                $model1->id=$datas->id_perangkat;
+                $model1->alias=$datas->id_perangkat;
+                $model1->id_owner=Yii::$app->user->identity->id;
+                $model1->tgl_instalasi=$datas->timestamp;
+                $model1->longitude=$datas->longitude;
+                $model1->latitude=$datas->latitude;
+                $model1->altitude=$datas->altimeter;
+
+                $cek = Perangkat::find()->where(['id'=>$model->idp])->one();
+
+                if(empty($cek)){
+                  $model1->save();
+                }
+                else if(!empty($cek)){
+                    if(($cek->longitude != $datas->longitude) || ($cek->latitude != $datas->latitude) || ($cek->altitude != $datas->altimeter)){
+                        $model2 = Perangkat::find($model->idp)->one();
+                        $model2->tgl_instalasi=$datas->timestamp;
+                        $model2->longitude=$datas->longitude;
+                        $model2->latitude=$datas->latitude;
+                        $model2->altitude=$datas->altimeter;
+                        $model2->save();
+                    }
+                }
+
+                $model3 = new Data();
+                $model3->id_perangkat=$datas->id_perangkat;
+                $model3->tgl=$datas->timestamp;
+                $model3->kelembaban=$datas->kelembapan;
+                $model3->kecepatan_angin=$datas->kecepatan_angin;
+                $model3->arah_angin=$datas->arah_angin;
+                $model3->curah_hujan=$datas->curah_hujan;
+                $model3->temperature=$datas->temperature;
+                $model3->tekanan_udara=$datas->tekanan_udara;
+                $model3->save();
+
+                $moddels = Temptable::find()->where(['id'=>$datas->id])->one();
+                $moddels->delete();
+                $idnya=$idnya.','.$datas->id;
+                $jml=$jml+1;
+        	}
+
+            $msg='Perangkat berhasil tersimpan!. data tercatat : '.$jml.' . '.$idnya;
+
+                Yii::$app->getSession()->setFlash(
+                    'success',$msg
+                );
+                  return $this->redirect(['perangkat/index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'perangkt' => $perangkt,
         ]);
     }
 
