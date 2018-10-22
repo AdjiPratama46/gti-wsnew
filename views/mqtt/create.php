@@ -23,7 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'gpsto_m' => $gpsto_m,
         ]) ?>
        </div>
-       <?= Html::a('Subscribe', ['mqtt/subs'])?>
  </div>
 
 
