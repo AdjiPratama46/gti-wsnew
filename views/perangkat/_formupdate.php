@@ -46,31 +46,20 @@ use kartik\date\DatePicker;
              'maxlength' => true,
             'style' => 'width: 100%;'])->label(false) ?>
 
-    <?= $form->field($model, 'tgl_instalasi',[
-          'template' => "
-            <div class='row'>
-              <div class='col-md-4' align='right'>{label}</div>
-              <div class='col-md-8' ><div style='width:60%'>{input}</div>{hint}{error}</div>
-            </div>",
-           'options' => ['class' => 'form-group form-inline'],]
-           )->widget(DatePicker::ClassName(),[
-            'name' => 'tgl_instalasi',
+            <?= $form->field($model, 'tgl_instalasi', [
 
-            'readonly' => 'readonly',
-            'options' => [
-                'placeholder' => '',
-                //'value' => date('Y-m-d'),
-                'style' => 'width: 100%;',
-            ],
-            'pluginOptions' => [
-                'format' => 'yyyy-mm-dd',
-                'todayHighlight' => true,
-                'startDate' =>  $model->tgl_instalasi,
-                'endDate' =>  date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y')+1)),
-                //'endDate' => date('Y-m-d'),
-            ],
+              'template' => "
+                <div class='row'>
+                  <div class='col-md-4' align='right'>{label}</div>
+                  <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
+                </div>",
+               'options' => ['class' => 'form-group form-inline'],])
+               ->textInput([
+                 'readonly' => true,
+                 'maxlength' => true,
+                'style' => 'width: 100%;']) ?>
 
-          ])->label('Tanggal Pemindahan');?>
+
 
     <?= $form->field($model, 'longitude', [
       'template' => "
@@ -80,6 +69,7 @@ use kartik\date\DatePicker;
         </div>",
        'options' => ['class' => 'form-group form-inline'],])
        ->textInput([
+         'readonly' => true,
          'maxlength' => true,
         'style' => 'width: 60%;']) ?>
 
@@ -91,8 +81,21 @@ use kartik\date\DatePicker;
         </div>",
        'options' => ['class' => 'form-group form-inline'],])
        ->textInput([
+         'readonly' => true,
          'maxlength' => true,
         'style' => 'width: 60%;']) ?>
+
+        <?= $form->field($model, 'altitude', [
+          'template' => "
+            <div class='row'>
+              <div class='col-md-4' align='right'>{label}</div>
+              <div class='col-md-8'>{input}{hint}{error}</div>
+            </div>",
+           'options' => ['class' => 'form-group form-inline'],])
+           ->textInput([
+             'readonly' => true,
+             'maxlength' => true,
+            'style' => 'width: 60%;']) ?>
 
     <center>
                 <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?>

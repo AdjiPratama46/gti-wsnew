@@ -25,15 +25,10 @@ use kartik\select2\Select2;
             'clearBtn' => true,
         ]])->label(false) ?>
 
+<br>
+      <center>  <?= Html::submitButton('Tambah', ['class' => 'btn btn-block btn-success butsub']) ?></center>
 
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-4">
-                <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?>
-            </div>
-        </div>
-    </div>
-
+<br>
     <?php ActiveForm::end(); ?>
 
 </div>
