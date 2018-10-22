@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\rest\ActiveController;
-use app\models\SignupForm;
+use app\models\UserAPI;
 use yii\filters\AccessControl;
 
 class UpiController extends ActiveController
@@ -17,11 +17,23 @@ class UpiController extends ActiveController
         $behaviors['access'] = [
           'class' => AccessControl::className(),
           'rules' => [
-              [
-                  'allow' => true,
-                  'actions' => ['create'],
-                  'verbs' => ['POST']
-              ],
+            [
+                'allow' => true,
+                'actions' => ['create'],
+                'verbs' => ['POST']
+            ],
+
+            [
+                'allow' => true,
+                'actions' => ['update'],
+                'verbs' => ['PUT','PATCH']
+            ],
+
+            [
+                'allow' => true,
+                'actions' => ['delete'],
+                'verbs' => ['DELETE']
+            ],
           ]
         ];
         return $behaviors;
@@ -68,6 +80,17 @@ class UpiController extends ActiveController
         }
         else{
           return array('status ' => false, 'data' => $model -> getErrors());
+        }
+    }
+
+    //DELETE USER
+    public function actionDelete(){
+        $model=$this->findModel($id);
+
+        if($model->delete()){
+      	  return array('status'=> true, 'data'=> 'Berhasil dihapus');
+        }else{
+      	  return array('status'=>false, 'data'=>'Gagal dihapus');
         }
     }
 }
