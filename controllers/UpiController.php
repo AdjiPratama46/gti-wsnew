@@ -34,6 +34,12 @@ class UpiController extends ActiveController
                 'actions' => ['delete'],
                 'verbs' => ['DELETE']
             ],
+
+            [
+                'allow' => true,
+                'actions' => ['list'],
+                'verbs' => ['GET']
+            ],
           ]
         ];
         return $behaviors;
@@ -93,4 +99,15 @@ class UpiController extends ActiveController
       	  return array('status'=>false, 'data'=>'Gagal dihapus');
         }
     }
+
+    //MENAMPILKAN USER BERDASARKAN ID
+    public function actionList($id){
+        $data=UserAPI::find()->where(['id' => $id ])->one();
+  
+        if(!empty($data)){
+          return array('status'=>true, 'data'=>$data);
+        }else{
+          return array('status'=>false, 'data'=>'Tidak ada data');
+        }
+      }
 }
