@@ -18,6 +18,7 @@ $this->registerJs("
         var href = button.attr('href')
         modal.find('.modal-title').html(title)
         modal.find('.modal-body').html('<div class=\"progress\"><div class=\"progress-bar progress-bar-striped active\" aria-valuenow=\"100\" style=\"width:100%\"></div></div>')
+        modal.find('.modal-content').css('width','950px')
         $.post(href)
             .done(function( data ) {
                 modal.find('.modal-body').html(data)
