@@ -34,6 +34,17 @@ class UpiController extends ActiveController
                 'actions' => ['delete'],
                 'verbs' => ['DELETE']
             ],
+
+            [
+                'allow' => true,
+                'actions' => ['list-id'],
+                'verbs' => ['GET']
+            ],
+            [
+                'allow' => true,
+                'actions' => ['list'],
+                'verbs' => ['GET']
+            ],
           ]
         ];
         return $behaviors;
@@ -44,14 +55,13 @@ class UpiController extends ActiveController
         $params=$_REQUEST;
         $model = new UserAPI();
         $model->attributes=$params;
-
+        $request = Yii::$app->request;
         // $time = time();
         // $enc = sha1($time);
         // $md = md5($time);
         
         
-        // $pd = $params['password'];
-        
+        $pd = $request->post();
         
         // $password = sha1($pd);
         // $authKey = base64_encode($enc);
@@ -62,9 +72,9 @@ class UpiController extends ActiveController
         // $model->accessToken = $accessToken;
             
         if ($model->save()) {
-            return array('status ' => true);
+            return array('status ' => true,'pd' => $pd);
         }else{
-            return array('status ' => false, 'data' => $model -> getErrors());
+            return array('status ' => false,'pd' => $pd, 'data' => $model -> getErrors());
         }
     }
     
@@ -93,4 +103,27 @@ class UpiController extends ActiveController
       	  return array('status'=>false, 'data'=>'Gagal dihapus');
         }
     }
+
+    //MENAMPILKAN USER BERDASARKAN ID
+    public function actionListId($id){
+        $data=UserAPI::find()->where(['id' => $id ])->one();
+        $req =Yii::$app->request;
+        $username=$req->get('id');
+        if(!empty($data)){
+          return array('status'=>true,'username'=>$username, 'data'=>$data);
+        }else{
+          return array('status'=>false, 'data'=>'Tidak ada data');
+        }
+    }
+
+      //MENAMPILKAN USER 
+    public function actionList(){
+        $data=UserAPI::find()->all();
+        
+        if(!empty($data)){
+          return array('status'=>true, 'data'=>$data);
+        }else{
+          return array('status'=>false, 'data'=>'Tidak ada data');
+        }
+      }
 }
