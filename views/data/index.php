@@ -33,10 +33,7 @@ if (Yii::$app->user->identity->role=='admin') {
     'arah_angin',
     'curah_hujan',
     'temperature',
-    ['class' => 'yii\grid\ActionColumn',
-      'header' => 'Aksi',
-      'headerOptions'=> ['style'=> 'width:70px;'],
-    ],
+    'tekanan_udara'
   ];
 }
 elseif (Yii::$app->user->identity->role=='user') {
