@@ -17,12 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $this->render('_form', [
             'model' => $model,
             'mdl' => $mdl,
-            'gsmto_h' => $gsmto_h,
-            'gsmto_m' => $gsmto_m,
-            'gpsto_h' => $gpsto_h,
-            'gpsto_m' => $gpsto_m,
         ]) ?>
        </div>
+       <?= Html::a('Subscribe', ['mqtt/subs'])?>
  </div>
 
 

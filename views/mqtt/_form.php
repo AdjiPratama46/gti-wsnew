@@ -11,30 +11,30 @@ use kartik\time\TimePicker;
 /* @var $form yii\widgets\ActiveForm */
 
 $jam =array(
-      '01:00:00' => '1 jam' ,
-      '02:00:00' => '2 jam' ,
-      '03:00:00' => '3 jam' ,
-      '04:00:00' => '4 jam' ,
-      '05:00:00' => '5 jam' ,
-      '06:00:00' => '6 jam' ,
-      '07:00:00' => '7 jam' ,
-      '08:00:00' => '8 jam' ,
-      '09:00:00' => '9 jam' ,
-      '10:00:00' => '10 jam' ,
-      '11:00:00' => '11 jam' ,
-      '12:00:00' => '12 jam' ,
-      '13:00:00' => '13 jam' ,
-      '14:00:00' => '14 jam' ,
-      '15:00:00' => '15 jam' ,
-      '16:00:00' => '16 jam' ,
-      '17:00:00' => '17 jam' ,
-      '18:00:00' => '18 jam' ,
-      '19:00:00' => '19 jam' ,
-      '20:00:00' => '20 jam' ,
-      '21:00:00' => '21 jam' ,
-      '22:00:00' => '22 jam' ,
-      '23:00:00' => '23 jam' ,
-      '24:00:00' => '24 jam'
+      60 => '1 jam' ,
+      120 => '2 jam' ,
+      180 => '3 jam' ,
+      240 => '4 jam' ,
+      300 => '5 jam' ,
+      360 => '6 jam' ,
+      420 => '7 jam' ,
+      480 => '8 jam' ,
+      540 => '9 jam' ,
+      600 => '10 jam' ,
+      660 => '11 jam' ,
+      720 => '12 jam' ,
+      780 => '13 jam' ,
+      840 => '14 jam' ,
+      900 => '15 jam' ,
+      960 => '16 jam' ,
+      1020 => '17 jam' ,
+      1080 => '18 jam' ,
+      1140 => '19 jam' ,
+      1200 => '20 jam' ,
+      1260 => '21 jam' ,
+      1320 => '22 jam' ,
+      1380 => '23 jam' ,
+      1440 => '24 jam'
     );
 
     $jam1 =array(
@@ -145,73 +145,28 @@ $jam =array(
               <div class='col-md-5'>{input}</div>{hint}{error}
             </div>"])->textInput(['maxlength' => true, 'value' => $mdl->no_hp]) ?>
 
-            <div class="row">
-              <div class='col-md-4' align='right'><label>GSM Time Out</label></div>
-              <div class='col-md-5'>
-                  <div style="width:49.3%;display:inline-block">
-                    <?= $form->field($model, 'gsm_to_h', [
-                      'template' => "{input}"])->widget(Select2::classname(), [
-                        'data' => $jam1,
+            <?= $form->field($model, 'gsm_to', [
+              'template' => "
+                <div class='row'>
+                  <div class='col-md-4' align='right'>{label}</div>
+                  <div class='col-md-5'>{input}</div>{hint}{error}
+                </div>"])->textInput(['maxlength' => true, 'value' => $mdl->gsm_to]) ?>
 
-                        'pluginOptions' => [
-                            'placeholder' =>'Pilih jam',
-                            'clearBtn' => true,
-                        ],
-                        'options' => [
-                          'value'=> $gsmto_h,
-                        ]])->label(false) ?>
-                  </div>
-                  <div style="width:49.3%;display:inline-block">
-                    <?= $form->field($model, 'gsm_to_m', [
-                      'template' => "{input}"])->widget(Select2::classname(), [
-                        'data' => $menit,
+                <?= $form->field($model, 'gps_to', [
+                  'template' => "
+                    <div class='row'>
+                      <div class='col-md-4' align='right'>{label}</div>
+                      <div class='col-md-5'>{input}</div>{hint}{error}
+                    </div>"])->textInput(['maxlength' => true, 'value' => $mdl->gps_to]) ?>
 
-                        'pluginOptions' => [
-                            'placeholder' =>'Pilih jam',
-                            'clearBtn' => true,
-                        ],
-                        'options' => [
-                          'value'=> $gsmto_m,
-                        ]])->label(false) ?>
-                  </div>
-              </div>
-              <div class="col-md-3"><?= Html::error($model, 'gsm_to_m',['style'=> 'color:#dd4b39']); ?>
-              </div>
-            </div>
+            <?= $form->field($model, 'ussd_code', [
+              'template' => "
+                <div class='row'>
+                  <div class='col-md-4' align='right'>{label}</div>
+                  <div class='col-md-5'>{input}</div>{hint}{error}
+                </div>"])->textInput(['maxlength' => true, 'value' => $mdl->ussd_code]) ?>
 
-            <div class="row">
-              <div class='col-md-4' align='right'><label>GSM Time Out</label></div>
-              <div class='col-md-5'>
-                  <div style="width:49.3%;display:inline-block">
-                    <?= $form->field($model, 'gps_to_h', [
-                      'template' => "{input}"])->widget(Select2::classname(), [
-                        'data' => $jam1,
 
-                        'pluginOptions' => [
-                            'placeholder' =>'Pilih jam',
-                            'clearBtn' => true,
-                        ],
-                        'options' => [
-                          'value'=> $gpsto_h,
-                        ]])->label(false) ?>
-                  </div>
-                  <div style="width:49.3%;display:inline-block">
-                    <?= $form->field($model, 'gps_to_m', [
-                      'template' => "{input}"])->widget(Select2::classname(), [
-                        'data' => $menit,
-
-                        'pluginOptions' => [
-                            'placeholder' =>'Pilih jam',
-                            'clearBtn' => true,
-                        ],
-                        'options' => [
-                          'value'=> $gpsto_m,
-                        ]])->label(false) ?>
-                  </div>
-              </div>
-              <div class="col-md-3"><?= Html::error($model, 'gps_to_m',['style'=> 'color:#dd4b39']); ?>
-              </div>
-            </div>
 
 
 
