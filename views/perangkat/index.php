@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?>
+              <br><br>
             <?php
             if (Yii::$app->user->identity->role =='admin') {
                 echo
@@ -113,7 +114,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         [
                         'header' => 'Aksi',
                         'content' => function($model) {
-                            return  Html::a('Pindah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0])
+                            return  Html::a('Ubah', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form btn btn-success btn-xs', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0])
 
                           ;
                         }
