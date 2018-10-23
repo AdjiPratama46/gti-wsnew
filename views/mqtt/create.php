@@ -2,10 +2,6 @@
 
 use yii\helpers\Html;
 
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Konfigurasi */
-
 $this->title = 'MQTT konfigurasi';
 $this->params['breadcrumbs'][] = ['label' => 'Konfigurasis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,9 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $this->render('_form', [
             'model' => $model,
             'mdl' => $mdl,
-        ]) ?>
+            ])
+        ?>
        </div>
-       <?= Html::a('Subscribe', ['mqtt/subs'])?>
  </div>
 
 

@@ -35,7 +35,9 @@
         "karpy47/php-mqtt-client": "^1.0",
         "2amigos/yii2-date-time-picker-widget": "~1.0",
         "kartik-v/yii2-widget-timepicker": "*",
-        "consik/yii2-websocket": "^1.0"
+        "consik/yii2-websocket": "^1.0",
+        "borales/yii2-phone-input": "*",
+        "udokmeci/yii2-phone-validator" : "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

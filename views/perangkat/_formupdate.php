@@ -15,91 +15,63 @@ use kartik\date\DatePicker;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id', [
-
-      'template' => "
-        <div class='row'>
-          <div class='col-md-4' align='right'>{label}</div>
-          <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-        </div>",
-       'options' => ['class' => 'form-group form-inline'],])
-       ->textInput([
-         'readonly' => true,
-         'maxlength' => true,
-        'style' => 'width: 100%;']) ?>
-
-    <?= $form->field($model, 'alias', [
-        'template' => "
-          <div class='row'>
-            <div class='col-md-4' align='right'>{label}</div>
-            <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-          </div>",
-       'options' => ['class' => 'form-group form-inline'],])
-       ->textInput([
-         'maxlength' => true,
-        'style' => 'width: 100%;']) ?>
-
-    <?= $form->field($model, 'id_owner', [
-          'template' => "{label}{input}{hint}{error}",
-           'options' => ['class' => 'form-group form-inline'],])
-           ->hiddenInput([
-             'value' => Yii::$app->user->identity->id,
-             'maxlength' => true,
-            'style' => 'width: 100%;'])->label(false) ?>
-
-            <?= $form->field($model, 'tgl_instalasi', [
-
-              'template' => "
-                <div class='row'>
-                  <div class='col-md-4' align='right'>{label}</div>
-                  <div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div>
-                </div>",
-               'options' => ['class' => 'form-group form-inline'],])
-               ->textInput([
-                 'readonly' => true,
-                 'maxlength' => true,
-                'style' => 'width: 100%;']) ?>
-
-
-
-    <?= $form->field($model, 'longitude', [
-      'template' => "
-        <div class='row'>
-          <div class='col-md-4' align='right'>{label}</div>
-          <div class='col-md-8'>{input}{hint}{error}</div>
-        </div>",
-       'options' => ['class' => 'form-group form-inline'],])
-       ->textInput([
-         'readonly' => true,
-         'maxlength' => true,
-        'style' => 'width: 60%;']) ?>
-
-    <?= $form->field($model, 'latitude', [
-      'template' => "
-        <div class='row'>
-          <div class='col-md-4' align='right'>{label}</div>
-          <div class='col-md-8'>{input}{hint}{error}</div>
-        </div>",
-       'options' => ['class' => 'form-group form-inline'],])
-       ->textInput([
-         'readonly' => true,
-         'maxlength' => true,
-        'style' => 'width: 60%;']) ?>
-
-        <?= $form->field($model, 'altitude', [
-          'template' => "
-            <div class='row'>
-              <div class='col-md-4' align='right'>{label}</div>
-              <div class='col-md-8'>{input}{hint}{error}</div>
-            </div>",
-           'options' => ['class' => 'form-group form-inline'],])
-           ->textInput([
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+         ->textInput([
              'readonly' => true,
              'maxlength' => true,
-            'style' => 'width: 60%;']) ?>
+             'style' => 'width: 100%;'])
+    ?>
 
-    <center>
-                <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?>
-            </center><br>
+    <?= $form->field($model, 'alias', [
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+         ->textInput([
+             'readonly' => true,
+             'maxlength' => true,
+             'style' => 'width: 100%;'])
+    ?>
+
+    <?= $form->field($model, 'id_owner')
+        ->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false)
+    ?>
+
+    <?= $form->field($model, 'tgl_instalasi', [
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+        ->textInput([
+           'readonly' => true,
+           'maxlength' => true,
+           'style' => 'width: 100%;'])
+    ?>
+
+    <?= $form->field($model, 'longitude', [
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+         ->textInput([
+             'readonly' => true,
+             'maxlength' => true,
+             'style' => 'width: 100%;'])
+    ?>
+
+    <?= $form->field($model, 'latitude', [
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+         ->textInput([
+             'readonly' => true,
+             'maxlength' => true,
+             'style' => 'width: 100%;'])
+    ?>
+    <?= $form->field($model, 'altitude', [
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        'options' => ['class' => 'form-group form-inline'],])
+        ->textInput([
+           'readonly' => true,
+           'maxlength' => true,
+           'style' => 'width: 100%;'])
+      ?>
+
+    <center><?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success butsub']) ?></center><br>
 
     <?php ActiveForm::end(); ?>
 
