@@ -314,26 +314,49 @@ class SiteController extends Controller
      */
 
     public function actionChart($id,$idp){
-        $id_owner = Yii::$app->user->id;
-        if ($id=='all' && !empty($idp)) {
-            $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-            perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND data.id_perangkat="'.$idp.'"
-            AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
-        }elseif ($id=='all' && empty($idp)) {
-            $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-            AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-            perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"AND YEAR(tgl)=YEAR(NOW()) 
-            GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
-        }elseif (empty($idp)) {
-            $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
-            FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
-            ->queryAll();
-        }else{
-            $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
-            FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
-            ->queryAll();
+        if (Yii::$app->user->identity->role=="user") {
+            $id_owner = Yii::$app->user->id;
+            if ($id=='all' && !empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND data.id_perangkat="'.$idp.'"
+                AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            }elseif ($id=='all' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"AND YEAR(tgl)=YEAR(NOW()) 
+                GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            }elseif (empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }else{
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }
+        }else {
+            if ($id=='all' && !empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND data.id_perangkat="'.$idp.'"
+                AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            }elseif ($id=='all' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                AVG(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND YEAR(tgl)=YEAR(NOW()) 
+                GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            }elseif (empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }else{
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }
         }
+        
         
         
         

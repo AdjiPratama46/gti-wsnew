@@ -130,16 +130,10 @@ $this->registerJs("
                             <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
                         </div>
                     </div>
-                    <!-- <div class="small-box bg-aqua">
-                        <div class="inner">
-                            <h3></h3>
-                            <p>Jumlah User</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-ios-people"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">Lihat Lainnya <i class="fa fa-arrow-circle-right"></i></a>
-                    </div> -->
+                    <!-- <div class="small-box bg-aqua"> <div class="inner"> <h3></h3> <p>Jumlah
+                    User</p> </div> <div class="icon"> <i class="ion ion-ios-people"></i> </div> <a
+                    href="#" class="small-box-footer">Lihat Lainnya <i class="fa
+                    fa-arrow-circle-right"></i></a> </div> -->
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
@@ -381,19 +375,14 @@ $this->registerJs("
     </div>
     <?php
     if (Yii::$app->user->identity->role=='admin') { ?>
-        <div class="row">
-            <div class="col-md-7">
-                <div class="box  box-solid box-success">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Statistik</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus" id="io"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="box-body" id="ch">
-                        <?php
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box  box-solid box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Statistik</h3>
+                </div>
+                <div class="box-body" id="ch">
+                    <?php
                             foreach ($chart as $values) {
                                 $a[0]= ($values['bulan']); 
                                 $c[]= ($values['bulan']); 
@@ -413,40 +402,52 @@ $this->registerJs("
                                 ]
                             ]);
                         ?>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-block btn-xs bg-olive" id="bcu" name="curah_hujan">Curah Hujan</button>
-                            </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
                         </div>
                     </div>
-                    <div class="box-footer">
-                        <p class="text-center">
-                            <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
-                            <i class="fa fa-arrow-circle-right"></i>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="box  box-solid box-danger">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Statistik Arah Angin</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button
+                                type="button"
+                                class="btn btn-block btn-xs btn-success"
+                                id="bc"
+                                name="all">
+                                All
                             </button>
                         </div>
                     </div>
-                    <div class="box-body">
+                </div>
+                <div class="box-footer">
+                    <p class="text-center">
+                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="box box-solid box-danger" id="bx-dg">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Statistik Arah Angin</h3>
+                </div>
+                <div class="box-body" id="bx-dg">
                     <?php
                      foreach( $pie as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -455,7 +456,7 @@ $this->registerJs("
                         (int)$jmlh );
                      }
                     ?>
-                        <?= Highcharts::widget([
+                    <?= Highcharts::widget([
                             'scripts' => [
                                 'highcharts-3d',   
                              ],
@@ -489,19 +490,19 @@ $this->registerJs("
                                 ],
                             ]);
                         ?>
-                    </div>
-                    <div class="box-footer">
-                        <p class="text-center">
-                            <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                </div>
+                <div class="box-footer">
+                    <p class="text-center">
+                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
                             <i class="fa fa-arrow-circle-right"></i>
-                            </a>
-                        </p>
-                    </div>
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
-        <?php } ?>
-    
+    </div>
+    <?php } ?>
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid box-warning collapsed-box">
@@ -510,7 +511,12 @@ $this->registerJs("
                         <h3 class="box-title" id="ls">Lihat Selengkapnya</h3>
                     </center>
                     <div class="box-tools pull-right" id="bx-tl">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <button
+                            type="button"
+                            class="btn btn-box-tool"
+                            data-widget="collapse"
+                            data-toggle="tooltip"
+                            title="Collapse">
                             <i class="fa fa-plus" id="ix"></i>
                         </button>
                     </div>

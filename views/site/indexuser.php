@@ -404,7 +404,7 @@ $this->registerJs("
                         </div>
                         <div class="col-md-4">
                             <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
-                                    All
+                                All
                             </button>
                         </div>
                     </div>
