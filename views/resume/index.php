@@ -18,7 +18,8 @@ $this->registerJs("
         var href = button.attr('href')
         modal.find('.modal-title').html(title)
         modal.find('.modal-body').html('<div class=\"progress\"><div class=\"progress-bar progress-bar-striped active\" aria-valuenow=\"100\" style=\"width:100%\"></div></div>')
-        modal.find('.modal-content').css('width','950px')
+        modal.find('.modal-content')
+        modal.find('.modal-dialog').css('width','80%')
         $.post(href)
             .done(function( data ) {
                 modal.find('.modal-body').html(data)
@@ -29,7 +30,6 @@ $this->registerJs("
 Modal::begin([
     'id' => 'myModal',
     'header' => '<h4 class="modal-title">...</h4>',
-    'size'   => 'modal-lg',
 ]);
 
 echo '...';
@@ -53,7 +53,7 @@ Modal::end();
                         'bulan',
                         //'id_perangkat',
                         //'tahun',
-                        
+
                         [
                             'attribute' => 'kelembaban',
                             'format'=>['decimal',2]
@@ -62,9 +62,9 @@ Modal::end();
                             'attribute' => 'kecepatan_angin',
                             'format'=>['decimal',2]
                         ],
-                        
+
                         'arah_angin',
-                          
+
                         [
                             'attribute' => 'curah_hujan',
                             'format'=>['decimal',2]
