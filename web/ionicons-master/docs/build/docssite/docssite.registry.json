@@ -1,0 +1,74 @@
+{
+  "namespace": "DocsSite",
+  "fsNamespace": "docssite",
+  "loader": "../docssite.js",
+  "core": "docssite.core.js",
+  "corePolyfilled": "docssite.core.pf.js",
+  "components": {
+    "footer-bar": {
+      "bundleIds": {
+        "$": "footer-bar"
+      }
+    },
+    "header-bar": {
+      "bundleIds": {
+        "$": "header-bar"
+      }
+    },
+    "icon-list": {
+      "bundleIds": {
+        "$": "icon-list"
+      }
+    },
+    "icon-search": {
+      "bundleIds": {
+        "$": "icon-search"
+      }
+    },
+    "ionicons-site": {
+      "bundleIds": {
+        "$": "header-bar"
+      }
+    },
+    "landing-page": {
+      "bundleIds": {
+        "$": "icon-list"
+      }
+    },
+    "notfound-page": {
+      "bundleIds": {
+        "$": "notfound-page"
+      }
+    },
+    "stencil-route": {
+      "bundleIds": {
+        "$": "header-bar"
+      }
+    },
+    "stencil-route-link": {
+      "bundleIds": {
+        "$": "stencil-route-link"
+      }
+    },
+    "stencil-route-switch": {
+      "bundleIds": {
+        "$": "header-bar"
+      }
+    },
+    "stencil-router": {
+      "bundleIds": {
+        "$": "header-bar"
+      }
+    },
+    "toast-bar": {
+      "bundleIds": {
+        "$": "icon-list"
+      }
+    },
+    "usage-page": {
+      "bundleIds": {
+        "$": "usage-page"
+      }
+    }
+  }
+}
