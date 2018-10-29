@@ -66,12 +66,12 @@ $jam =array(
     ?>
 
     <?= $form->field($model, 'gsm_to', [
-        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-5'>{input}</div>{hint}{error}</div>"])
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-4'>{input}</div><div class='col-md-1'><label>Menit</label></div>{hint}{error}</div>"])
         ->textInput(['maxlength' => true, 'value' => $mdl->gsm_to])
     ?>
 
     <?= $form->field($model, 'gps_to', [
-        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-5'>{input}</div>{hint}{error}</div>"])
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-4'>{input}</div><div class='col-md-1'><label>Menit</label></div>{hint}{error}</div>"])
         ->textInput(['maxlength' => true, 'value' => $mdl->gps_to])
     ?>
 

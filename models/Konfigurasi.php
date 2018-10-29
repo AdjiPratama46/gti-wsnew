@@ -40,12 +40,13 @@ class Konfigurasi extends \yii\db\ActiveRecord
             [['id_user', 'frekuensi', 'ip_server', 'no_hp','ussd_code', 'gsm_to', 'gps_to'], 'required',
               'message'=> '{attribute} Tidak boleh kosong'
             ],
-            
+
             [['no_hp'],'string', 'min' => 11, 'max' => 14, 'tooShort' => '{attribute} minimal 11 karakter'],
             [['id_user'], 'integer'],
             [['timestamp', 'gsm_to', 'gps_to'], 'safe'],
             [['gsm_to','gps_to', 'no_hp'], 'match', 'pattern' => '/^[0-9]+$/u', 'message' => '{attribute} hanya boleh diisi oleh angka'],
-            [['frekuensi', 'ip_server', 'gsm_to', 'gps_to','no_hp'], 'string', 'max' => 255],
+            [['ip_server'], 'string', 'max' => 16],
+            [['gsm_to', 'gps_to'], 'string', 'max' => 4]
 
         ];
     }
