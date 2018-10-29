@@ -44,7 +44,7 @@ class MqttController extends Controller
 
       $obj = new Objconfig();
       if ($model->load(Yii::$app->request->post())) {
-        $obj->iv=intval($model->frekuensi);
+        $obj->iv=intval($model->interval);
         $obj->mh=$model->ip_server;
         $obj->rn=$model->no_hp;
         $obj->gsm=intval($model->gsm_to);
@@ -68,7 +68,7 @@ class MqttController extends Controller
 
 
                     Yii::$app->getSession()->setFlash(
-                        'success', $msg
+                        'success', 'Berhasil menyimpan data'
                     );
                   }
                   $client->sendDisconnect();
