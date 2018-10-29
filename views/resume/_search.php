@@ -14,8 +14,9 @@ if (Yii::$app->user->identity->role=="admin") {
     $sql = 'SELECT YEAR(tgl) as tgl FROM data GROUP BY tgl ORDER BY tgl DESC';
     $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
 }elseif (Yii::$app->user->identity->role=="user") {
+    $id = Yii::$app->user->identity->id;
     $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','alias');
-    $sql = 'SELECT YEAR(tgl) as tgl FROM data WHERE id_perangkat="'.$model['id'].'" GROUP BY tgl ORDER BY tgl DESC';
+    $sql = 'SELECT YEAR(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat    AND user.id = "'.$id.'" GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
     $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
 }
 ?>
