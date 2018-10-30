@@ -56,14 +56,14 @@ class MqttController extends Controller
         $obj = json_decode($msg);
         if($model->save()){
 
-              $client = new MQTTClient('lumba-studio.id', 1883);
+              $client = new MQTTClient('mqtt01.gti.co.id', 1883);
               $client->setAuthentication('','');
               $client->setEncryption('cacerts.pem');
               $success = $client->sendConnect(123456);
 
 
               if ($success) {
-                  $sc=$client->sendPublish('percobaan/1', $msg, 0);
+                  $sc=$client->sendPublish('/cuaca/unpad/config', $msg, 0);
                   if($sc){
 
 
