@@ -37,7 +37,7 @@ class Konfigurasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'frekuensi', 'ip_server', 'no_hp','ussd_code', 'gsm_to', 'gps_to'], 'required',
+            [['id_user', 'interval', 'ip_server', 'no_hp','ussd_code', 'gsm_to', 'gps_to'], 'required',
               'message'=> '{attribute} Tidak boleh kosong'
             ],
 
@@ -60,7 +60,7 @@ class Konfigurasi extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_user' => 'Id User',
-            'frekuensi' => 'Interval',
+            'interval' => 'Interval',
             'ip_server' => 'MQTT Host',
             'gsm_to' => 'GSM Time Out',
             'gps_to' => 'GPS Time Out',

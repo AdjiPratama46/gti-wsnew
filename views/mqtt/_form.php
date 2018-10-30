@@ -41,7 +41,7 @@ $jam =array(
 
     <?= $form->field($model, 'id_user')->hiddenInput(['value'=>Yii::$app->user->identity->id])->label(false) ?>
 
-    <?= $form->field($model, 'frekuensi', [
+    <?= $form->field($model, 'interval', [
         'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-5'>{input}</div>{hint}{error}</div>"])
         ->widget(Select2::classname(), [
             'name' => 'frekuensi',
@@ -51,7 +51,7 @@ $jam =array(
                 'placeholder' =>'Pilih jam',
                 'clearBtn' => true,
             ],
-            'options' => ['value'=> $mdl->frekuensi]
+            'options' => ['value'=> $mdl->interval]
         ])
     ?>
 

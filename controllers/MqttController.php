@@ -44,7 +44,7 @@ class MqttController extends Controller
 
       $obj = new Objconfig();
       if ($model->load(Yii::$app->request->post())) {
-        $obj->iv=intval($model->frekuensi);
+        $obj->iv=intval($model->interval);
         $obj->mh=$model->ip_server;
         $obj->rn=$model->no_hp;
         $obj->gsm=intval($model->gsm_to);
@@ -56,19 +56,20 @@ class MqttController extends Controller
         $obj = json_decode($msg);
         if($model->save()){
 
-              $client = new MQTTClient('lumba-studio.id', 1883);
+              $client = new MQTTClient('103.11.99.171', 1883);
               $client->setAuthentication('','');
               $client->setEncryption('cacerts.pem');
-              $success = $client->sendConnect(123456);
+              $clientID=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($x)) )),1,10);
+              $success = $client->sendConnect($clientID);
 
 
               if ($success) {
-                  $sc=$client->sendPublish('percobaan/1', $msg, 0);
+                  $sc=$client->sendPublish('/cuaca/unpad/config', $msg, 0);
                   if($sc){
 
 
                     Yii::$app->getSession()->setFlash(
-                        'success', $msg
+                        'success', 'Berhasil menyimpan data'
                     );
                   }
                   $client->sendDisconnect();
