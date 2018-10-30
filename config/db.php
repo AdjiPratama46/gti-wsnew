@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=stmiot-tech.xyz;dbname=stmiotte_gti',
-    'username' => 'stmiotte_gti',
-    'password' => 'sk~I-m^myGo&',
+    'dsn' => 'mysql:host=192.168.100.117;dbname=ws07',
+    'username' => 'ws07',
+    'password' => 'luwakliar77',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
