@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Permintaan;
+use app\models\Perangkat;
+use app\models\Data;
 use app\models\Temptable;
 use app\models\PermintaanSearch;
 use yii\web\Controller;
@@ -43,6 +45,7 @@ class PermintaanController extends Controller
                 [
                   'actions' => [
                       'index',
+                      'view',
                   ],
                   'allow' => true,
                   'matchCallback' => function(){
@@ -83,7 +86,7 @@ class PermintaanController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -140,8 +143,12 @@ class PermintaanController extends Controller
         return $this->redirect(['index']);
     }
 
+
+
     public function actionTolak($id){
+
       $model = $this->findModel($id);
+      $model->scenario = 'tolak';
       $model->status=2;
       $model->tgl_tanggapan=date('Y-m-d H:i:s');
 
@@ -163,8 +170,65 @@ class PermintaanController extends Controller
     }
 
     public function actionTerima($id){
+      $model = $this->findModel($id);
+      $model->status=1;
+      $model->pesan='Permintaan Anda telah disetujui';
+      $model->tgl_tanggapan=date('Y-m-d H:i:s');
 
+      $dataM = Temptable::find()->where(['id_perangkat'=>$model->id_perangkat])->orderBy(['timestamp' => SORT_ASC])->all();
+      $jml=0;
+      $idnya='id:';
+      foreach ($dataM as $datas) {
+          $model1 = new Perangkat();
+
+          $model1->id=$datas->id_perangkat;
+          $model1->alias=$datas->id_perangkat;
+          $model1->id_owner=$model->id_user;
+          $model1->tgl_instalasi=$datas->timestamp;
+          $model1->longitude=$datas->longitude;
+          $model1->latitude=$datas->latitude;
+          $model1->altitude=$datas->altimeter;
+
+          $cek = Perangkat::find()->where(['id'=>$model->id_perangkat])->one();
+
+          if(empty($cek)){
+            $model1->save();
+          }
+          else if(!empty($cek)){
+              if(($cek->longitude != $datas->longitude) || ($cek->latitude != $datas->latitude) || ($cek->altitude != $datas->altimeter)){
+                  $model2 = Perangkat::find($model->id_perangkat)->one();
+                  $model2->tgl_instalasi=$datas->timestamp;
+                  $model2->longitude=$datas->longitude;
+                  $model2->latitude=$datas->latitude;
+                  $model2->altitude=$datas->altimeter;
+                  $model2->save();
+              }
+          }
+
+          $model3 = new Data();
+          $model3->id_perangkat=$datas->id_perangkat;
+          $model3->tgl=$datas->timestamp;
+          $model3->kelembaban=$datas->kelembapan;
+          $model3->kecepatan_angin=$datas->kecepatan_angin;
+          $model3->arah_angin=$datas->arah_angin;
+          $model3->curah_hujan=$datas->curah_hujan;
+          $model3->temperature=$datas->temperature;
+          $model3->tekanan_udara=$datas->tekanan_udara;
+          $model3->save();
+
+          $moddels = Temptable::find()->where(['id'=>$datas->id])->one();
+          $moddels->delete();
+          $idnya=$idnya.','.$datas->id;
+          $jml=$jml+1;
     }
+    $model->save();
+    $msg='Perangkat telah ditambahkan. Jumlah data terisi : '.$jml;
+
+        Yii::$app->getSession()->setFlash(
+            'success',$msg
+        );
+          return $this->redirect(['perangkat/index']);
+  }
 
     /**
      * Finds the Permintaan model based on its primary key value.

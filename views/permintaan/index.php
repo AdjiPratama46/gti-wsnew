@@ -102,6 +102,17 @@ elseif (Yii::$app->user->identity->role=='user') {
                 }
               },
           ],
+          [
+            'format'=>'raw',
+            'header' => 'Aksi',
+            'value' => function($model, $key, $index)
+              {
+
+                    return Html::a('Detail', ['view', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-success']);
+
+
+              },
+          ],
 
 
       ];

@@ -6,33 +6,56 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Permintaan */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Permintaans', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Detail Pengajuan';
 ?>
-<div class="permintaan-view">
+<div class="permintaan-view" style="padding:40px;">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <center><h3><?= Html::encode($this->title) ?></h3></center>
+    <br>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'id_perangkat',
-            'id_user',
-            'status',
-            'timestamp',
+            //'id_user',
+            'tgl_pengajuan',
+            'tgl_tanggapan',
+            [
+              'attribute' => 'status',
+              'format'=>'raw',
+              'value' => function($model)
+                {
+                  if($model->status == '0')
+                  {
+                      return '<p class="text-warning">Menunggu Konfirmasi</p>';
+                  }
+                  elseif($model->status == '1')
+                  {
+                      return '<p class="text-success">Pengajuan Diterima</p>';
+                  }
+                  elseif($model->status == '2')
+                  {
+                      return '<p class="text-danger">Pengajuan Ditolak</p>';
+                  }
+                },
+            ],
+            [
+              'attribute' => 'pesan',
+              'format'=>'raw',
+              'value' => function($model)
+                {
+                  if($model->pesan == '')
+                  {
+                      return '<p class="text-warning">Menunggu Konfirmasi</p>';
+                  }
+                  else
+                  {
+                      return $model->pesan;
+                  }
+                },
+            ],
         ],
     ]) ?>
 

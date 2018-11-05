@@ -12,15 +12,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_perangkat')->textInput(['maxlength' => true])->label(false) ?>
-    <?= $form->field($model, 'id_user')->textInput()->label(false) ?>
-    <?= $form->field($model, 'status')->textInput()->label(false) ?>
-    <?= $form->field($model, 'tgl_pengajuan')->textInput()->label(false) ?>
-    <?= $form->field($model, 'tgl_tanggapan')->textInput()->label(false) ?>
-    <?= $form->field($model, 'pesan')->textInput() ?>
+    <?= $form->field($model, 'id_perangkat')->hiddenInput(['maxlength' => true])->label(false) ?>
+    <?= $form->field($model, 'id_user')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'status')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'tgl_pengajuan')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'tgl_tanggapan')->hiddenInput()->label(false) ?>
+    <?= $form->field($model, 'pesan',[
+        'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
+        ])->textArea(['style' => 'resize: none;height:200px;']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <center><?= Html::submitButton('Kirim', ['class' => 'btn btn-block btn-success butsub']) ?></center>
     </div>
 
     <?php ActiveForm::end(); ?>

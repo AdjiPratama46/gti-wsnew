@@ -32,9 +32,9 @@ class Permintaan extends \yii\db\ActiveRecord
     {
         return [
             [['id_perangkat', 'id_user'], 'required'],
+            [['pesan'], 'required', 'on'=>'tolak', 'message' => '{attribute} tidak boleh kosong'],
             [['id_user', 'status'], 'integer'],
-            [['tgl_pengajuan','tgl_tanggapan','pesan'], 'safe'],
-            ['pesan', 'required', 'on' => 'update'],
+            [['tgl_pengajuan','tgl_tanggapan'], 'safe'],
             [['id_perangkat'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
