@@ -39,13 +39,13 @@
                                 'icon' => 'th-large',
                                 'url' => '#',
                                 'items' => [
-                                  ['label' => 'Permintaan Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                  ['label' => 'Permintaan Perangkat', 'icon' => 'inbox', 'url' => ['perangkat/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
-                                  ['label' => 'Perangkat Aktif', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                  ['label' => 'Perangkat Aktif', 'icon' => 'check', 'url' => ['perangkat/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
-                                  ['label' => 'Perangkat Tidak Aktif', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                  ['label' => 'Perangkat Tidak Aktif', 'icon' => 'remove', 'url' => ['perangkat/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
                                 ],
