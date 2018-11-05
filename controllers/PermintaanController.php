@@ -155,7 +155,7 @@ class PermintaanController extends Controller
               return $this->redirect(['permintaan/index']);
       }
 
-      return $this->render('update', [
+      return $this->renderAjax('update', [
           'model' => $model,
       ]);
 

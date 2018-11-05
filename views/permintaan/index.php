@@ -47,10 +47,7 @@ if(Yii::$app->user->identity->role=='admin'){
                     return Html::a('Setujui', ['terima', 'id' => $model->id], ['class' => 'btn btn-sm btn-success','data' => [
                         'confirm' => 'Anda yakin akan menyetujui pengajuan ini?',
                         'method' => 'post',
-                    ],]).'&nbsp;'.Html::a('Tolak', ['update', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-danger','data' => [
-                        'confirm' => 'Anda yakin akan menolak pengajuan ini?',
-                        'method' => 'post',
-                    ],]);
+                    ],]).'&nbsp;'.Html::a('Tolak', ['tolak', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-danger']);
                 }
 
               },
