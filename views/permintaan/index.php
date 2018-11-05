@@ -39,16 +39,35 @@ $this->params['breadcrumbs'][] = $this->title;
               'format'=>'raw',
               'value' => function($model, $key, $index)
                 {
-                    if($model->status == '0')
-                    {
-                        return '<p class="text-danger">Menunggu Konfirmasi</p>';
-                    }
+                  if($model->status == '0')
+                  {
+                      return '<p class="text-danger">Menunggu Konfirmasi</p>';
+                  }
+                },
+            ],
+
+            [
+              'format'=>'raw',
+              'header' => 'Aksi',
+              'headerOptions' => ['style' => 'width:20%'],
+              'value' => function($model, $key, $index)
+                {
+                  if($model->status == '0')
+                  {
+                      return Html::a('Setujui', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-sm btn-success','data' => [
+                          'confirm' => 'Anda yakin akan menyetujui pengajuan ini?',
+                          'method' => 'post',
+                      ],]).'&nbsp;'.Html::a('Tolak', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-sm btn-danger','data' => [
+                          'confirm' => 'Anda yakin akan menolak pengajuan ini?',
+                          'method' => 'post',
+                      ],]);
+                  }
+
                 },
             ],
             //'id_user',
             //'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

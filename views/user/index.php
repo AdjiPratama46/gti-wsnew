@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = 'User';
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/index']];
 ?>
 <div class="users-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/index
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <?= Html::a('Tambah Users', ['create'], ['class' => 'modal-form btn btn-success']) ?>
+                <?= Html::a('Tambah User', ['create'], ['class' => 'modal-form btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([

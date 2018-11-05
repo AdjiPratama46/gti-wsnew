@@ -46,7 +46,7 @@ class Permintaan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_perangkat' => 'Id Perangkat',
+            'id_perangkat' => 'ID Perangkat',
             'id_user' => 'Pengaju',
             'status' => 'Status',
             'timestamp' => 'Waktu Pengajuan',
