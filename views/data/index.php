@@ -10,7 +10,6 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use kartik\time\TimePicker;
 use kartik\export\ExportMenu;
-use arturoliveira\ExcelView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DataSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,7 +17,7 @@ use arturoliveira\ExcelView;
 $this->title = 'Data Harian';
 $this->params['breadcrumbs'][] = $this->title;
 
-if (Yii::$app->user->identity->role=='admin') {
+
   $gridColumns = [
     ['class' => 'yii\grid\SerialColumn'],
     ['attribute' => 'perangkat',
@@ -35,25 +34,7 @@ if (Yii::$app->user->identity->role=='admin') {
     'temperature',
     'tekanan_udara'
   ];
-}
-elseif (Yii::$app->user->identity->role=='user') {
-  $gridColumns = [
-    ['class' => 'yii\grid\SerialColumn'],
-    ['attribute' => 'perangkat',
-      'value' => 'perangkat.alias'
-    ],
-    ['attribute' => 'pukul',
-      'value' => 'tgl',
-      'format' =>  ['date', 'php:H:i'],
-    ],
-    'kelembaban',
-    'kecepatan_angin',
-    'arah_angin',
-    'curah_hujan',
-    'temperature',
-    'tekanan_udara'
-  ];
-}
+
 
 ?>
 <div class="data-index">
@@ -65,18 +46,19 @@ elseif (Yii::$app->user->identity->role=='user') {
                 <div class="col-md-6" style="padding-left:0px;">
                     <?php
                       echo ExportMenu::widget([
-
                         'dataProvider' => $dataProvider,
                         'columns' => $gridColumns,
                         'target'=> '_blank',
                         'dropdownOptions' => [
                             'label' => 'Export',
-                            'class' => 'btn',
-                            'style' => 'position:absolute;'
+                            'class' => 'btn ',
+                            'style' => 'border-radius:0;'
                           ],
                         'columnSelectorOptions' => [
+                          'disabled' => true,
                           'label' => 'Kolom',
-                          'class' => 'btn'
+                          'class' => 'btn',
+                          'style' => 'visibility: hidden;width:0;height:0;position:absolute;'
                         ],
                         'exportConfig' => [
                           ExportMenu::FORMAT_HTML => false,

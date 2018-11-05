@@ -32,8 +32,8 @@
         "karpy47/php-mqtt-client": "^1.0",
         "2amigos/yii2-date-time-picker-widget": "~1.0",
         "kartik-v/yii2-widget-timepicker": "*",
-        "kartik-v/yii2-export": "@dev",
-        "miloschuman/yii2-highcharts-widget": "^6.0"
+        "miloschuman/yii2-highcharts-widget": "^6.0",
+        "kartik-v/yii2-export": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
