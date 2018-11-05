@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Perangkat;
 use app\models\Temptable;
+use app\models\Permintaan;
 use app\models\Tperangkat;
 use app\models\Maps;
 use app\models\Data;
@@ -104,11 +105,19 @@ class PerangkatController extends Controller
     public function actionCreate()
     {
         $model = new Tperangkat();
-        $perangkt = ArrayHelper::map(Temptable::find()->select('id_perangkat')->distinct()->all(),'id_perangkat','id_perangkat');
+        $perangkt = ArrayHelper::map(Temptable::find()->select('id_perangkat')->distinct()->where(['status'=>0])->all(),'id_perangkat','id_perangkat');
 
         if ($model->load(Yii::$app->request->post())) {
 
+          $model1 = new Permintaan();
+          $model1->id_perangkat=$model->idp;
+          $model1->id_user=Yii::$app->user->identity->id;
+          iF($model1->save()){
+            Temptable::updateAll(['status' => 1], ['id_perangkat' => $model->idp]);
+          }
 
+
+          /*
             $dataM = Temptable::find()->where(['id_perangkat'=>$model->idp])->orderBy(['timestamp' => SORT_ASC])->all();
             $jml=0;
             $idnya='id:';
@@ -155,8 +164,8 @@ class PerangkatController extends Controller
                 $idnya=$idnya.','.$datas->id;
                 $jml=$jml+1;
         	}
-
-            $msg='Perangkat berhasil tersimpan!. data tercatat : '.$jml.' . '.$idnya;
+          */
+            $msg='Permintaan penambahan perangkat telah diajukan';
 
                 Yii::$app->getSession()->setFlash(
                     'success',$msg

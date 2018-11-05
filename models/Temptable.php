@@ -61,6 +61,7 @@ class Temptable extends \yii\db\ActiveRecord
             'arah_angin' => 'Arah Angin',
             'curah_hujan' => 'Curah Hujan',
             'timestamp' => 'Timestamp',
+            'status' => 'Status',
         ];
     }
 }
