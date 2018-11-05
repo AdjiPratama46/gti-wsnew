@@ -328,7 +328,8 @@ class SiteController extends Controller
                 GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
             }elseif (empty($idp)) {
                 $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
-                FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
+                AND user.id = "'.$id_owner.'" AND YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }else{
                 $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
