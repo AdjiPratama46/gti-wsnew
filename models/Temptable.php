@@ -38,7 +38,7 @@ class Temptable extends \yii\db\ActiveRecord
         return [
             [['id_perangkat', 'latitude', 'longitude', 'altimeter', 'temperature', 'kelembapan', 'tekanan_udara', 'kecepatan_angin', 'arah_angin', 'curah_hujan'], 'required'],
             [['temperature', 'kelembapan', 'tekanan_udara', 'kecepatan_angin', 'curah_hujan'], 'number'],
-            [['timestamp'], 'safe'],
+            [['timestamp','status'], 'safe'],
             [['id_perangkat', 'latitude', 'longitude', 'altimeter', 'arah_angin'], 'string', 'max' => 255],
         ];
     }

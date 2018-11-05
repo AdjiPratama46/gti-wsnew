@@ -30,8 +30,26 @@
                             'options' => ['id' => 'menu5']
                         ],
                         ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                        'visible' => Yii::$app->user->identity->role=='user',
                             'options' => ['id' => 'menu2']
                         ],
+                        [
+                                'label' => 'Perangkat',
+                                'visible' => Yii::$app->user->identity->role=='admin',
+                                'icon' => 'th-large',
+                                'url' => '#',
+                                'items' => [
+                                  ['label' => 'Permintaan Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                      'options' => ['id' => 'menu2']
+                                  ],
+                                  ['label' => 'Perangkat Aktif', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                      'options' => ['id' => 'menu2']
+                                  ],
+                                  ['label' => 'Perangkat Tidak Aktif', 'icon' => 'th-large', 'url' => ['perangkat/index'],
+                                      'options' => ['id' => 'menu2']
+                                  ],
+                                ],
+                            ],
                         ['label' => 'Data Harian', 'icon' => 'calendar', 'url' => ['data/index'],
                             'options' => ['id' => 'menu3']
                         ],
