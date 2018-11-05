@@ -12,13 +12,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_perangkat')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'id_user')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'timestamp')->textInput() ?>
+    <?= $form->field($model, 'id_perangkat')->textInput(['maxlength' => true])->label(false) ?>
+    <?= $form->field($model, 'id_user')->textInput()->label(false) ?>
+    <?= $form->field($model, 'status')->textInput()->label(false) ?>
+    <?= $form->field($model, 'tgl_pengajuan')->textInput()->label(false) ?>
+    <?= $form->field($model, 'tgl_tanggapan')->textInput()->label(false) ?>
+    <?= $form->field($model, 'pesan')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

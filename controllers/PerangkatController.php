@@ -112,7 +112,7 @@ class PerangkatController extends Controller
           $model1 = new Permintaan();
           $model1->id_perangkat=$model->idp;
           $model1->id_user=Yii::$app->user->identity->id;
-          iF($model1->save()){
+          if($model1->save()){
             Temptable::updateAll(['status' => 1], ['id_perangkat' => $model->idp]);
           }
 

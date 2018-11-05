@@ -33,7 +33,8 @@ class Permintaan extends \yii\db\ActiveRecord
         return [
             [['id_perangkat', 'id_user'], 'required'],
             [['id_user', 'status'], 'integer'],
-            [['timestamp'], 'safe'],
+            [['tgl_pengajuan','tgl_tanggapan','pesan'], 'safe'],
+            ['pesan', 'required', 'on' => 'update'],
             [['id_perangkat'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
@@ -49,7 +50,9 @@ class Permintaan extends \yii\db\ActiveRecord
             'id_perangkat' => 'ID Perangkat',
             'id_user' => 'Pengaju',
             'status' => 'Status',
-            'timestamp' => 'Waktu Pengajuan',
+            'tgl_pengajuan' => 'Waktu Pengajuan',
+            'tgl_tanggapan' => 'Waktu Tanggapan',
+            'pesan' => 'Pesan',
         ];
     }
 

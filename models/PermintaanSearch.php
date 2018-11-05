@@ -19,7 +19,7 @@ class PermintaanSearch extends Permintaan
     {
         return [
             [['id', 'id_user', 'status'], 'integer'],
-            [['id_perangkat', 'timestamp'], 'safe'],
+            [['id_perangkat', 'tgl_pengajuan','tgl_tanggapan'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class PermintaanSearch extends Permintaan
         // grid filtering conditions
         $query->andFilterWhere([
             'status' => $this->status,
-            'timestamp' => $this->timestamp,
+            'tgl_pengajuan' => $this->tgl_pengajuan,
+            'tgl_tanggapan' => $this->tgl_tanggapan,
         ]);
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])

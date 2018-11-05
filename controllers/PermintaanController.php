@@ -4,10 +4,12 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Permintaan;
+use app\models\Temptable;
 use app\models\PermintaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PermintaanController implements the CRUD actions for Permintaan model.
@@ -20,6 +22,35 @@ class PermintaanController extends Controller
     public function behaviors()
     {
         return [
+          'access' => [
+            'class' => AccessControl::className(),
+            'rules' => [
+                [
+                  'actions' => [
+                      'index',
+                      'view',
+                      'create',
+                      'update',
+                      'delete',
+                      'tolak',
+                      'terima',
+                  ],
+                  'allow' => true,
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='admin');
+                  }
+                ],
+                [
+                  'actions' => [
+                      'index',
+                  ],
+                  'allow' => true,
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='user');
+                  }
+                ],
+            ],
+        ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -107,6 +138,32 @@ class PermintaanController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionTolak($id){
+      $model = $this->findModel($id);
+      $model->status=2;
+      $model->tgl_tanggapan=date('Y-m-d H:i:s');
+
+      if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        Temptable::updateAll(['status' => 0], ['id_perangkat' => $model->id_perangkat]);
+        $msg='Tanggapan telah dikirim';
+
+            Yii::$app->getSession()->setFlash(
+                'success',$msg
+            );
+              return $this->redirect(['permintaan/index']);
+      }
+
+      return $this->render('update', [
+          'model' => $model,
+      ]);
+
+
+    }
+
+    public function actionTerima($id){
+
     }
 
     /**
