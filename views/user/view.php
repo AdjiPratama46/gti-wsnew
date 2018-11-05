@@ -26,12 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'username',
-            [
-                'attribute' => 'password',
-                'value' => '************'
-            ],
-            'authKey',
-            'accessToken',
+            //'authKey',
+            //'accessToken',
             'role',
             // [
             //     'attribute' => 'perangkat.alias',

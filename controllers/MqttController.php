@@ -25,8 +25,14 @@ class MqttController extends Controller
             'class' => AccessControl::className(),
             'rules' => [
                 [
-                    'allow' => true,
-                    'roles' => ['@'],
+                  'actions' => [
+                      'index',
+                      'view',
+                  ],
+                  'allow' => true,
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='admin');
+                  }
                 ],
             ],
         ],
@@ -99,26 +105,7 @@ class MqttController extends Controller
 
 
 
-  public function actionSubs(){
-    $client = new MQTTClient('lumba-studio.id', 1883);
-    $client->setAuthentication('','');
-    $client->setEncryption('cacerts.pem');
-    $success = $client->sendConnect(123);  // set your client ID
-    if ($success) {
-        $client->sendSubscribe('percobaan/1');
-        $messages = $client->getPublishMessages();  // now read and acknowledge all messages waiting
-        foreach ($messages as $message) {
 
-            echo $message['topic'] .': '. $message['message'] . PHP_EOL;
-            //$myArray = explode(',', $message['message']);
-            //print_r ($myArray);
-        }
-        $client->sendDisconnect();
-    }
-    $client->close();
-
-
-  }
 
 
 

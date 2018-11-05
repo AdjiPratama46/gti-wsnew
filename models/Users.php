@@ -21,7 +21,7 @@ class Users extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public $confirm_password;
-    public $new_password;    
+    public $new_password;
     public static function tableName()
     {
         return 'user';
@@ -45,7 +45,7 @@ class Users extends \yii\db\ActiveRecord
             [['name'], 'match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/',
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
-            [['tgl_buat'], 'safe'],
+            [['tgl_buat','status'], 'safe'],
             [['username'], 'match', 'pattern' => '/^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/',
               'message' => '{attribute} Tidak Boleh Mengandung Simbol'
             ],
@@ -63,7 +63,7 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    
+
     public function attributeLabels()
     {
         return [
@@ -76,6 +76,7 @@ class Users extends \yii\db\ActiveRecord
             'confirm_password' => 'Password Lama',
             'new_password' => 'Password Baru',
             'role' => 'Role',
+            'status' => 'Status',
         ];
     }
 
@@ -90,5 +91,5 @@ class Users extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Perangkat::className(), ['id_owner' => 'id']);
     }
-    
+
 }

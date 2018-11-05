@@ -41,7 +41,8 @@ class UserController extends Controller
                         'update',
                         'create',
                         'delete',
-                        'resetpw'
+                        'resetpw',
+                        'setstatus',
                     ],
                     'allow' => true,
                     'roles' => ['@'],
@@ -182,7 +183,7 @@ class UserController extends Controller
     public function actionResetpw($id)
     {
       $model = $this->findModel($id);
-      $pw=sha1('qwerty');
+      $pw=sha1($model->username);
        Yii::$app->db->createCommand()
         ->update('user', ['password' => $pw], 'id='.$id)
         ->execute();
@@ -190,6 +191,26 @@ class UserController extends Controller
             'success','Password user berhasil di reset!'
         );
         return $this->redirect(['update', 'id' => $model->id]);
+    }
+
+    public function actionSetstatus($id)
+    {
+      $model = $this->findModel($id);
+      $st='2';
+      if($model->status=='1'){
+        $st='0';
+        $msg='User berhasil dinonaktifkan';
+      }else{
+        $st='1';
+        $msg='User berhasil diaktifkan';
+      }
+       Yii::$app->db->createCommand()
+        ->update('user', ['status' => $st], 'id='.$id)
+        ->execute();
+        Yii::$app->getSession()->setFlash(
+            'success',$msg
+        );
+        return $this->redirect(['index']);
     }
 
     /**

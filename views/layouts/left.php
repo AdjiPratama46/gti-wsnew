@@ -38,7 +38,8 @@
                         ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
                             'options' => ['id' => 'menu4']
                         ],
-                        ['label' => 'Mqtt', 'icon' => 'list-alt', 'url' => ['mqtt/index'],
+                        ['label' => 'Mqtt Konfigurasi', 'icon' => 'cog', 'url' => ['mqtt/index'],
+                            'visible' => Yii::$app->user->identity->role=='admin',
                             'options' => ['id' => 'menu4']
                         ],
 

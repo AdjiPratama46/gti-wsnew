@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
                     //MERESET PASSWORD MENJADI 'QWERTY'
                     echo '<label style="opacity:0;">.</label><br>';
                     echo Html::a('Reset Password', ['resetpw', 'id' => $model->id], ['class' => 'btn btn-danger','style'=>'width:100%;','data' => [
-                        'confirm' => 'Anda yakin akan mmereset password user ini?',
+                        'confirm' => 'Anda yakin akan mereset password user ini?',
                         'method' => 'post',
                     ],]);
                   }
