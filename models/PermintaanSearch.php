@@ -42,9 +42,9 @@ class PermintaanSearch extends Permintaan
     public function search($params)
     {
         if(Yii::$app->user->identity->role=='admin'){
-          $query = Permintaan::find();
+          $query = Permintaan::find()->orderBy(['status' => SORT_ASC]);
         }else{
-          $query = Permintaan::find()->where(['id_user' => Yii::$app->user->identity->id]);
+          $query = Permintaan::find()->where(['id_user' => Yii::$app->user->identity->id])->orderBy(['status' => SORT_ASC]);
         }
 
         // add conditions that should always apply here

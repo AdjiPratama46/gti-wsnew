@@ -23,13 +23,19 @@ if(Yii::$app->user->identity->role=='admin'){
           'tgl_pengajuan',
           [
             'attribute' => 'status',
+            'filter' => ['0'=>'Menunggu Konfirmasi', '1'=>'Pengajuan Diterima', '2'=>'Pengajuan Ditolak'],
             'format'=>'raw',
             'value' => function($model, $key, $index)
               {
                 if($model->status == '0')
                 {
-                    return '<p class="text-danger">Menunggu Konfirmasi</p>';
-                }else if($model->status == '2')
+                    return '<p class="text-warning">Menunggu Konfirmasi</p>';
+                }
+                elseif($model->status == '1')
+                {
+                    return '<p class="text-success">Pengajuan Diterima</p>';
+                }
+                elseif($model->status == '2')
                 {
                     return '<p class="text-danger">Pengajuan Ditolak</p>';
                 }
