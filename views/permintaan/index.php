@@ -7,33 +7,51 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\PermintaanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permintaans';
+$this->title = 'Pengajuan Perangkat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permintaan-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+  <div class="box box-info">
+      <div class="box-body">
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Permintaan', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <br><br><br>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
+        'emptyText' => '<center class="text-danger">Tidak Ada Pengajuan</center>',
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            [
+              'attribute' => 'id_user',
+              'value' => 'user.name',
+            ],
             'id_perangkat',
-            'id_user',
-            'status',
             'timestamp',
+            [
+              'attribute' => 'status',
+              'format'=>'raw',
+              'value' => function($model, $key, $index)
+                {
+                    if($model->status == '0')
+                    {
+                        return '<p class="text-danger">Menunggu Konfirmasi</p>';
+                    }
+                },
+            ],
+            //'id_user',
+            //'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
+  </div>
+</div>
 </div>

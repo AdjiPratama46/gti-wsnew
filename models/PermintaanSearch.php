@@ -41,7 +41,11 @@ class PermintaanSearch extends Permintaan
      */
     public function search($params)
     {
-        $query = Permintaan::find();
+        if(Yii::$app->user->identity->role=='admin'){
+          $query = Permintaan::find();
+        }else{
+          $query = Permintaan::find()->where(['id_user' => Yii::$app->user->identity->id]);
+        }
 
         // add conditions that should always apply here
 
@@ -59,13 +63,12 @@ class PermintaanSearch extends Permintaan
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'id_user' => $this->id_user,
             'status' => $this->status,
             'timestamp' => $this->timestamp,
         ]);
 
-        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat]);
+        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
+        ->andFilterWhere(['like', 'id_user', $this->id_user]);
 
         return $dataProvider;
     }

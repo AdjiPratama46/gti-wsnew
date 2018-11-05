@@ -65,7 +65,6 @@ class PerangkatSearch extends Perangkat
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'like', 'id_owner', $this->id_owner,
             'tgl_instalasi' => $this->tgl_instalasi,
         ]);
 

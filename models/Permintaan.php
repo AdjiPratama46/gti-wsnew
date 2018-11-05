@@ -47,17 +47,18 @@ class Permintaan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_perangkat' => 'Id Perangkat',
-            'id_user' => 'Id User',
+            'id_user' => 'Pengaju',
             'status' => 'Status',
-            'timestamp' => 'Timestamp',
+            'timestamp' => 'Waktu Pengajuan',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
+
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
+        return $this->hasOne(Users::className(), ['id' => 'id_user']);
     }
 }

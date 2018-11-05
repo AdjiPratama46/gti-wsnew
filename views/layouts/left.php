@@ -29,17 +29,27 @@
                             'visible' => Yii::$app->user->identity->role=='admin',
                             'options' => ['id' => 'menu5']
                         ],
-                        ['label' => 'Perangkat', 'icon' => 'th-large', 'url' => ['perangkat/index'],
-                        'visible' => Yii::$app->user->identity->role=='user',
-                            'options' => ['id' => 'menu2']
-                        ],
+                        [
+                                'label' => 'Perangkat',
+                                'visible' => Yii::$app->user->identity->role=='user',
+                                'icon' => 'th-large',
+                                'url' => '#',
+                                'items' => [
+                                  ['label' => 'Pengajuan Perangkat', 'icon' => 'share', 'url' => ['permintaan/index'],
+                                      'options' => ['id' => 'menu2']
+                                  ],
+                                  ['label' => 'Perangkat Saya', 'icon' => 'tasks', 'url' => ['perangkat/index'],
+                                      'options' => ['id' => 'menu2']
+                                  ],
+                                ],
+                            ],
                         [
                                 'label' => 'Perangkat',
                                 'visible' => Yii::$app->user->identity->role=='admin',
                                 'icon' => 'th-large',
                                 'url' => '#',
                                 'items' => [
-                                  ['label' => 'Permintaan Perangkat', 'icon' => 'inbox', 'url' => ['permintaan/index'],
+                                  ['label' => 'Pengajuan Perangkat', 'icon' => 'inbox', 'url' => ['permintaan/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
                                   ['label' => 'Perangkat Aktif', 'icon' => 'check', 'url' => ['perangkat/index'],

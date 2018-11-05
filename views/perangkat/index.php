@@ -37,8 +37,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'alias',
                         [
                             'attribute'=>'tgl_instalasi',
-                            'value'=>'tgl_instalasi',
-                            'format'=>'raw',
+
+                            'value' => date("d-M-Y h:i:s",  strtotime($model->tgl_instalasi)),
                             'filter'=>DatePicker::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'tgl_instalasi',
