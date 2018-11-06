@@ -191,7 +191,9 @@ $this->registerJs("
                                     if (empty($data['tgl'])) {
                                         echo 'Belum Ada Data';
                                     }else{
-                                        echo $data['tgl'];
+                                      $timestamps = strtotime($data['tgl']);
+                                      $new_date = date('d-m-Y', $timestamps);
+                                      echo $new_date;
                                     }
                                     ?>
                                 </h4>
@@ -365,10 +367,10 @@ $this->registerJs("
                     <?php
                         if ($chart != null) {
                             foreach ($chart as $values) {
-                                $a[0]= ($values['bulan']); 
-                                $c[]= ($values['bulan']); 
-                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'], 
-                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] )); 
+                                $a[0]= ($values['bulan']);
+                                $c[]= ($values['bulan']);
+                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'],
+                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
                             }
                             echo Highcharts::widget([
                                 'options' => [
@@ -410,7 +412,7 @@ $this->registerJs("
                         </div>
                     </div>
                     <?php
-                        }  
+                        }
                     ?>
                 </div>
                 <div class="box-footer">
@@ -422,7 +424,7 @@ $this->registerJs("
                 </div>
                 <?php    }
                 ?>
-                
+
             </div>
         </div>
         <div class="col-md-5">
@@ -444,12 +446,12 @@ $this->registerJs("
                             foreach( $pie as $pieh){
                                 $arah = $pieh['arah_angin'];
                                 $jmlh = $pieh['jumlah'];
-                                $hasil[] = array($arah, 
+                                $hasil[] = array($arah,
                                 (int)$jmlh );
                             }
                             echo Highcharts::widget([
                                     'scripts' => [
-                                        'highcharts-3d',   
+                                        'highcharts-3d',
                                      ],
                                         'options' => [
                                             'chart' => ['type' => 'pie',
@@ -457,7 +459,7 @@ $this->registerJs("
                                                     'enabled'=>true,
                                                     'alpha'=>45,
                                                     'beta'=>0,
-                                                ]  
+                                                ]
                                             ],
                                             'title' => ['text' => 'Data Arah Angin Tahun 2018 '],
                                             'plotOptions' => [
@@ -470,20 +472,20 @@ $this->registerJs("
                                                     ],
                                                     'showInLegend' => true
                                                 ],
-                                                
+
                                             ],
                                             'series' => [
-                                                [ 
+                                                [
                                                     'data' => $hasil,
                                                     'name' => 'Jumlah'
-                                                ] 
+                                                ]
                                             ],
                                         ],
                                     ]);
                         }else {
                             echo 'Belum Ada Data';
                         }
-                     
+
                     ?>
                 </div>
                 <div class="box-footer">
@@ -535,9 +537,9 @@ $this->registerJs("
                                 'attribute' => 'kecepatan_angin',
                                 'format'=>['decimal',2]
                             ],
-                            
+
                             'arah_angin',
-                              
+
                             [
                                 'attribute' => 'curah_hujan',
                                 'format'=>['decimal',2]
