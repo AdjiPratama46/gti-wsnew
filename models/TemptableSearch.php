@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Users;
+use app\models\Temptable;
 
 /**
- * UsersSearch represents the model behind the search form of `app\models\Users`.
+ * TemptableSearch represents the model behind the search form of `app\models\Temptable`.
  */
-class UsersSearch extends Users
+class TemptableSearch extends Temptable
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,9 @@ class UsersSearch extends Users
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['name', 'username', 'password', 'authKey', 'accessToken','role','status'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['id_perangkat', 'latitude', 'longitude', 'altimeter', 'arah_angin', 'timestamp'], 'safe'],
+            [['temperature', 'kelembapan', 'tekanan_udara', 'kecepatan_angin', 'curah_hujan'], 'number'],
         ];
     }
 
@@ -41,13 +42,13 @@ class UsersSearch extends Users
      */
     public function search($params)
     {
-        $query = Users::find()->orderBy(['status' => SORT_DESC]);
+        $query = Temptable::find()->groupBy(['id_perangkat'])->orderBy(['timestamp' => SORT_DESC]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-           'pagination' => [ 'pageSize' => 10 ],
+           'pagination' => [ 'pageSize' => 5 ],
         ]);
 
         $this->load($params);
@@ -59,17 +60,12 @@ class UsersSearch extends Users
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'like', 'id', $this->id
-        ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken])
-            ->andFilterWhere(['like', 'role', $this->role])
-            ->andFilterWhere(['like', 'status', $this->status]);
+
+        $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
+            ->andFilterWhere(['like', 'latitude', $this->latitude])
+            ->andFilterWhere(['like', 'longitude', $this->longitude])
+            ->andFilterWhere(['like', 'altimeter', $this->altimeter]);
 
         return $dataProvider;
     }

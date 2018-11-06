@@ -19,7 +19,7 @@ class PerangkatSearch extends Perangkat
     {
         return [
             [['id', 'alias', 'tgl_instalasi', 'longitude', 'latitude','altitude'], 'safe'],
-            [['id_owner'], 'integer'],
+            [['id_owner', 'user'], 'safe'],
         ];
     }
 
@@ -46,7 +46,7 @@ class PerangkatSearch extends Perangkat
         }elseif (Yii::$app->user->identity->role =='user') {
             $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
         }
-
+        $query->joinWith(['user']);
         // $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
         // add conditions that should always apply here
 
@@ -54,7 +54,12 @@ class PerangkatSearch extends Perangkat
             'query' => $query,
            'pagination' => [ 'pageSize' => 5 ],
         ]);
-
+        $dataProvider->sort->attributes['user'] = [
+        // The tables are the ones our relation are configured to
+        // in my case they are prefixed with "tbl_"
+        'asc' => ['user.name' => SORT_ASC],
+        'desc' => ['user.name' => SORT_DESC],
+        ];
         $this->load($params);
 
         if (!$this->validate()) {
@@ -72,7 +77,8 @@ class PerangkatSearch extends Perangkat
             ->andFilterWhere(['like', 'alias', $this->alias])
             ->andFilterWhere(['like', 'longitude', $this->longitude])
             ->andFilterWhere(['like', 'latitude', $this->latitude])
-            ->andFilterWhere(['like', 'altitude', $this->altitude]);
+            ->andFilterWhere(['like', 'altitude', $this->altitude])
+            ->andFilterWhere(['like', 'user.name', $this->id_owner]);
 
         return $dataProvider;
     }

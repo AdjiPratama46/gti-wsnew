@@ -50,10 +50,10 @@ class Temptable extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_perangkat' => 'Id Perangkat',
+            'id_perangkat' => 'ID Perangkat',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
-            'altimeter' => 'Altimeter',
+            'altimeter' => 'Altitude',
             'temperature' => 'Temperature',
             'kelembapan' => 'Kelembapan',
             'tekanan_udara' => 'Tekanan Udara',

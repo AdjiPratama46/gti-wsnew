@@ -31,7 +31,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/index
                     'id',
                     'name',
                     'username',
-                    'role',
+                    [
+                      'attribute' => 'role',
+                      'filter' => ['admin'=>'Admin', 'user'=>'User'],
+                    ],
                     [
                       'attribute' => 'status',
                       'filter' => ['1'=>'Aktif', '0'=>'Tidak aktif'],

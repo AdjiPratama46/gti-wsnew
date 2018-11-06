@@ -18,8 +18,8 @@ class PermintaanSearch extends Permintaan
     public function rules()
     {
         return [
-            [['id', 'id_user', 'status'], 'integer'],
-            [['id_perangkat', 'tgl_pengajuan','tgl_tanggapan'], 'safe'],
+            [['id',  'status'], 'integer'],
+            [['id_perangkat','id_user', 'tgl_pengajuan','tgl_tanggapan','user'], 'safe'],
         ];
     }
 
@@ -42,17 +42,23 @@ class PermintaanSearch extends Permintaan
     public function search($params)
     {
         if(Yii::$app->user->identity->role=='admin'){
-          $query = Permintaan::find()->orderBy(['status' => SORT_ASC]);
+          $query = Permintaan::find()->where(['permintaan.status' => 0])->orderBy(['permintaan.status' => SORT_ASC]);
         }else{
-          $query = Permintaan::find()->where(['id_user' => Yii::$app->user->identity->id])->orderBy(['status' => SORT_ASC]);
+          $query = Permintaan::find()->where(['id_user' => Yii::$app->user->identity->id])->orderBy(['permintaan.status' => SORT_ASC]);
         }
-
+        $query->joinWith(['user']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+              'pagination' => [ 'pageSize' => 10 ],
         ]);
-
+        $dataProvider->sort->attributes['user'] = [
+        // The tables are the ones our relation are configured to
+        // in my case they are prefixed with "tbl_"
+        'asc' => ['user.name' => SORT_ASC],
+        'desc' => ['user.name' => SORT_DESC],
+        ];
         $this->load($params);
 
         if (!$this->validate()) {
@@ -69,7 +75,7 @@ class PermintaanSearch extends Permintaan
         ]);
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
-        ->andFilterWhere(['like', 'id_user', $this->id_user]);
+        ->andFilterWhere(['like', 'user.name', $this->id_user]);
 
         return $dataProvider;
     }

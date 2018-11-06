@@ -9,7 +9,9 @@ use dosamigos\datepicker\DatePicker;
 /* @var $searchModel app\models\PerangkatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Perangkat';
+
+if(Yii::$app->user->identity->role=='admin'){$this->title = 'Perangkat Aktif';}
+elseif(Yii::$app->user->identity->role=='user'){$this->title = 'Perangkat Saya';}
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/index']];
 ?>
 <div class="perangkat-index">
@@ -32,7 +34,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         ['class' => 'yii\grid\SerialColumn'],
 
                         'id',
-                        'id_owner',
+                        [
+                          'attribute' => 'id_owner',
+                          'value' => 'user.name',
+                        ],
                         'alias',
                         [
                             'attribute'=>'tgl_instalasi',
@@ -55,25 +60,18 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'longitude',
                         'latitude',
                         'altitude',
-                        ['class' => 'yii\grid\ActionColumn',
-                        'header' => 'Aksi',
-                        'template'=>'{view} {delete}'/*'{update}'*/,
-                        'headerOptions'=> ['style'=> 'width:80px;'],
-                        'buttons'=>[
-                            'delete' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], ['data' => [
-                                    'confirm' => 'Anda yakin akan menghapus perangkat ini?',
-                                    'method' => 'post',
-                                ],]);
+                        [
+                          'format'=>'raw',
+                          'header' => 'Aksi',
+                          'value' => function($model, $key, $index)
+                            {
+
+                                  return Html::a('Detail', ['view', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-success']);
+
+
                             },
-                            'update' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['perangkat/update', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0]);
-                            },
-                            'view' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['perangkat/view', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'pindah-'.$model->id , 'data-pjax' => 0]);
-                            },
-                        ]
-                    ]
+                        ],
+                        
                     ],
                 ]);
             }elseif (Yii::$app->user->identity->role =='user') {

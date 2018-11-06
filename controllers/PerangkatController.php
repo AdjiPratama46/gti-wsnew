@@ -170,7 +170,7 @@ class PerangkatController extends Controller
                 Yii::$app->getSession()->setFlash(
                     'success',$msg
                 );
-                  return $this->redirect(['perangkat/index']);
+                  return $this->redirect(['permintaan/index']);
         }
 
         return $this->render('create', [

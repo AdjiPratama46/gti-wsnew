@@ -55,7 +55,7 @@
                                   ['label' => 'Perangkat Aktif', 'icon' => 'check', 'url' => ['perangkat/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
-                                  ['label' => 'Perangkat Tidak Aktif', 'icon' => 'remove', 'url' => ['perangkat/index'],
+                                  ['label' => 'Perangkat Tidak Aktif', 'icon' => 'remove', 'url' => ['temptable/index'],
                                       'options' => ['id' => 'menu2']
                                   ],
                                 ],

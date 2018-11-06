@@ -25,7 +25,7 @@ use kartik\select2\Select2;
         ]])->label(false) ?>
 
         <br>
-        <center>  <?= Html::submitButton('Tambah', ['class' => 'btn btn-block btn-success butsub']) ?></center>
+        <center>  <?= Html::submitButton('Kirim', ['class' => 'btn btn-block btn-success butsub']) ?></center>
         <br>
     <?php ActiveForm::end(); ?>
 

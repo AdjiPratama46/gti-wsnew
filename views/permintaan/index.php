@@ -23,7 +23,6 @@ if(Yii::$app->user->identity->role=='admin'){
           'tgl_pengajuan',
           [
             'attribute' => 'status',
-            'filter' => ['0'=>'Menunggu Konfirmasi', '1'=>'Pengajuan Diterima', '2'=>'Pengajuan Ditolak'],
             'format'=>'raw',
             'value' => function($model, $key, $index)
               {
@@ -132,7 +131,7 @@ elseif (Yii::$app->user->identity->role=='user') {
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <br>
-    <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Tambah Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?>
+    <?php if (Yii::$app->user->identity->role!='admin'){ echo Html::a('Ajukan Perangkat', ['perangkat/create'], ['class' => 'modal-form btn btn-success']);} ?>
       <br><br>
 
     <?= GridView::widget([
@@ -146,4 +145,5 @@ elseif (Yii::$app->user->identity->role=='user') {
     <?php Pjax::end(); ?>
   </div>
 </div>
+
 </div>
