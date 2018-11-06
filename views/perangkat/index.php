@@ -14,11 +14,11 @@ if(Yii::$app->user->identity->role=='admin'){$this->title = 'Perangkat Aktif';}
 elseif(Yii::$app->user->identity->role=='user'){$this->title = 'Perangkat Saya';}
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/index']];
 ?>
-<div class="perangkat-index">
+<div class="perangkat-index">  <?php Pjax::begin(); ?>
     <div class="box box-info">
         <div class="box-body">
             <br>
-            <?php Pjax::begin(); ?>
+
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <br><br>
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
 
                             },
                         ],
-                        
+
                     ],
                 ]);
             }elseif (Yii::$app->user->identity->role =='user') {
@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                 ]);
             }
             ?>
-            <?php Pjax::end(); ?>
+
         </div>
     </div>
     <br>
@@ -133,4 +133,5 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
         <?= $map->display() ?>
       </div>
     </div>
+    <?php Pjax::end(); ?>
 </div>

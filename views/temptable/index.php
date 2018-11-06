@@ -11,9 +11,9 @@ $this->title = 'Perangkat Tidak Aktif';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="temptable-index">
+<?php Pjax::begin(); ?>
   <div class="box box-info">
       <div class="box-body">
-    <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <br><br><br>
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+
   </div></div><br><br>
   <div class="box box-danger">
       <center><h3>
@@ -51,4 +51,5 @@ $this->params['breadcrumbs'][] = $this->title;
       <?= $map->display() ?>
     </div>
   </div>
+  <?php Pjax::end(); ?>
 </div>

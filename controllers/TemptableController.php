@@ -39,7 +39,7 @@ class TemptableController extends Controller
         $searchModel = new TemptableSearch();
         $showmap = new Maps0();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $map = $showmap->showMaps(Temptable::find()->groupBy(['id_perangkat'])->orderBy(['timestamp' => SORT_DESC])->all());
+        $map = $showmap->showMaps($dataProvider->query->all());
 
         return $this->render('index', [
             'searchModel' => $searchModel,

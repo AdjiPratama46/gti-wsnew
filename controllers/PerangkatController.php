@@ -65,11 +65,7 @@ class PerangkatController extends Controller
         $model = new Perangkat();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $showmap = new Maps();
-        if (Yii::$app->user->identity->role =='admin') {
-            $map = $showmap->showMaps(Perangkat::find()->all());
-        }elseif (Yii::$app->user->identity->role =='user') {
-            $map = $showmap->showMaps(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all());
-        }
+            $map = $showmap->showMaps($dataProvider->query->all());
 
 
         return $this->render('index', [
