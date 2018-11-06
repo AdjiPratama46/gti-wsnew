@@ -59,15 +59,21 @@ class Konfigurasi extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_user' => 'Id User',
+            'id_user' => 'Nama User',
             'interval' => 'Interval',
             'ip_server' => 'MQTT Host',
             'gsm_to' => 'GSM Time Out',
             'gps_to' => 'GPS Time Out',
-            'timestamp' => 'Timestamp',
+            'timestamp' => 'Tanggal Konfigurasi',
             'no_hp' => 'Receive Number',
             'ussd_code' => 'USSD Code'
         ];
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'id_user']);
+    }
+
 
 }

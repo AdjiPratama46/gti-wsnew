@@ -27,7 +27,7 @@ use yii\widgets\Pjax;
     <?php //$form->field($model, 'id_data') ?>
     <div class="row">
       <div class="col-md-6">
-            <?php 
+            <?php
             if (Yii::$app->user->identity->role =='admin') {
                 $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','alias');
             }elseif (Yii::$app->user->identity->role =='user') {
@@ -54,7 +54,7 @@ use yii\widgets\Pjax;
                 'type' => DatePicker::TYPE_COMPONENT_APPEND,
                 'pluginOptions' => [
                     'autoclose'=>false,
-                    'format' => 'yyyy-mm-dd'
+                    'format' => 'dd-mm-yyyy'
                 ],
                 'options' => [
                   'placeholder' => 'Pilih tanggal',

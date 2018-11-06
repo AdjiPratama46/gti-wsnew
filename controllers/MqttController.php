@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\MQTTClient;
 use app\models\Konfigurasi;
+use app\models\KonfigurasiSearch;
 use app\models\Objconfig;
 use yii\helpers\Html;
 use app\models\PerangkatSearch;
@@ -28,6 +29,7 @@ class MqttController extends Controller
                   'actions' => [
                       'index',
                       'view',
+                      'konfig',
                   ],
                   'allow' => true,
                   'matchCallback' => function(){
@@ -40,8 +42,16 @@ class MqttController extends Controller
   }
 
 
+  public function actionIndex(){
+    $searchModel = new KonfigurasiSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    return $this->render('index', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
+  }
 
-  public function actionIndex()
+  public function actionKonfig()
   {
       $model = new Konfigurasi();
       $mdl= Konfigurasi::find()

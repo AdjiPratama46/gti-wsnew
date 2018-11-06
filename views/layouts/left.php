@@ -66,10 +66,22 @@
                         ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
                             'options' => ['id' => 'menu4']
                         ],
-                        ['label' => 'Mqtt Konfigurasi', 'icon' => 'cog', 'url' => ['mqtt/index'],
-                            'visible' => Yii::$app->user->identity->role=='admin',
-                            'options' => ['id' => 'menu4']
-                        ],
+
+
+                        [
+                                'label' => 'Mqtt',
+                                'visible' => Yii::$app->user->identity->role=='admin',
+                                'icon' => 'wrench',
+                                'url' => '#',
+                                'items' => [
+                                  ['label' => 'Mqtt Konfigurasi', 'icon' => 'cog', 'url' => ['mqtt/konfig'],
+                                      'options' => ['id' => 'menu4']
+                                  ],
+                                  ['label' => 'Riwayat Konfigurasi', 'icon' => 'list', 'url' => ['mqtt/index'],
+                                      'options' => ['id' => 'menu4']
+                                  ],
+                                ],
+                            ],
 
                         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
 

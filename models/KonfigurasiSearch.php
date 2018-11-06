@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Perangkat;
+use app\models\Konfigurasi;
 
 /**
- * PerangkatSearch represents the model behind the search form of `app\models\Perangkat`.
+ * KonfigurasiSearch represents the model behind the search form of `app\models\Konfigurasi`.
  */
-class PerangkatSearch extends Perangkat
+class KonfigurasiSearch extends Konfigurasi
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class PerangkatSearch extends Perangkat
     public function rules()
     {
         return [
-            [['id', 'alias', 'tgl_instalasi', 'longitude', 'latitude','altitude'], 'safe'],
-            [['id_owner', 'user'], 'safe'],
+            [['id', 'gsm_to', 'gps_to'], 'integer', 'message' => '{attribute} harus berupa integer'],
+            [['interval', 'id_user', 'ip_server', 'no_hp', 'ussd_code', 'timestamp', 'user'], 'safe'],
         ];
     }
 
@@ -41,18 +41,13 @@ class PerangkatSearch extends Perangkat
      */
     public function search($params)
     {
-        if (Yii::$app->user->identity->role =='admin') {
-            $query = Perangkat::find();
-        }elseif (Yii::$app->user->identity->role =='user') {
-            $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
-        }
+        $query = Konfigurasi::find()->orderBy(['timestamp' => SORT_DESC]);
         $query->joinWith(['user']);
-        // $query = Perangkat::find()->where(['id_owner' => Yii::$app->user->identity->id]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-           'pagination' => [ 'pageSize' => 5 ],
+           'pagination' => [ 'pageSize' => 10 ],
         ]);
         $dataProvider->sort->attributes['user'] = [
         // The tables are the ones our relation are configured to
@@ -69,23 +64,26 @@ class PerangkatSearch extends Perangkat
         }
 
         // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+        ]);
 
+        $query->andFilterWhere(['like', 'interval', $this->interval])
+            ->andFilterWhere(['like', 'user.name', $this->id_user])
+            ->andFilterWhere(['like', 'ip_server', $this->ip_server])
+            ->andFilterWhere(['like', 'no_hp', $this->no_hp])
+            ->andFilterWhere(['like', 'gsm_to', $this->gsm_to])
+            ->andFilterWhere(['like', 'gps_to', $this->gps_to])
+            ->andFilterWhere(['like', 'ussd_code', $this->ussd_code]);
 
-
-
-        $query->andFilterWhere(['like', 'perangkat.id', $this->id])
-            ->andFilterWhere(['like', 'alias', $this->alias])
-            ->andFilterWhere(['like', 'longitude', $this->longitude])
-            ->andFilterWhere(['like', 'latitude', $this->latitude])
-            ->andFilterWhere(['like', 'altitude', $this->altitude])
-            ->andFilterWhere(['like', 'user.name', $this->id_owner]);
-            if(!empty($this->tgl_instalasi)){
-              $timestamps = strtotime($this->tgl_instalasi);
+            if(!empty($this->timestamp)){
+              $timestamps = strtotime($this->timestamp);
               $new_date = date('Y-m-d', $timestamps);
-              $query->andFilterWhere(['like', 'tgl_instalasi', $new_date]);
+              $query->andFilterWhere(['like', 'timestamp', $new_date]);
             }else{
-              $query->andFilterWhere(['like', 'tgl_instalasi', $this->tgl_instalasi]);
+              $query->andFilterWhere(['like', 'timestamp', $this->timestamp]);
             }
+
         return $dataProvider;
     }
 }

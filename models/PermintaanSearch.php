@@ -69,14 +69,28 @@ class PermintaanSearch extends Permintaan
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'status' => $this->status,
-            'tgl_pengajuan' => $this->tgl_pengajuan,
-            'tgl_tanggapan' => $this->tgl_tanggapan,
+            'permintaan.status' => $this->status,
         ]);
+
 
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
         ->andFilterWhere(['like', 'user.name', $this->id_user]);
 
+        if(!empty($this->tgl_pengajuan)){
+          $timestamps = strtotime($this->tgl_pengajuan);
+          $new_date = date('Y-m-d', $timestamps);
+          $query->andFilterWhere(['like', 'permintaan.tgl_pengajuan', $new_date]);
+        }else{
+          $query->andFilterWhere(['like', 'permintaan.tgl_pengajuan', $this->tgl_pengajuan]);
+        }
+
+        if(!empty($this->tgl_tanggapan)){
+          $timestamps = strtotime($this->tgl_tanggapan);
+          $new_date = date('Y-m-d', $timestamps);
+          $query->andFilterWhere(['like', 'permintaan.tgl_tanggapan', $new_date]);
+        }else{
+          $query->andFilterWhere(['like', 'permintaan.tgl_tanggapan', $this->tgl_tanggapan]);
+        }
         return $dataProvider;
     }
 }

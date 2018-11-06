@@ -70,11 +70,20 @@ class DataSearch extends Data
         ]);
         $query->andFilterWhere(['like', 'id_perangkat', $this->id_perangkat])
             ->andFilterWhere(['like', 'arah_angin', $this->arah_angin])
-            ->andFilterWhere(['like', 'tgl', $this->tgl])
             ->andFilterWhere(['like', 'time(tgl)', $this->pukul])
             ->andFilterWhere(['like', 'perangkat.alias', $this->perangkat]);
+
+            if(!empty($this->tgl)){
+              $timestamps = strtotime($this->tgl);
+              $new_date = date('Y-m-d', $timestamps);
+              $query->andFilterWhere(['like', 'tgl', $new_date]);
+            }else{
+              $query->andFilterWhere(['like', 'tgl', $this->tgl]);
+            }
         return $dataProvider;
     }
+
+
     private function querynya($params){
         if (Yii::$app->user->identity->role =='admin') {
             $this->load($params);

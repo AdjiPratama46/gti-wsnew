@@ -41,14 +41,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'alias',
                         [
                             'attribute'=>'tgl_instalasi',
-
+                            'format' => ['date', 'php:d-m-Y'],
                             'filter'=>DatePicker::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'tgl_instalasi',
                                 'template' => '{addon}{input}',
                                       'clientOptions' => [
                                         'autoclose' => true,
-                                        'format' => 'yyyy-m-d',
+                                        'format' => 'dd-mm-yyyy',
                                         'clearBtn' => true,
                                       ],
                                       'clientEvents' => [
@@ -74,7 +74,8 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
 
                     ],
                 ]);
-            }elseif (Yii::$app->user->identity->role =='user') {
+            }
+            elseif (Yii::$app->user->identity->role =='user') {
                 echo
                 GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -89,14 +90,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         [
                             'attribute'=>'tgl_instalasi',
                             'value'=>'tgl_instalasi',
-                            'format'=>'raw',
+                            'format' => ['date', 'php:d-m-Y'],
                             'filter'=>DatePicker::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'tgl_instalasi',
                                 'template' => '{addon}{input}',
                                       'clientOptions' => [
                                         'autoclose' => true,
-                                        'format' => 'yyyy-m-d',
+                                        'format' => 'dd-mm-yyyy',
                                         'clearBtn' => true,
                                       ],
                                       'clientEvents' => [

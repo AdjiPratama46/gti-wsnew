@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 
 $this->title = 'MQTT konfigurasi';
-$this->params['breadcrumbs'][] = ['label' => 'Konfigurasis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="konfigurasi-create">
