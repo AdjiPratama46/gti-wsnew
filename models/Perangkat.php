@@ -63,7 +63,7 @@ class Perangkat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'ID Perangkat',
             'alias' => 'Alias',
             'id_owner' => 'Nama Owner',
             'tgl_instalasi' => 'Tanggal Instalasi',
