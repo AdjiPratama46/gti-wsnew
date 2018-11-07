@@ -56,8 +56,9 @@ class TemptableController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $model = Temptable::findOne(['id_perangkat' => $id]);
+        return $this->renderAjax('view', [
+            'model' => $model,
         ]);
     }
 

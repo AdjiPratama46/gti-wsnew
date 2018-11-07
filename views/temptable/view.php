@@ -6,42 +6,33 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Temptable */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Temptables', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $model->id_perangkat;
 ?>
-<div class="temptable-view">
+<div class="temptable-view" style="padding:20px;">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+    <center><h3>Detail</h3></center>
+    <br>
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'id_perangkat',
             'latitude',
             'longitude',
             'altimeter',
-            'temperature',
-            'kelembapan',
-            'tekanan_udara',
-            'kecepatan_angin',
-            'arah_angin',
-            'curah_hujan',
-            'timestamp',
-            'status',
+            //'temperature',
+            //'kelembapan',
+            //'tekanan_udara',
+            //'kecepatan_angin',
+            //'arah_angin',
+            //'curah_hujan',
+            //'timestamp',
+            //'status',
         ],
     ]) ?>
+    <br>
 
 </div>

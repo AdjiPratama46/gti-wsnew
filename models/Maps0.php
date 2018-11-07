@@ -57,7 +57,7 @@ class Maps0 extends Model
           new InfoWindow([
               'content' =>
                 Html::a($data_alias[$x],
-                    ['perangkat/view', 'id' => $data_id[$x]],
+                    ['temptable/view', 'id' => $data_id[$x]],
                     [
                         'class' => 'modal-form',
                         'data-pjax' => 0
