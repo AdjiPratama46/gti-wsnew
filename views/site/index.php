@@ -245,9 +245,9 @@ $this->registerJs("
                                 </h4>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-red">
                                         <div class="inner">
                                             <p class="text-center">Arah Angin</p>
@@ -283,7 +283,7 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-yellow">
                                         <div class="inner">
                                             <p class="text-center">Kelembaban</p>
@@ -304,9 +304,30 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="small-box bg-green">
+                                        <div class="inner">
+                                            <p class="text-center">Temperature</p>
+                                            <h3>
+                                            <?php
+                                                if (empty($suhu['suhu'])) {
+                                                    echo '0';
+                                                }else{
+                                                    echo (round($suhu['suhu'])) ;
+                                                }
+                                            ?>
+                                                &deg;
+                                            </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-thermometer"></i>
+                                        </div>
+                                        <div class="small-box-footer"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-aqua">
                                         <div class="inner">
                                             <p class="text-center">Curah Hujan</p>
@@ -327,7 +348,7 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="small-box bg-primary">
                                         <div class="inner">
                                             <p class="text-center">Kecepatan Angin</p>
@@ -348,27 +369,28 @@ $this->registerJs("
                                         <div class="small-box-footer"></div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 ">
-                            <div class="pad box-pane-right bg-green text-center" id="hov-here">
-                                <p class="text-center">Temperature</p>
-                                <div class="icon" style="max-height:100px;">
-                                    <i class="ion-ios-thermometer big" id="hov-lah"></i>
+                                <div class="col-md-4">
+                                    <div class="small-box bg-maroon">
+                                        <div class="inner">
+                                            <p class="text-center">Tekanan Udara</p>
+                                            <h3>
+                                            <?php
+                                                if (empty($teud['tekanan_udara'])) {
+                                                    echo '0';
+                                                }else{
+                                                    echo (round($teud['tekanan_udara'])) ;
+                                                }
+                                            ?>
+                                                mb
+                                            </h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion-ios-timer"></i>
+                                        </div>
+                                        <div class="small-box-footer"></div>
+                                    </div>
                                 </div>
-                                <h3>
-                                <?php
-                                    if (empty($suhu['suhu'])) {
-                                        echo '0';
-                                    }else{
-                                        echo (round($suhu['suhu'])) ;
-                                    }
-                                ?>
-                                    &deg;
-                                </h3>
-                                <h4>Celcius</h4>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -389,13 +411,13 @@ $this->registerJs("
                                 $a[0]= ($values['bulan']);
                                 $c[]= ($values['bulan']);
                                 $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'],
-                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'] ));
+                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
                             }
                             echo Highcharts::widget([
                                 'options' => [
                                     'title' => ['text' => 'Data Tahun 2018'],
                                     'xAxis' => [
-                                        'categories' => ['temperature', 'kelembaban', 'kecepatan_angin','curah_hujan']
+                                        'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
                                     ],
                                     'yAxis' => [
                                         'title' => ['text' => 'Jumlah Data']

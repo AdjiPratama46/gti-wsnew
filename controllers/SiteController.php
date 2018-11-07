@@ -119,7 +119,8 @@ class SiteController extends Controller
         ->queryOne();
 
         $paktif = Yii::$app->db->createCommand
-        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
+        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data 
+        on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
         ->queryOne();
 
         $dasuk = Yii::$app->db->createCommand
