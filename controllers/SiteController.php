@@ -79,13 +79,13 @@ class SiteController extends Controller
             ->andWhere(['id_owner' => $id_owner])
             ->one();
           }
-        
+
         //QUERY BOX ATAS
         $query = Yii::$app->db->createCommand
         ('SELECT id_perangkat,perangkat.alias,perangkat.latitude,perangkat.longitude,DATE(tgl)as tgl, AVG(kelembaban) AS kelembaban,
         AVG(kecepatan_angin) AS kecepatan_angin, (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'" AND DATE(tgl)=DATE(NOW())-1
-        GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) 
-        AS temperature,AVG(tekanan_udara) AS tekanan_udara FROM data,perangkat WHERE data.id_perangkat=perangkat.id AND 
+        GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature)
+        AS temperature,AVG(tekanan_udara) AS tekanan_udara FROM data,perangkat WHERE data.id_perangkat=perangkat.id AND
         id_perangkat="'.$model['id'].'" AND DATE(tgl)=DATE(NOW())-1')
         ->queryOne();
 
@@ -98,7 +98,7 @@ class SiteController extends Controller
         ('SELECT count(*) as jml FROM perangkat')
         ->queryOne();
         $paktif = Yii::$app->db->createCommand
-        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data 
+        ('SELECT count(a.alias) as jumlah from perangkat, (SELECT perangkat.alias as alias FROM perangkat inner join data
         on perangkat.id=data.id_perangkat group by perangkat.alias) as a where perangkat.alias=a.alias')
         ->queryOne();
 
@@ -110,14 +110,14 @@ class SiteController extends Controller
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
             SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"
-            AND YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')
+            AND YEAR(tgl)=YEAR(NOW()) AND data.id_perangkat="'.$model['id'].'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
             WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
             END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
-            perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND 
-            YEAR (tgl) = YEAR (NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')
+            perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND
+            YEAR (tgl) = YEAR (NOW()) AND data.id_perangkat="'.$model['id'].'" GROUP BY arah_angin ORDER BY jumlah DESC')
             ->queryAll();
             return $this->render('indexuser', [
                 'query' => $query,
@@ -138,11 +138,11 @@ class SiteController extends Controller
             WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
             ->queryAll();
             $pie = Yii::$app->db->createCommand
-            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" 
-            WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" 
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara"
+            WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur"
             WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW())
             GROUP BY arah_angin')->queryAll();
-        
+
             return $this->render('index', [
                 'query' => $query,
                 'model' => $model,
@@ -188,13 +188,13 @@ class SiteController extends Controller
         WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
         END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin ')
         ->queryAll();
-        
+
         //QUERY BOX ATAS
         $query = Yii::$app->db->createCommand
         ('SELECT id_perangkat,perangkat.alias,perangkat.latitude,perangkat.longitude,DATE(tgl)as tgl, AVG(kelembaban) AS kelembaban,
         AVG(kecepatan_angin) AS kecepatan_angin, (SELECT arah_angin FROM data WHERE id_perangkat="'.$id.'" AND DATE(tgl)=DATE(NOW())-1
-        GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) 
-        AS temperature,AVG(tekanan_udara) AS tekanan_udara FROM data,perangkat WHERE data.id_perangkat=perangkat.id AND 
+        GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature)
+        AS temperature,AVG(tekanan_udara) AS tekanan_udara FROM data,perangkat WHERE data.id_perangkat=perangkat.id AND
         id_perangkat="'.$id.'" AND DATE(tgl)=DATE(NOW())-1')
         ->queryOne();
 
@@ -261,15 +261,15 @@ class SiteController extends Controller
             }elseif ($id=='all' && empty($idp)) {
                 $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
                 SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"AND YEAR(tgl)=YEAR(NOW()) 
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"AND YEAR(tgl)=YEAR(NOW())
                 GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
             }elseif (empty($idp)) {
-                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
                 FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
                 AND user.id = "'.$id_owner.'" AND YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }else{
-                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
                 FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }
@@ -282,22 +282,22 @@ class SiteController extends Controller
             }elseif ($id=='all' && empty($idp)) {
                 $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
                 SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND YEAR(tgl)=YEAR(NOW()) 
+                perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND YEAR(tgl)=YEAR(NOW())
                 GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
             }elseif (empty($idp)) {
-                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
                 FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }else{
-                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
                 FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }
         }
-        
-        
-        
-        
+
+
+
+
         return $this->renderAjax('_chart',[
             'chart' => $chart,
             'id' => $id,
