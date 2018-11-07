@@ -1,6 +1,0 @@
-pandu@gmail.com :user
-123456
-juh@gmail.com :admin
-123456
-if (Yii::$app->user->identity->role=="admin") {}
-elseif(Yii::$app->user->identity->role=="user"){}
