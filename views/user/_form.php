@@ -24,7 +24,14 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'name')->textInput(['readonly' => true,'maxlength' => 25]) ?>
+                    <?php
+                    if(Yii::$app->user->identity->id == $model->id){
+                        echo $form->field($model, 'name')->textInput(['maxlength' => 25]);
+                    }else{
+                        echo $form->field($model, 'name')->textInput(['readonly' => true,'maxlength' => 25]);
+                    }
+                    ?>
+
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                   <?php

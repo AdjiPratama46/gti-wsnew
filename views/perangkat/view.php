@@ -26,19 +26,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'alias',
-            'id_owner',
+            //'id_owner',
             [
                 'label' => 'Nama Pemilik',
                 'attribute' => 'user.name',
             ],
-            'altitude',
-            'tgl_instalasi',
+            [
+              'attribute'=>'tgl_instalasi',
+              'format' => ['date', 'php:d-m-Y'],
+            ],
             //'longitude',
             //'latitude',
             [
                 'attribute'=>'Lokasi',
                 'format'=>'raw',
-                'value'=>$model->latitude.', '.$model->longitude,
+                'value'=>$model->latitude.', '.$model->longitude.', '.$model->altitude,
             ],
         ],
     ]) ?>
