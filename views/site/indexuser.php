@@ -12,7 +12,7 @@ use yii\widgets\Breadcrumbs;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $urlC = Url::to(['site/chart']);
-$perangkatid = $perangkat['id'];
+$perangkatid = $query['id_perangkat'];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
@@ -127,10 +127,10 @@ $this->registerJs("
                 <div class="box-header with-border">
                     <h3 class="box-title">
                     <?php
-                        if (empty($perangkat['id'])) {
+                        if (empty($query['id_perangkat'])) {
                             echo 'Belum Ada Data';
                         }else{
-                            echo $perangkat['id'];
+                            echo $query['id_perangkat'];
                         }
                         ?>
                     </h3>
@@ -140,7 +140,7 @@ $this->registerJs("
                             echo Select2::widget([
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
-                                'value' => $perangkat['id'],
+                                'value' => $query['id_perangkat'],
                                 'data' => $perangkats,
                                 'options' => ['placeholder' => 'Pilih Perangkat'],
                                 'pluginOptions' => [
@@ -161,10 +161,10 @@ $this->registerJs("
                                     </h4>
                                     <h4>
                                     <?php
-                                    if (empty($perangkat['alias'])) {
+                                    if (empty($query['alias'])) {
                                         echo 'Belum Ada Data';
                                     }else{
-                                        echo $perangkat['alias'];
+                                        echo $query['alias'];
                                     }
                                     ?>
                                     </h4>
@@ -176,10 +176,10 @@ $this->registerJs("
                                     </h4>
                                     <h4>
                                     <?php
-                                    if (empty($perangkat['latitude']) AND empty($perangkat['longitude'])) {
+                                    if (empty($query['latitude']) AND empty($query['longitude'])) {
                                         echo 'Belum Ada Data';
                                     }else{
-                                        echo $perangkat['latitude'] .','. $perangkat['longitude'];
+                                        echo $query['latitude'] .','. $query['longitude'];
                                     }
                                     ?>
                                     </h4>
@@ -187,10 +187,10 @@ $this->registerJs("
                                 <hr style="border:0.5px solid #4F7BC3;">
                                 <h4 class="text-center">
                                 <?php
-                                    if (empty($data['tgl'])) {
+                                    if (empty($query['tgl'])) {
                                         echo 'Belum Ada Data';
                                     }else{
-                                      $timestamps = strtotime($data['tgl']);
+                                      $timestamps = strtotime($query['tgl']);
                                       $new_date = date('d-m-Y', $timestamps);
                                       echo $new_date;
                                     }
@@ -206,24 +206,24 @@ $this->registerJs("
                                             <p class="text-center">Arah Angin</p>
                                             <h3>
                                             <?php
-                                                if (empty($arangin['arah_angin'])){
+                                                if (empty($query['arah_angin'])){
                                                     echo 'null';
                                                 }else{
-                                                    if ($arangin['arah_angin'] == 'W') {
+                                                    if ($query['arah_angin'] == 'W') {
                                                         echo 'Barat';
-                                                    }elseif ($arangin['arah_angin'] == 'S') {
+                                                    }elseif ($query['arah_angin'] == 'S') {
                                                         echo 'Selatan';
-                                                    }elseif ($arangin['arah_angin'] == 'N') {
+                                                    }elseif ($query['arah_angin'] == 'N') {
                                                         echo 'Utara';
-                                                    }elseif ($arangin['arah_angin'] == 'E') {
+                                                    }elseif ($query['arah_angin'] == 'E') {
                                                         echo 'Timur';
-                                                    }elseif ($arangin['arah_angin'] == 'SE') {
+                                                    }elseif ($query['arah_angin'] == 'SE') {
                                                         echo 'Tenggara';
-                                                    }elseif ($arangin['arah_angin'] == 'SW') {
+                                                    }elseif ($query['arah_angin'] == 'SW') {
                                                         echo 'Barat Daya';
-                                                    }elseif ($arangin['arah_angin'] == 'NW') {
+                                                    }elseif ($query['arah_angin'] == 'NW') {
                                                         echo 'Barat Laut';
-                                                    }elseif ($arangin['arah_angin'] == 'NE') {
+                                                    }elseif ($query['arah_angin'] == 'NE') {
                                                         echo 'Timur Laut';
                                                     }
                                                 }
@@ -242,10 +242,10 @@ $this->registerJs("
                                             <p class="text-center">Kelembaban</p>
                                             <h3>
                                             <?php
-                                                if (empty($kelembaban['kelembaban'])) {
+                                                if (empty($query['kelembaban'])) {
                                                     echo '0';
                                                 }else{
-                                                    echo (round($kelembaban['kelembaban'])) ;
+                                                    echo (round($query['kelembaban'])) ;
                                                 }
                                                 ?>
                                                 rh
@@ -263,10 +263,10 @@ $this->registerJs("
                                             <p class="text-center">Temperature</p>
                                             <h3>
                                             <?php
-                                                if (empty($suhu['suhu'])) {
+                                                if (empty($query['temperature'])) {
                                                     echo '0';
                                                 }else{
-                                                    echo (round($suhu['suhu'])) ;
+                                                    echo (round($query['temperature'])) ;
                                                 }
                                             ?>
                                                 &deg;
@@ -286,10 +286,10 @@ $this->registerJs("
                                             <p class="text-center">Curah Hujan</p>
                                             <h3>
                                             <?php
-                                                if (empty($curjan['curah_hujan'])) {
+                                                if (empty($query['curah_hujan'])) {
                                                     echo '0';
                                                 }else{
-                                                    echo (round($curjan['curah_hujan'])) ;
+                                                    echo (round($query['curah_hujan'])) ;
                                                 }
                                                 ?>
                                                 mm
@@ -307,10 +307,10 @@ $this->registerJs("
                                             <p class="text-center">Kecepatan Angin</p>
                                             <h3>
                                             <?php
-                                                if (empty($kangin['kecepatan_angin'])) {
+                                                if (empty($query['kecepatan_angin'])) {
                                                     echo '0';
                                                 }else{
-                                                    echo (round($kangin['kecepatan_angin'])) ;
+                                                    echo (round($query['kecepatan_angin'])) ;
                                                 }
                                                 ?>
                                                 mph
@@ -328,10 +328,10 @@ $this->registerJs("
                                             <p class="text-center">Tekanan Udara</p>
                                             <h3>
                                             <?php
-                                                if (empty($teud['tekanan_udara'])) {
+                                                if (empty($query['tekanan_udara'])) {
                                                     echo '0';
                                                 }else{
-                                                    echo (round($teud['tekanan_udara'])) ;
+                                                    echo (round($query['tekanan_udara'])) ;
                                                 }
                                             ?>
                                                 mb

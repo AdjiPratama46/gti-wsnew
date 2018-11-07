@@ -34,7 +34,7 @@ class ResumeController extends \yii\web\Controller
                 'sql' => 'SELECT MONTHNAME(tgl) AS bulan, id_perangkat, year(tgl) as tahun, AVG(kelembaban) AS kelembaban,
                 AVG(kecepatan_angin) AS kecepatan_angin,(SELECT arah_angin FROM data
                 WHERE MONTHNAME(tgl) = bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC
-                LIMIT 1) AS arah_angin,AVG(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara
+                LIMIT 1) AS arah_angin,SUM(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara
                 FROM data  GROUP BY bulan ORDER BY MONTH (tgl) ASC',
 
                 'sort' =>false,
@@ -49,7 +49,7 @@ class ResumeController extends \yii\web\Controller
                 (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
                 AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
                 ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
-                AVG(curah_hujan) AS curah_hujan,
+                SUM(curah_hujan) AS curah_hujan,
                 AVG(temperature) AS temperature,
                 AVG(tekanan_udara) AS tekanan_udara
                 FROM data WHERE id_perangkat="'.$model['id'].'" AND year(tgl)="'.$thn.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
@@ -79,7 +79,7 @@ class ResumeController extends \yii\web\Controller
                 'sql' => 'SELECT WEEK(tgl) as minggu, AVG(kelembaban) as kelembaban,
                 AVG(kecepatan_angin) as kecepatan_angin,
                 (SELECT arah_angin from data where WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-                AVG(curah_hujan) as curah_hujan,
+                SUM(curah_hujan) as curah_hujan,
                 AVG(temperature) as temperature,
                 AVG(tekanan_udara) AS tekanan_udara
                 from data
@@ -96,7 +96,7 @@ class ResumeController extends \yii\web\Controller
                 'sql' => 'SELECT WEEK(tgl) as minggu,AVG(kelembaban) as kelembaban,
                 AVG(kecepatan_angin) as kecepatan_angin,
                 (SELECT arah_angin from data where id_perangkat="'.$model['id'].'" AND WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-                AVG(curah_hujan) as curah_hujan,
+                SUM(curah_hujan) as curah_hujan,
                 AVG(temperature) as temperature,
                 AVG(tekanan_udara) AS tekanan_udara
                 from data
@@ -123,7 +123,7 @@ class ResumeController extends \yii\web\Controller
             'sql' => 'SELECT WEEK(tgl) as minggu, id_perangkat, year(tgl) as tahun,AVG(kelembaban) as kelembaban,
             AVG(kecepatan_angin) as kecepatan_angin,
             (SELECT arah_angin from data where id_perangkat="'.$model['id'].'" AND WEEK(tgl)=minggu GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-            AVG(curah_hujan) as curah_hujan,
+            SUM(curah_hujan) as curah_hujan,
             AVG(temperature) as temperature,
             AVG(tekanan_udara) AS tekanan_udara
             from data
@@ -159,7 +159,7 @@ class ResumeController extends \yii\web\Controller
             (SELECT arah_angin FROM data WHERE id_perangkat="'.$id.'"
             AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
             ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
-            AVG(curah_hujan) AS curah_hujan,
+            SUM(curah_hujan) AS curah_hujan,
             AVG(temperature) AS temperature,
             AVG(tekanan_udara) AS tekanan_udara
             FROM data WHERE id_perangkat="'.$id.'" AND YEAR(tgl)="'.$tgl.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
@@ -183,7 +183,7 @@ class ResumeController extends \yii\web\Controller
                 'sql' => 'SELECT MONTHNAME(tgl) as bulan, id_perangkat, year(tgl) as tahun, AVG(kelembaban) as kelembaban,
                 AVG(kecepatan_angin) as kecepatan_angin,
                 (SELECT arah_angin from data WHERE MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-                AVG(curah_hujan) as curah_hujan,
+                SUM(curah_hujan) as curah_hujan,
                 AVG(temperature) as temperature,
                 AVG(tekanan_udara) AS tekanan_udara
                 from data
@@ -201,7 +201,7 @@ class ResumeController extends \yii\web\Controller
                 'sql' => 'SELECT MONTHNAME(tgl) as bulan, id_perangkat, year(tgl) as tahun,AVG(kelembaban) as kelembaban,
                 AVG(kecepatan_angin) as kecepatan_angin,
                 (SELECT arah_angin from data where id_perangkat="'.$id.'" AND MONTHNAME(tgl)=bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC LIMIT 1) as arah_angin,
-                AVG(curah_hujan) as curah_hujan,
+                SUM(curah_hujan) as curah_hujan,
                 AVG(temperature) as temperature,
                 AVG(tekanan_udara) AS tekanan_udara
                 from data
