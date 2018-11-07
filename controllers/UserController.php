@@ -171,7 +171,7 @@ class UserController extends Controller
                     }
                 }
             }
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

@@ -85,7 +85,7 @@ use yii\widgets\ActiveForm;
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-md-offset-4">
                     <div class="form-group">
                         <?= $form->field($model, 'password')->hiddenInput()->label(false) ?>
-                        <?= Html::submitButton('Save', ['class' => 'btn btn-block btn-success']) ?>
+                        <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success']) ?>
                     </div>
                 </div>
 

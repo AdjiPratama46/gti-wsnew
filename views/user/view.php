@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
 
         <center>
-            <h3><?= Html::encode($this->title) ?></h3>
+            <h3>Detail</h3>
         </center>
         <br>
 

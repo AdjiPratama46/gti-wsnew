@@ -43,14 +43,14 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/index
                         {
                             if($model->status == '1')
                             {
-                                return Html::a('Aktif', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-success','data' => [
+                                return Html::a('Aktif', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-sm btn-success','data' => [
                                     'confirm' => 'Anda yakin akan menonaktifkan user ini?',
                                     'method' => 'post',
                                 ],]);
                             }
                             else
                             {
-                                return Html::a('Tidak aktif', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-danger','data' => [
+                                return Html::a('Tidak aktif', ['setstatus', 'id' => $model->id], ['class' => 'btn btn-sm btn-danger','data' => [
                                     'confirm' => 'Anda yakin akan mengaktifkan user ini?',
                                     'method' => 'post',
                                 ],]);
@@ -59,10 +59,13 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['user/index
                     ],
                     ['class' => 'yii\grid\ActionColumn',
                         'header' => 'Aksi',
-                        'template'=>'{view} {update}',
+                        'template'=>' {update}',
                         'buttons'=>[
                             'view' => function ($url, $model) {
-                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['user/view', 'id' => $model->id], ['class' => 'modal-form', 'id' => 'view-'.$model->id , 'data-pjax' => 0]);
+                                return Html::a('Detail', ['user/view', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-primary']).'&nbsp';
+                            },
+                            'update' => function ($url, $model) {
+                                return Html::a('Edit', ['user/update', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-primary']);
                             },
                             'delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->id], ['data' => [
