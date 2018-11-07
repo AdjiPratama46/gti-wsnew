@@ -65,7 +65,7 @@ class Perangkat extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'alias' => 'Alias',
-            'id_owner' => 'Id Owner',
+            'id_owner' => 'Nama Owner',
             'tgl_instalasi' => 'Tanggal Instalasi',
             'longitude' => 'Longitude',
             'latitude' => 'Latitude',

@@ -60,17 +60,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['perangkat/
                         'longitude',
                         'latitude',
                         'altitude',
-                        [
-                          'format'=>'raw',
-                          'header' => 'Aksi',
-                          'value' => function($model, $key, $index)
-                            {
-
-                                  return Html::a('Detail', ['view', 'id' => $model->id], ['class' => 'modal-form btn btn-sm btn-success']);
-
-
-                            },
-                        ],
+                        
 
                     ],
                 ]);
