@@ -12,6 +12,7 @@ use yii\widgets\Breadcrumbs;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $urlC = Url::to(['site/chart']);
+$urlCh = Url::to(['site/charthari']);
 $perangkatid = $query['id_perangkat'];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
@@ -107,6 +108,79 @@ $this->registerJs("
             }
         });
     });
+
+    $('#bc1').click(function(){
+        var id = $('#bc1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
+    $('#bct1').click(function(){
+        var id = $('#bct1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
+    $('#bck1').click(function(){
+        var id = $('#bck1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
+    $('#bcu1').click(function(){
+        var id = $('#bcu1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
+    $('#bcka1').click(function(){
+        var id = $('#bcka1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
+    $('#btu1').click(function(){
+        var id = $('#btu1').attr('name');
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlCh}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#ch1').html(data);
+            }
+        });
+    });
     $('#bx-tl').on('click ', function (event) {
         $('#bx-bd').slideDown(500);
         if ($('#ls').text()=='Lihat Selengkapnya') {
@@ -115,7 +189,7 @@ $this->registerJs("
             $('#bx-bd').slideUp(500);
             $('#ls').text('Lihat Selengkapnya');
         }
-    })
+    });
     ");
 ?>
 <div class="site-index-user" id="tabel">
@@ -410,10 +484,12 @@ $this->registerJs("
                             </button>
                         </div>
                     </div>
+
+
                     <?php
                         }
                     ?>
-                </div>
+              </div>
                 <div class="box-footer">
                     <p class="text-center">
                         <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
@@ -476,6 +552,157 @@ $this->registerJs("
                                             'series' => [
                                                 [
                                                     'data' => $hasil,
+                                                    'name' => 'Jumlah'
+                                                ]
+                                            ],
+                                        ],
+                                    ]);
+                        }else {
+                            echo 'Belum Ada Data';
+                        }
+
+                    ?>
+                </div>
+                <div class="box-footer">
+                    <p class="text-center">
+                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </p>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+
+    <!-- chart hari-->
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box box-solid box-success">
+                <div class="box-header">
+                    <h3 class="box-title">Statistik</h3>
+                </div>
+                <?php
+                    if (empty($charthari)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                    <?php }else { ?>
+                  <div class="box-body" id="ch1">
+
+                    <?php
+                        if ($charthari != null) {
+                            foreach ($charthari as $values1) {
+                                $a1[0]= ($values1['hari']);
+                                $c1[]= ($values1['hari']);
+                                $b1[]= array('type'=> 'column', 'name' =>$values1['hari'], 'data' => array((int)$values1['temperature'],
+                                (int)$values1['kelembaban'],(int)$values1['kecepatan_angin'],(int)$values1['curah_hujan'],(int)$values1['tekanan_udara'] ));
+                            }
+                            echo Highcharts::widget([
+                                'options' => [
+                                    'title' => ['text' => 'Data Minggu Ini'],
+                                    'xAxis' => [
+                                        'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
+                                    ],
+                                    'yAxis' => [
+                                        'title' => ['text' => 'Jumlah Data']
+                                    ],
+                                    'series' => $b1
+                                ]
+                            ]);
+                    ?>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-orange" id="bct1" name="temperature">Temperature</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-maroon" id="bck1" name="kelembaban">Kelembaban</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-purple" id="bcka1" name="kecepatan_angin">Kecepatan Angin</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-black" id="bcu1" name="curah_hujan">Curah Hujan</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-block btn-xs bg-navy" id="btu1" name="tekanan_udara">Tekanan Udara</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-block btn-xs btn-success" id="bc1" name="all">
+                                All
+                            </button>
+                        </div>
+                    </div>
+
+                    <?php
+                        }
+                    ?>
+                </div>
+
+                <div class="box-footer">
+                    <p class="text-center">
+                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </p>
+                </div>
+                <?php    }
+                ?>
+
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="box box-solid box-danger" id="bx-dg">
+                <div class="box-header">
+                    <h3 class="box-title">Statistik Arah Angin</h3>
+                </div>
+                <?php if (empty($chart)) { ?>
+                        <h4 style="padding:5px;">Belum Ada Data</h4>
+                        <style>
+                        #bx-dg{
+                            padding-bottom:0px;
+                        }
+                        </style>
+                <?php }else { ?>
+                <div class="box-body">
+                    <?php
+                        if ($piehari != null) {
+                            foreach( $piehari as $pieh1){
+                                $arah1 = $pieh1['arah_angin'];
+                                $jmlh1 = $pieh1['jumlah'];
+                                $hasil1[] = array($arah1,
+                                (int)$jmlh1 );
+                            }
+                            echo Highcharts::widget([
+                                    'scripts' => [
+                                        'highcharts-3d',
+                                     ],
+                                        'options' => [
+                                            'chart' => ['type' => 'pie',
+                                                'options3d'=>[
+                                                    'enabled'=>true,
+                                                    'alpha'=>45,
+                                                    'beta'=>0,
+                                                ]
+                                            ],
+                                            'title' => ['text' => 'Data Arah Angin Minggu Ini '],
+                                            'plotOptions' => [
+                                                'pie' => [
+                                                    'cursor' => 'pointer',
+                                                    'allowPointSelect' => true,
+                                                    'depth'=> 35,
+                                                    'dataLabels' => [
+                                                        'enabled' => true,
+                                                    ],
+                                                    'showInLegend' => true
+                                                ],
+
+                                            ],
+                                            'series' => [
+                                                [
+                                                    'data' => $hasil1,
                                                     'name' => 'Jumlah'
                                                 ]
                                             ],
