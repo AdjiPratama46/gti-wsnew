@@ -375,16 +375,41 @@ class SiteController extends Controller
                     FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                     ->queryAll();
                 }
+                    
+                    return $this->renderAjax('_chart',[
+                        'chart' => $chart,
+                        'id' => $id,
+                        'idp' => $idp,
+                        'waktu' => $waktu
+                    ]);
+            }elseif ($waktu == 'bulan') {
+                if ($id == 'all') {
+                    $chart = Yii::$app->db->createCommand
+                    ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) 
+                    AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE 
+                    perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND MONTH (tgl) = MONTH (NOW()) 
+                    AND data.id_perangkat="'.$idp.'" GROUP BY minggu ORDER BY DATE(tgl) ASC')->queryAll();
+                }elseif ($id == 'curah_hujan' && !empty($idp)) {
+                    $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,SUM('.$id.') AS '.$id.' 
+                    FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
+                    ->queryAll();
+                }elseif (!empty($idp)) {
+                    $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,AVG('.$id.') AS '.$id.' 
+                    FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
+                    ->queryAll();
+                }
+                    
+                    return $this->renderAjax('_chart2',[
+                        'chart' => $chart,
+                        'id' => $id,
+                        'idp' => $idp,
+                        'waktu' => $waktu
+                    ]);
             }
         }else {
             # admin
         }
-        return $this->renderAjax('_chart',[
-            'chart' => $chart,
-            'id' => $id,
-            'idp' => $idp,
-            'waktu' => $waktu
-        ]);
+        
     }
 
     public function actionCharthari($id,$idp){

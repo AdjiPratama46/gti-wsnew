@@ -1,5 +1,90 @@
 <?php
 use miloschuman\highcharts\Highcharts;
+use yii\helpers\Url;
+
+$urlC = Url::to(['site/chart']);
+$perangkatid = $query['id_perangkat'];
+
+$this->registerJs("
+    $('#t').click(function(){
+        var id = $('#t').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+    $('#k').click(function(){
+        var id = $('#k').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+    $('#ka').click(function(){
+        var id = $('#ka').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+    $('#cu').click(function(){
+        var id = $('#cu').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+    $('#tu').click(function(){
+        var id = $('#tu').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+    $('#a').click(function(){
+        var id = $('#a').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = 'bulan';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#crot2').html(data);
+            }
+        });
+    });
+");
 ?>
 <div class="row" id="cp">
     <?php
@@ -8,7 +93,7 @@ use miloschuman\highcharts\Highcharts;
                 <h3 class="text-center">Belum Ada Data</h3>
             </div>
         <?php }else { ?>
-            <div class="col-md-7">
+            <div class="col-md-7" id="crot2">
                 <?php 
                     foreach ($chartbulan as $values) {
                         $a[0]= ($values['minggu']);
@@ -75,22 +160,22 @@ use miloschuman\highcharts\Highcharts;
         <div class="col-md-12">
         <br>
             <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
+                <button class="btn btn-block btn-xs bg-orange" id="t" name="temperature">Temperature</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
+                <button class="btn btn-block btn-xs bg-maroon" id="k" name="kelembaban">Kelembaban</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
+                <button class="btn btn-block btn-xs bg-purple" id="ka" name="kecepatan_angin">Kecepatan Angin</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
+                <button class="btn btn-block btn-xs bg-black" id="cu" name="curah_hujan">Curah Hujan</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
+                <button class="btn btn-block btn-xs bg-navy" id="tu" name="tekanan_udara">Tekanan Udara</button>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
+                <button type="button" class="btn btn-block btn-xs btn-success" id="a" name="all">
                     All
                 </button>
             </div>

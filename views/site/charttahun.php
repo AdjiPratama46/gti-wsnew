@@ -157,7 +157,7 @@ $this->registerJs("
                     ]);
                 ?>
             </div>
-            <hr>
+
             <div class="col-md-12">
             <br>
                 <div class="col-md-2 col-sm-12">
