@@ -54,7 +54,7 @@ use yii\widgets\ActiveForm;
                     <div class="form-group">
                         <?= $form->field($model, 'confirm_password')->hiddenInput(['value' => $model->password])->label(false) ?>
                         <?= $form->field($model, 'password')->hiddenInput()->label(false) ?>
-                        <?= Html::submitButton('Save', ['class' => 'btn btn-block btn-success']) ?>
+                        <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success']) ?>
 
                     </div>
                 </div>
