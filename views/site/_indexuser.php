@@ -35,78 +35,6 @@ $this->registerJs("
             }
         });
     });
-    $('#bc').click(function(){
-        var id = $('#bc').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bct').click(function(){
-        var id = $('#bct').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bck').click(function(){
-        var id = $('#bck').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bcu').click(function(){
-        var id = $('#bcu').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bcka').click(function(){
-        var id = $('#bcka').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#btu').click(function(){
-        var id = $('#btu').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
     $('#bx-tl').on('click ', function (event) {
         $('#bx-bd').slideDown(500);
         if ($('#ls').text()=='Lihat Selengkapnya') {
@@ -121,6 +49,7 @@ $this->registerJs("
     ");
 ?>
 <div class="site-index-user" id="tabel">
+
     <!-- box detail -->
     <div class="row">
         <div class="col-md-12">
@@ -352,150 +281,44 @@ $this->registerJs("
         </div>
     </div>
 
-    <!-- chart -->
+    <!-- navs pill chart -->
     <div class="row">
-        <div class="col-md-7">
-            <div class="box box-solid box-success">
-                <div class="box-header">
-                    <h3 class="box-title">Statistik</h3>
-                </div>
-                <?php
-                    if (empty($chart)) { ?>
-                        <h4 style="padding:5px;">Belum Ada Data</h4>
-                    <?php }else { ?>
-                        <div class="box-body" id="ch">
-                    <?php
-                        if ($chart != null) {
-                            foreach ($chart as $values) {
-                                $a[0]= ($values['bulan']);
-                                $c[]= ($values['bulan']);
-                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'],
-                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
-                            }
-                            echo Highcharts::widget([
-                                'options' => [
-                                    'title' => ['text' => 'Data Tahun 2018'],
-                                    'xAxis' => [
-                                        'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
-                                    ],
-                                    'yAxis' => [
-                                        'title' => ['text' => 'Jumlah Data']
-                                    ],
-                                    'series' => $b
-                                ]
-                            ]);
-                    ?>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-                        </div>
+        <div class="col-md-12">
+            <div class="nav nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tahun" id="year">Tahun</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tahun" class="tab-pane fade in active">
+                        <?= $this->render('charttahun', [
+                                'chart' => $chart,
+                                'pie'=>$pie
+                            ]); 
+                        ?>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
-                                    All
-                            </button>
-                        </div>
+                    <div id="bulan" class="tab-pane fade">
+                        <?= $this->render('chartbulan', [
+                                'chartbulan' => $chartbulan,
+                                'piebulan'=>$piebulan
+                            ]); 
+                        ?>
                     </div>
-                    <?php
-                        }
-                    ?>
+                    <div id="hari" class="tab-pane fade">
+                        <?= $this->render('charthari', [
+                                'charthari' => $charthari,
+                                'piehari'=>$piehari
+                            ]); 
+                        ?>
+                    </div>
                 </div>
-                <div class="box-footer">
-                    <p class="text-center">
-                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </p>
-                </div>
-                <?php    }
-                ?>
-
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="box box-solid box-danger" id="bx-dg">
-                <div class="box-header">
-                    <h3 class="box-title">Statistik Arah Angin</h3>
-                </div>
-                <?php if (empty($chart)) { ?>
-                        <h4 style="padding:5px;">Belum Ada Data</h4>
-                        <style>
-                        #bx-dg{
-                            padding-bottom:0px;
-                        }
-                        </style>
-                <?php }else { ?>
-                <div class="box-body">
-                    <?php
-                        if ($pie != null) {
-                            foreach( $pie as $pieh){
-                                $arah = $pieh['arah_angin'];
-                                $jmlh = $pieh['jumlah'];
-                                $hasil[] = array($arah,
-                                (int)$jmlh );
-                            }
-                            echo Highcharts::widget([
-                                    'scripts' => [
-                                        'highcharts-3d',
-                                     ],
-                                        'options' => [
-                                            'chart' => ['type' => 'pie',
-                                                'options3d'=>[
-                                                    'enabled'=>true,
-                                                    'alpha'=>45,
-                                                    'beta'=>0,
-                                                ]
-                                            ],
-                                            'title' => ['text' => 'Data Arah Angin Tahun 2018 '],
-                                            'plotOptions' => [
-                                                'pie' => [
-                                                    'cursor' => 'pointer',
-                                                    'allowPointSelect' => true,
-                                                    'depth'=> 35,
-                                                    'dataLabels' => [
-                                                        'enabled' => true,
-                                                    ],
-                                                    'showInLegend' => true
-                                                ],
-
-                                            ],
-                                            'series' => [
-                                                [
-                                                    'data' => $hasil,
-                                                    'name' => 'Jumlah'
-                                                ]
-                                            ],
-                                        ],
-                                    ]);
-                        }else {
-                            echo 'Belum Ada Data';
-                        }
-
-                    ?>
-                </div>
-                <div class="box-footer">
-                    <p class="text-center">
-                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </p>
-                </div>
-                <?php } ?>
             </div>
         </div>
     </div>
