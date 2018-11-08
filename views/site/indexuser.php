@@ -299,21 +299,24 @@ $this->registerJs("
                     <div id="tahun" class="tab-pane fade in active">
                         <?= $this->render('charttahun', [
                                 'chart' => $chart,
-                                'pie'=>$pie
+                                'pie' => $pie,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>
                     <div id="bulan" class="tab-pane fade">
                         <?= $this->render('chartbulan', [
                                 'chartbulan' => $chartbulan,
-                                'piebulan'=>$piebulan
+                                'piebulan'=>$piebulan,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>
                     <div id="minggu" class="tab-pane fade">
                         <?= $this->render('charthari', [
                                 'charthari' => $charthari,
-                                'piehari'=>$piehari
+                                'piehari'=>$piehari,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>

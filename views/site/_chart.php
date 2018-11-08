@@ -3,78 +3,13 @@ use miloschuman\highcharts\Highcharts;
 use yii\helpers\Url;
 
 $urlC = Url::to(['site/chart']);
-$this->registerJs("
-$('#bc').click(function(){
-    var id = $('#bc').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-$('#bct').click(function(){
-    var id = $('#bct').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-$('#bck').click(function(){
-    var id = $('#bck').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-$('#bcu').click(function(){
-    var id = $('#bcu').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-$('#bcka').click(function(){
-    var id = $('#bcka').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-$('#btu').click(function(){
-    var id = $('#btu').attr('name');
-    $.ajax({
-        type :'GET',
-        url : '{$urlC}',
-        data:'id='+id+'&idp=$idp',
-        success : function(data){
-            $('#ch').html(data);
-        }
-    });
-});
-    ");
-?>
 
-<div class="box-body" id="ch">
-    <?php
+$this->registerJs("
+
+");
+?>
+<div id="crot">
+   <?php 
     if ($id == 'temperature') {
         $name = 'Temperature';
     }elseif ($id == 'kelembaban') {
@@ -123,7 +58,7 @@ $('#btu').click(function(){
                 'plotOptions' => [
                     'line' =>  [
                         'dataLabels' =>  [
-                          'enabled' =>  true
+                            'enabled' =>  true
                         ],
                         'enableMouseTracking' =>  false
                     ]
@@ -136,30 +71,5 @@ $('#btu').click(function(){
             ]
         ]);
     }
-    ?>
-    <div class="row">
-        <div class="col-md-4">
-            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-4">
-            <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
-        </div>
-        <div class="col-md-4">
-            <button type="button" class="btn btn-block btn-xs btn-success" id="bc" name="all">
-                All
-            </button>
-        </div>
-    </div>
+   ?>
 </div>

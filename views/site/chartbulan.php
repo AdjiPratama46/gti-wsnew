@@ -73,6 +73,7 @@ use miloschuman\highcharts\Highcharts;
             ?>
         </div>
         <div class="col-md-12">
+        <br>
             <div class="col-md-2">
                 <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
             </div>
