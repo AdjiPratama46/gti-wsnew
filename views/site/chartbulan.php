@@ -98,7 +98,7 @@ $this->registerJs("
                     foreach ($chartbulan as $values) {
                         $a[0]= ($values['minggu']);
                         $c[]= ($values['minggu']);
-                        $b[]= array('type'=> 'column', 'name' =>$values['minggu'], 'data' => array((int)$values['temperature'],
+                        $b[]= array('type'=> 'column', 'name' =>'Minggu Ke-'.$values['minggu'], 'data' => array((int)$values['temperature'],
                         (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
                     }
                     echo Highcharts::widget([

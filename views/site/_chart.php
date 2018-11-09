@@ -28,6 +28,7 @@ if ($id == 'temperature') {
             }
             echo Highcharts::widget([
                 'options' => [
+                    'chart' => ['renderTo'=> 'crot'],
                     'title' => ['text' => 'Data Tahun 2018'],
                     'xAxis' => [
                         'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
@@ -45,7 +46,7 @@ if ($id == 'temperature') {
             }
             echo Highcharts::widget([
                 'options' => [
-                    'chart' => ['type' => 'line'],
+                    'chart' => ['type' => 'line','renderTo'=> 'crot'],
                     'title' => ['text' => 'Data '.$name.' Tahun 2018'],
                     'xAxis' => [
                         'categories' =>$c
