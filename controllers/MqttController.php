@@ -92,13 +92,13 @@ class MqttController extends Controller
               }
               else{
                 Yii::$app->getSession()->setFlash(
-                    'danger', 'Kesalahan dalam publish'
+                    'danger', 'Gagal terhubung ke server'
                 );
               }
               $client->close();
 
 
-              return $this->redirect(['mqtt/index']);
+              return $this->redirect(['mqtt/konfig']);
         }
         else{
           Yii::$app->getSession()->setFlash(
