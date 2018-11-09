@@ -22,7 +22,10 @@ use yii\widgets\ActiveForm;
         ])->textArea(['style' => 'resize: none;height:200px;']) ?>
 
     <div class="form-group">
-        <center><?= Html::submitButton('Kirim', ['class' => 'btn btn-block btn-success butsub']) ?></center>
+        <center><?= Html::submitButton('Kirim', ['class' => 'btn btn-block btn-success butsub','data' => [
+            'confirm' => 'Anda yakin akan menolak pengajuan ini?',
+            'method' => 'post',
+        ],]) ?></center>
     </div>
 
     <?php ActiveForm::end(); ?>

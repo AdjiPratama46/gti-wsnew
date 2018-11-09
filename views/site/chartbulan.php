@@ -94,7 +94,7 @@ $this->registerJs("
             </div>
         <?php }else { ?>
             <div class="col-md-7" id="crot2">
-                <?php 
+                <?php
                     foreach ($chartbulan as $values) {
                         $a[0]= ($values['minggu']);
                         $c[]= ($values['minggu']);
@@ -103,6 +103,7 @@ $this->registerJs("
                     }
                     echo Highcharts::widget([
                         'options' => [
+                            'chart' => ['renderTo'=> 'crot2'],
                             'title' => ['text' => 'Data Bulan Ini'],
                             'xAxis' => [
                                 'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
@@ -116,7 +117,7 @@ $this->registerJs("
                 ?>
             </div>
             <div class="col-md-5">
-                <?php 
+                <?php
                     foreach($piebulan as $pieh){
                         $arah = $pieh['arah_angin'];
                         $jmlh = $pieh['jumlah'];
@@ -181,4 +182,4 @@ $this->registerJs("
             </div>
         </div>
     <?php } ?>
-</div>                        
+</div>
