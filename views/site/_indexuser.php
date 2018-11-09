@@ -304,7 +304,11 @@ $this->registerJs("
                             <?php
                                 foreach ($daftarhari as $key) { ?>
                                     <li><a role="menuitem" data-toggle="tab" href="#hari"><?= $key['hari'] ?>  </a></li>        
-                            <?php } ?>
+                            <?php } 
+                                if (empty($daftarhari)) { ?>
+                                    <li><a role="menuitem" data-toggle="tab">Data Belum Ada</a></li>     
+                                <?php }
+                            ?>
                         </ul>
                     </li>
                 </ul>
