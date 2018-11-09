@@ -19,8 +19,10 @@ if(Yii::$app->user->identity->role=='admin'){
   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
 }
 else{
-  $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
-  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
+//   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
+//   perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
+  $sql = 'SELECT perangkat.id,perangkat.alias FROM perangkat,user WHERE
+  perangkat.id_owner = user.id AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
 }
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 $this->registerJs("
@@ -70,7 +72,6 @@ $this->registerJs("
                             echo Select2::widget([
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
-                                'value' => $query['id_perangkat'],
                                 'data' => $perangkats,
                                 'options' => ['placeholder' => 'Pilih Perangkat'],
                                 'pluginOptions' => [
@@ -300,21 +301,24 @@ $this->registerJs("
                     <div id="tahun" class="tab-pane fade in active">
                         <?= $this->render('charttahun', [
                                 'chart' => $chart,
-                                'pie'=>$pie
+                                'pie'=>$pie,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>
                     <div id="bulan" class="tab-pane fade">
                         <?= $this->render('chartbulan', [
                                 'chartbulan' => $chartbulan,
-                                'piebulan'=>$piebulan
+                                'piebulan'=>$piebulan,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>
                     <div id="hari" class="tab-pane fade">
-                        <?= $this->render('charthari', [
+                        <?= $this->render('chartminggu', [
                                 'charthari' => $charthari,
-                                'piehari'=>$piehari
+                                'piehari'=>$piehari,
+                                'query' => $query
                             ]); 
                         ?>
                     </div>
