@@ -17,7 +17,7 @@ $perangkatid = $query['id_perangkat'];
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
-  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
+  perangkat.id=data.id_perangkat' ;
 }
 else{
 //   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
@@ -302,7 +302,7 @@ $this->registerJs("
                                 'chart' => $chart,
                                 'pie' => $pie,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                     <div id="bulan" class="tab-pane fade">
@@ -310,7 +310,7 @@ $this->registerJs("
                                 'chartbulan' => $chartbulan,
                                 'piebulan'=>$piebulan,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                     <div id="minggu" class="tab-pane fade">
@@ -318,7 +318,7 @@ $this->registerJs("
                                 'charthari' => $charthari,
                                 'piehari'=>$piehari,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                 </div>

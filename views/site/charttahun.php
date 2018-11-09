@@ -90,11 +90,11 @@ $this->registerJs("
     <?php
         if (empty($chart) || empty($pie)) { ?>
             <div class="col-md-12">
-                <h3 class="text-center">Belum Ada Data</h3>
+                <h4 class="text-center">Belum Ada Data Tahun Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
             <div class="col-md-7" id="crot">
-                <?php 
+                <?php
                     foreach ($chart as $values) {
                         $a[0]= ($values['bulan']);
                         $c[]= ($values['bulan']);
@@ -116,7 +116,7 @@ $this->registerJs("
                 ?>
             </div>
             <div class="col-md-5">
-                <?php 
+                <?php
                     foreach( $pie as $pieh){
                         $arah = $pieh['arah_angin'];
                         $jmlh = $pieh['jumlah'];

@@ -91,11 +91,11 @@ $this->registerJs("
     <?php
         if (empty($charthari) || empty($piehari)) { ?>
             <div class="col-md-12">
-                <h3 class="text-center">Belum Ada Data</h3>
+                <h4 class="text-center">Belum Ada Data Minggu Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
             <div class="col-md-7" id="crot3">
-                <?php 
+                <?php
                     foreach ($charthari as $values) {
                         $a[0]= ($values['hari']);
                         $c[]= ($values['hari']);
@@ -117,7 +117,7 @@ $this->registerJs("
                 ?>
             </div>
             <div class="col-md-5">
-                <?php 
+                <?php
                     foreach($piehari as $pieh){
                         $arah = $pieh['arah_angin'];
                         $jmlh = $pieh['jumlah'];
@@ -183,14 +183,3 @@ $this->registerJs("
         </div>
     <?php } ?>
 </div>
-
-
-
-
-
-
-
-
-
-
-                        

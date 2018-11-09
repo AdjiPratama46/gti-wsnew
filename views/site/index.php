@@ -16,7 +16,7 @@ $urlData = Url::to(['site/get']);
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['site/index']];
 if(Yii::$app->user->identity->role=='admin'){
   $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
-  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
+  perangkat.id=data.id_perangkat ' ;
 
 }
 else{
@@ -47,66 +47,6 @@ $this->registerJs("
             data:'id='+id,
             success : function(data){
                 $('#tabel').html(data);
-            }
-        });
-    });
-    $('#bc').click(function(){
-        var id = $('#bc').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bct').click(function(){
-        var id = $('#bct').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bck').click(function(){
-        var id = $('#bck').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bcu').click(function(){
-        var id = $('#bcu').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
-            }
-        });
-    });
-    $('#bcka').click(function(){
-        var id = $('#bcka').attr('name');
-        var idp = '{$perangkatid}';
-        $.ajax({
-            type :'GET',
-            url : '{$urlC}',
-            data:'id='+id+'&idp='+idp,
-            success : function(data){
-                $('#ch').html(data);
             }
         });
     });
@@ -399,132 +339,49 @@ $this->registerJs("
     </div>
     <?php
     if (Yii::$app->user->identity->role=='admin') { ?>
-    <div class="row">
-        <div class="col-md-7">
-            <div class="box  box-solid box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Statistik</h3>
-                </div>
-                <div class="box-body" id="ch">
-                    <?php
-                            foreach ($chart as $values) {
-                                $a[0]= ($values['bulan']);
-                                $c[]= ($values['bulan']);
-                                $b[]= array('type'=> 'column', 'name' =>$values['bulan'], 'data' => array((int)$values['temperature'],
-                                (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
-                            }
-                            echo Highcharts::widget([
-                                'options' => [
-                                    'title' => ['text' => 'Data Tahun 2018'],
-                                    'xAxis' => [
-                                        'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
-                                    ],
-                                    'yAxis' => [
-                                        'title' => ['text' => 'Jumlah Data']
-                                    ],
-                                    'series' => $b
-                                ]
-                            ]);
-                        ?>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-maroon" id="bck" name="kelembaban">Kelembaban</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-purple" id="bcka" name="kecepatan_angin">Kecepatan Angin</button>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-black" id="bcu" name="curah_hujan">Curah Hujan</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-block btn-xs bg-navy" id="btu" name="tekanan_udara">Tekanan Udara</button>
-                        </div>
-                        <div class="col-md-4">
-                            <button
-                                type="button"
-                                class="btn btn-block btn-xs btn-success"
-                                id="bc"
-                                name="all">
-                                All
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="box-footer">
-                    <p class="text-center">
-                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="box box-solid box-danger" id="bx-dg">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Statistik Arah Angin</h3>
-                </div>
-                <div class="box-body" id="bx-dg">
-                    <?php
-                     foreach( $pie as $pieh){
-                        $arah = $pieh['arah_angin'];
-                        $jmlh = $pieh['jumlah'];
-                        $hasil[] = array($arah,
-                        (int)$jmlh );
-                     }
-                    ?>
-                    <?= Highcharts::widget([
-                            'scripts' => [
-                                'highcharts-3d',
-                             ],
-                                'options' => [
-                                    'chart' => ['type' => 'pie',
-                                        'options3d'=>[
-                                            'enabled'=>true,
-                                            'alpha'=>45,
-                                            'beta'=>0,
-                                        ]
-                                    ],
-                                    'title' => ['text' => 'Data Arah Angin Tahun 2018 '],
-                                    'plotOptions' => [
-                                        'pie' => [
-                                            'cursor' => 'pointer',
-                                            'allowPointSelect' => true,
-                                            'depth'=> 35,
-                                            'dataLabels' => [
-                                                'enabled' => true,
-                                            ],
-                                            'showInLegend' => true
-                                        ],
-
-                                    ],
-                                    'series' => [
-                                        [
-                                            'data' => $hasil,
-                                            'name' => 'Jumlah'
-                                        ]
-                                    ],
-                                ],
-                            ]);
-                        ?>
-                </div>
-                <div class="box-footer">
-                    <p class="text-center">
-                        <a href="<?=  Url::to(['resume/index']); ?>">Lihat Data Lengkap
-                            <i class="fa fa-arrow-circle-right"></i>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="nav nav-tabs-custom">
+                  <ul class="nav nav-tabs">
+                      <li class="active">
+                          <a data-toggle="tab" href="#tahun" id="year">Tahun</a>
+                      </li>
+                      <li>
+                          <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
+                      </li>
+                      <li>
+                          <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
+                      </li>
+                  </ul>
+                  <div class="tab-content">
+                      <div id="tahun" class="tab-pane fade in active">
+                          <?= $this->render('charttahun', [
+                                  'chart' => $chart,
+                                  'pie' => $pie,
+                                  'query' => $query
+                              ]);
+                          ?>
+                      </div>
+                      <div id="bulan" class="tab-pane fade">
+                          <?= $this->render('chartbulan', [
+                                  'chartbulan' => $chartbulan,
+                                  'piebulan'=>$piebulan,
+                                  'query' => $query
+                              ]);
+                          ?>
+                      </div>
+                      <div id="minggu" class="tab-pane fade">
+                          <?= $this->render('chartminggu', [
+                                  'charthari' => $charthari,
+                                  'piehari'=>$piehari,
+                                  'query' => $query
+                              ]);
+                          ?>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     <?php } ?>
 
     <div class="row">

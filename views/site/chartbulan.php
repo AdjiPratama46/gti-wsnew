@@ -90,7 +90,7 @@ $this->registerJs("
     <?php
         if (empty($chartbulan) || empty($piebulan)) { ?>
             <div class="col-md-12">
-                <h3 class="text-center">Belum Ada Data</h3>
+                <h4 class="text-center">Belum Ada Data Bulan Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
             <div class="col-md-7" id="crot2">
