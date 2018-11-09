@@ -72,7 +72,7 @@ class MqttController extends Controller
         $obj = json_decode($msg);
         if($model->save()){
 
-              $client = new MQTTClient('103.11.99.171', 1883);
+              $client = new MQTTClient('lumba-studio.id', 1883);
               $client->setAuthentication('','');
               $client->setEncryption('cacerts.pem');
               $clientID=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($x)) )),1,10);
