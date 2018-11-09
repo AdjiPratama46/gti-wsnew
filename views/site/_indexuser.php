@@ -294,7 +294,18 @@ $this->registerJs("
                         <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
                     </li>
                     <li>
-                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
+                        <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toogle" data-toggle="dropdown" href="#" id="day">
+                            Hari <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <?php
+                                foreach ($daftarhari as $key) { ?>
+                                    <li><a role="menuitem" data-toggle="tab" href="#hari"><?= $key['hari'] ?>  </a></li>        
+                            <?php } ?>
+                        </ul>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -314,13 +325,16 @@ $this->registerJs("
                             ]); 
                         ?>
                     </div>
-                    <div id="hari" class="tab-pane fade">
+                    <div id="minggu" class="tab-pane fade">
                         <?= $this->render('chartminggu', [
                                 'charthari' => $charthari,
                                 'piehari'=>$piehari,
                                 'query' => $query
                             ]); 
                         ?>
+                    </div>
+                    <div id="hari" class="tab-pane fade">
+                        <h3>Comming Soon</h3>
                     </div>
                 </div>
             </div>

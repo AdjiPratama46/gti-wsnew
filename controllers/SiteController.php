@@ -140,6 +140,14 @@ class SiteController extends Controller
                 AND WEEK(tgl)=WEEK(NOW()) AND data.id_perangkat="'.$model['id'].'" GROUP BY arah_angin ORDER BY jumlah DESC')
                 ->queryAll();
 
+                $daftarhari = Yii::$app->db->createCommand
+                ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN
+                "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
+                WHEN "Sunday" THEN "Minggu" END AS hari FROM data WHERE WEEK (tgl) = WEEK (NOW()) AND id_perangkat ="'.$model['id'].'"
+                GROUP BY hari ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+
+                
             return $this->render('indexuser', [
                 'query' => $query,
                 'model' => $model,
@@ -155,6 +163,7 @@ class SiteController extends Controller
                 'piebulan' => $piebulan,
                 'charthari' => $charthari,
                 'piehari' => $piehari,
+                'daftarhari' => $daftarhari
             ]);
         }else {
             $chart = Yii::$app->db->createCommand
@@ -309,6 +318,13 @@ class SiteController extends Controller
             perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"
             AND WEEK(tgl)=WEEK(NOW()) AND data.id_perangkat="'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')
             ->queryAll();
+
+            $daftarhari = Yii::$app->db->createCommand
+            ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN
+            "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
+            WHEN "Sunday" THEN "Minggu" END AS hari FROM data WHERE WEEK (tgl) = WEEK (NOW()) AND id_perangkat ="'.$id.'"
+            GROUP BY hari ORDER BY DATE(tgl) ASC')
+            ->queryAll();
             return $this->renderAjax('_indexuser', [
                 'query' => $query,
                 'jmluser' => $jmluser,
@@ -322,6 +338,7 @@ class SiteController extends Controller
                 'piebulan' => $piebulan,
                 'charthari' => $charthari,
                 'piehari' => $piehari,
+                'daftarhari' => $daftarhari
             ]);
         }else {
             $chart = Yii::$app->db->createCommand
