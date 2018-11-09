@@ -313,7 +313,7 @@ $this->registerJs("
                         ?>
                     </div>
                     <div id="minggu" class="tab-pane fade">
-                        <?= $this->render('charthari', [
+                        <?= $this->render('chartminggu', [
                                 'charthari' => $charthari,
                                 'piehari'=>$piehari,
                                 'query' => $query
