@@ -295,20 +295,8 @@ $this->registerJs("
                     <li>
                         <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toogle" data-toggle="dropdown" href="#" id="day">
-                            Hari <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php
-                                foreach ($daftarhari as $key) { ?>
-                                    <li><a role="menuitem" data-toggle="tab" href="#hari"><?= $key['hari'] ?>  </a></li>        
-                            <?php } 
-                                if (empty($daftarhari)) { ?>
-                                    <li><a role="menuitem" data-toggle="tab">Data Belum Ada</a></li>     
-                                <?php }
-                            ?>
-                        </ul>
+                    <li>
+                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
                     </li>
                 </ul>
                 <div class="tab-content">
