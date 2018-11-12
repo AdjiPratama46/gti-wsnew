@@ -66,7 +66,9 @@
                         ['label' => 'Resume', 'icon' => 'list-alt', 'url' => ['resume/index'],
                             'options' => ['id' => 'menu4']
                         ],
-
+                        ['label' => 'Download', 'icon' => 'download', 'url' => ['download/index'],
+                          'options' => ['id' => 'menu1']
+                        ],
 
                         [
                                 'label' => 'Mqtt',
