@@ -295,6 +295,9 @@ $this->registerJs("
                     <li>
                         <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
                     </li>
+                    <li>
+                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div id="tahun" class="tab-pane fade in active">
@@ -320,6 +323,9 @@ $this->registerJs("
                                 'query' => $query
                             ]);
                         ?>
+                    </div>
+                    <div id="hari" class="tab-pane fade">
+                        <h3>Comming Soon</h3>
                     </div>
                 </div>
             </div>

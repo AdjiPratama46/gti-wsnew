@@ -294,6 +294,9 @@ $this->registerJs("
                         <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
                     </li>
                     <li>
+                        <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
+                    </li>
+                    <li>
                         <a data-toggle="tab" href="#hari" id="day">Hari</a>
                     </li>
                 </ul>
@@ -314,13 +317,16 @@ $this->registerJs("
                             ]); 
                         ?>
                     </div>
-                    <div id="hari" class="tab-pane fade">
+                    <div id="minggu" class="tab-pane fade">
                         <?= $this->render('chartminggu', [
                                 'charthari' => $charthari,
                                 'piehari'=>$piehari,
                                 'query' => $query
                             ]); 
                         ?>
+                    </div>
+                    <div id="hari" class="tab-pane fade">
+                        <h3>Comming Soon</h3>
                     </div>
                 </div>
             </div>
