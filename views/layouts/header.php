@@ -15,7 +15,7 @@ $per = Yii::$app->db->createCommand
 ('SELECT COUNT(*) AS perba FROM perangkat WHERE DATE(tgl_instalasi) = DATE(NOW())')
 ->queryOne();
 $dasuk = Yii::$app->db->createCommand
-('SELECT count(*) as jml FROM data WHERE DAY(tgl)=DAY(NOW())')
+('SELECT count(*) as jml FROM data WHERE DATE(tgl)=DATE(NOW())')
 ->queryOne();
 
 $pe = $per['perba'];

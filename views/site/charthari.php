@@ -101,25 +101,25 @@ $perangkatid = $query['id_perangkat'];
 ");
 ?>
 <div class="row" id="cp">
-    <div class="col-sm-3 col-sm-offset-9">
-        <?= DatePicker::widget([
-                'name' => 'dp',
-                'id' => 'dp1',
-                'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                'pluginOptions' => [
-                    'autoclose'=>true,
-                    'format' => 'yyyy-mm-dd'
-                ]
-            ]);
-        ?>
-        <hr>
-    </div>
     <?php
         if (empty($charthari) || empty($piehari)) { ?>
             <div class="col-md-12">
                 <h4 class="text-center">Belum Ada Data Hari Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
+            <div class="col-sm-3 col-sm-offset-9">
+                <?= DatePicker::widget([
+                        'name' => 'dp',
+                        'id' => 'dp1',
+                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                            'format' => 'yyyy-mm-dd'
+                        ]
+                    ]);
+                ?>
+                <hr>
+            </div>
         <div id="crot4">
             <div class="col-md-7" id="c">
                 <?php

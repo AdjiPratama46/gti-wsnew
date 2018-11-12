@@ -13,15 +13,9 @@ use yii\helpers\Html;
 $this->title = 'Dashboard';
 $urlData = Url::to(['site/get']);
 $this->params['breadcrumbs'][] = $this->title;
-if(Yii::$app->user->identity->role=='admin'){
-  $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
-  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1' ;
 
-}
-else{
-  $sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
-  perangkat.id=data.id_perangkat AND DATE(data.tgl)= DATE(NOW())-1 AND perangkat.id_owner ="'.Yii::$app->user->identity->id.'" ';
-}
+$sql = 'SELECT perangkat.id,data.id_perangkat FROM perangkat,data WHERE
+perangkat.id=data.id_perangkat ';
 $perangkats = ArrayHelper::map(Perangkat::findBySql($sql)->all(),'id','id');
 $perangkatid = $query['id_perangkat'];
 $urlC = Url::to(['site/chart']);
@@ -51,9 +45,6 @@ $this->registerJs("
     ");
 ?>
 <div class="site-index" id="tabel">
-    <?php
-    if(Yii::$app->user->identity->role=='admin'){
-   ?>
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -97,9 +88,6 @@ $this->registerJs("
         </div>
     </div>
 
-    <?php
-  }
-  ?>
     <div class="row">
         <div class="col-md-12">
             <div class="box box-info">
@@ -116,16 +104,16 @@ $this->registerJs("
                     <div class="box-tools pull-right">
                         <?php
                       if (!empty($perangkats)) {
-                          echo Select2::widget([
-                              'name' => 'id-perangkat',
-                              'id' => 'id-perangkat',
-                              'value' => $query['id_perangkat'],
-                              'data' => $perangkats,
-                              'options' => ['placeholder' => 'Pilih Perangkat'],
-                              'pluginOptions' => [
-                                  'width' => '200px',
-                              ],
-                          ]);
+                        echo Select2::widget([
+                            'name' => 'id-perangkat',
+                            'id' => 'id-perangkat',
+                            'value' => $query['id_perangkat'],
+                            'data' => $perangkats,
+                            'options' => ['placeholder' => 'Pilih Perangkat'],
+                            'pluginOptions' => [
+                                'width' => '200px',
+                            ],
+                        ]);
                       }
                       ?>
                     </div>
@@ -330,52 +318,62 @@ $this->registerJs("
             </div>
         </div>
     </div>
-    <?php
-    if (Yii::$app->user->identity->role=='admin') { ?>
-      <div class="row">
-          <div class="col-md-12">
-              <div class="nav nav-tabs-custom">
-                  <ul class="nav nav-tabs">
-                      <li class="active">
-                          <a data-toggle="tab" href="#tahun" id="year">Tahun</a>
-                      </li>
-                      <li>
-                          <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
-                      </li>
-                      <li>
-                          <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
-                      </li>
-                  </ul>
-                  <div class="tab-content">
-                      <div id="tahun" class="tab-pane fade in active">
-                          <?= $this->render('charttahun', [
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tahun" id="year">Tahun</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#bulan" id="month">Bulan</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tahun" class="tab-pane fade in active">
+                        <?= $this->render('charttahun', [
                                   'chart' => $chart,
                                   'pie' => $pie,
                                   'query' => $query
                               ]);
                           ?>
-                      </div>
-                      <div id="bulan" class="tab-pane fade">
-                          <?= $this->render('chartbulan', [
+                    </div>
+                    <div id="bulan" class="tab-pane fade">
+                        <?= $this->render('chartbulan', [
                                   'chartbulan' => $chartbulan,
                                   'piebulan'=>$piebulan,
                                   'query' => $query
                               ]);
                           ?>
-                      </div>
-                      <div id="minggu" class="tab-pane fade">
-                          <?= $this->render('chartminggu', [
-                                  'charthari' => $charthari,
-                                  'piehari'=>$piehari,
+                    </div>
+                    <div id="minggu" class="tab-pane fade">
+                        <?= $this->render('chartminggu', [
+                                  'chartminggu' => $chartminggu,
+                                  'pieminggu'=>$pieminggu,
                                   'query' => $query
                               ]);
                           ?>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-    <?php } ?>
+                    </div>
+                    <div id="hari" class="tab-pane fade">
+                        <?= $this->render('charthari',[
+                                    'charthari' => $charthari,
+                                    'piehari' => $piehari,
+                                    'query' => $query
+                                ])
+                            ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-solid box-warning collapsed-box">

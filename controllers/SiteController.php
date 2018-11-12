@@ -182,18 +182,17 @@ class SiteController extends Controller
             $chart = Yii::$app->db->createCommand
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
             SUM(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
-            WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
-            ->queryAll();
+            WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')->queryAll();
             $pie = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara"
             WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur"
             WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW())
-            GROUP BY arah_angin')->queryAll();
+            GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $chartbulan = Yii::$app->db->createCommand
             ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
             AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE MONTH (tgl) = MONTH (NOW())
-            GROUP BY minggu ORDER BY DATE(tgl) ASC')->queryAll();
+            GROUP BY minggu ORDER BY minggu ASC')->queryAll();
             $piebulan = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
             WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
@@ -205,26 +204,19 @@ class SiteController extends Controller
             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
             WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
             SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE
-            WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-            ->queryAll();
+            WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
             $pieminggu = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
-            perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-            AND WEEK(tgl)=WEEK(NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')
-            ->queryAll();
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, 
+            COUNT(arah_angin) AS jumlah FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
             AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-            tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND DATE(tgl) 
-            = DATE(NOW()) - 1 GROUP BY waktu ORDER BY TIME(tgl)')->queryAll();
-
+            tekanan_udara FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY TIME(tgl)')->queryAll();
             $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
             WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
-            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user
-            WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND DAY(tgl) = DAY(NOW())-1  GROUP BY arah_angin 
-            ORDER BY jumlah DESC')->queryAll();
+            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1  
+            GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             return $this->render('index', [
                 'query' => $query,
@@ -370,52 +362,54 @@ class SiteController extends Controller
                 'piebulan' => $piebulan,
                 'chartminggu' => $chartminggu,
                 'pieminggu' => $pieminggu,
+                'charthari' => $charthari,
+                'piehari' => $piehari,
                 'daftarhari' => $daftarhari
             ]);
         }else {
+            $chart = Yii::$app->db->createCommand
+            ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+            SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE
+            YEAR(tgl)=YEAR(NOW()) AND id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            $pie = Yii::$app->db->createCommand
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, 
+            COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin 
+            ORDER BY jumlah DESC')->queryAll();
 
-          $chart = Yii::$app->db->createCommand
-          ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-          SUM(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
-          WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY bulan ORDER BY MONTH (tgl) ASC')
-          ->queryAll();
-          $pie = Yii::$app->db->createCommand
-          ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara"
-          WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur"
-          WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW())
-          GROUP BY arah_angin')->queryAll();
+            $chartbulan = Yii::$app->db->createCommand
+            ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
+            AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE
+            MONTH (tgl) = MONTH (NOW()) AND id_perangkat="'.$id.'" GROUP BY minggu ORDER BY DATE(tgl) ASC')->queryAll();
+            $piebulan = Yii::$app->db->createCommand
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat="'.$id.'" 
+            GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
-          $chartbulan = Yii::$app->db->createCommand
-          ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
-          AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-          perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND MONTH (tgl) = MONTH (NOW())
-          GROUP BY minggu ORDER BY DATE(tgl) ASC')->queryAll();
-          $piebulan = Yii::$app->db->createCommand
-          ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-          WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-          END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
-          perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-          AND MONTH (tgl) = MONTH (NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')
-          ->queryAll();
+            $chartminggu = Yii::$app->db->createCommand
+            ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday"
+            THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS
+            kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature,
+            AVG(tekanan_udara) AS tekanan_udara FROM data WHERE WEEK(tgl) = WEEK(NOW()) AND id_perangkat="'.$id.'"
+            GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
+            $pieminggu = Yii::$app->db->createCommand
+            ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE WEEK(tgl)=WEEK(NOW()) AND 
+            id_perangkat="'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
-          $charthari = Yii::$app->db->createCommand
-          ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-              WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-              WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-          SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-          perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-          AND WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-          ->queryAll();
+            $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
+            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
+            tekanan_udara FROM data WHERE id_perangkat = "'.$id.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY TIME(tgl)')
+            ->queryAll();
+            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
+            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
+            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1 
+            AND id_perangkat = "'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
+          
 
-          $piehari = Yii::$app->db->createCommand
-          ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-          WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-          END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user WHERE
-          perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-          AND WEEK(tgl)=WEEK(NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')
-          ->queryAll();
-
-          return $this->renderAjax('index', [
+          return $this->renderAjax('_index', [
               'query' => $query,
               'jmluser' => $jmluser,
               'paktif'=> $paktif,
@@ -426,8 +420,11 @@ class SiteController extends Controller
               'pie' => $pie,
               'chartbulan' => $chartbulan,
               'piebulan' => $piebulan,
+              'chartminggu' => $chartminggu,
+              'pieminggu' => $pieminggu,
               'charthari' => $charthari,
               'piehari' => $piehari,
+              
           ]);
         }
     }
@@ -440,54 +437,91 @@ class SiteController extends Controller
 
     public function actionChart($id,$idp,$waktu){
         $id_owner = Yii::$app->user->id;
-        if (Yii::$app->user->identity->role=="user") {
-            if ($waktu == 'tahun') {
-                if ($id == 'all') {
+        if ($waktu == 'tahun') {
+            if ($id == 'all' && !empty($idp)) {
+                if (Yii::$app->user->identity->role == 'user') {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-                    SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-                    perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"
-                    AND YEAR(tgl)=YEAR(NOW()) AND data.id_perangkat="'.$idp.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')
-                    ->queryAll();
-                }elseif ($id == 'curah_hujan' && !empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,SUM('.$id.') AS '.$id.'
-                    FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
-                    ->queryAll();
-                }elseif (!empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
-                    FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
-                    ->queryAll();
+                    SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data,
+                    perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'"
+                    AND YEAR(tgl)=YEAR(NOW()) AND data.id_perangkat="'.$idp.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+                }else{
+                    $chart = Yii::$app->db->createCommand
+                    ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                    SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
+                    WHERE YEAR(tgl)=YEAR(NOW()) AND data.id_perangkat="'.$idp.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
                 }
-                    return $this->renderAjax('_chart',[
-                        'chart' => $chart,
-                        'id' => $id,
-                        'idp' => $idp,
-                        'waktu' => $waktu
-                    ]);
-            }elseif ($waktu == 'bulan') {
-                if ($id == 'all') {
+            }elseif ($id == 'all' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand
+                ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
+                SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
+                WHERE YEAR(tgl)=YEAR(NOW()) GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
+            }elseif ($id == 'curah_hujan' && !empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,SUM('.$id.') AS '.$id.'
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }elseif ($id == 'curah_hujan' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan,SUM('.$id.') AS '.$id.'
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }elseif (!empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) as bulan,AVG('.$id.') AS '.$id.'
+                FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
+                ->queryAll();
+            }elseif (empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG('.$id.') AS '.$id.' FROM data 
+                WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')->queryAll();
+            }
+                return $this->renderAjax('_chart',[
+                    'chart' => $chart,
+                    'id' => $id,
+                    'idp' => $idp,
+                    'waktu' => $waktu
+                ]);
+        }elseif ($waktu == 'bulan') {
+            if ($id == 'all' && !empty($idp)) {
+                if (Yii::$app->user->identity->role == 'user') {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
                     AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
                     perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND MONTH (tgl) = MONTH (NOW())
-                    AND data.id_perangkat="'.$idp.'" GROUP BY minggu ORDER BY DATE(tgl) ASC')->queryAll();
-                }elseif ($id == 'curah_hujan' && !empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,SUM('.$id.') AS '.$id.'
-                    FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
-                    ->queryAll();
-                }elseif (!empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,AVG('.$id.') AS '.$id.'
-                    FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
-                    ->queryAll();
+                    AND data.id_perangkat="'.$idp.'" GROUP BY minggu ORDER BY minggu ASC')->queryAll();
+                }else {
+                    $chart = Yii::$app->db->createCommand
+                    ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
+                    AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE 
+                    MONTH (tgl) = MONTH (NOW()) AND data.id_perangkat="'.$idp.'" GROUP BY minggu ORDER BY minggu ASC')->queryAll();
                 }
-                    return $this->renderAjax('_chart2',[
-                        'chart' => $chart,
-                        'id' => $id,
-                        'idp' => $idp,
-                        'waktu' => $waktu
-                    ]);
-            }elseif ($waktu == 'minggu') {
-                if ($id == 'all') {
+            }elseif ($id == 'all' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand
+                ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
+                AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE 
+                MONTH (tgl) = MONTH (NOW()) GROUP BY minggu ORDER BY minggu ASC')->queryAll();
+            }elseif ($id == 'curah_hujan' && !empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,SUM('.$id.') AS '.$id.'
+                FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
+                ->queryAll();
+            }elseif ($id == 'curah_hujan' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,SUM('.$id.') AS '.$id.'
+                FROM data WHERE MONTH (tgl) = MONTH (NOW()) GROUP BY minggu ORDER BY WEEK(tgl) ASC')->queryAll();
+            }elseif (!empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,AVG('.$id.') AS '.$id.'
+                FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY minggu ORDER BY WEEK(tgl) ASC')
+                ->queryAll();
+            }elseif (empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,AVG('.$id.') AS '.$id.'
+                FROM data WHERE MONTH (tgl) = MONTH (NOW()) GROUP BY minggu ORDER BY WEEK(tgl) ASC')
+                ->queryAll();
+            }
+                return $this->renderAjax('_chart2',[
+                    'chart' => $chart,
+                    'id' => $id,
+                    'idp' => $idp,
+                    'waktu' => $waktu
+                ]);
+        }elseif ($waktu == 'minggu') {
+            if ($id == 'all' && !empty($idp)) {
+                if (Yii::$app->user->identity->role == 'user') {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday"
                     THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS
@@ -495,67 +529,101 @@ class SiteController extends Controller
                     AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id =
                     data.id_perangkat AND user.id = "'.$id_owner.'" AND WEEK(tgl)=WEEK(NOW()) AND data.id_perangkat="'.$idp.'"
                     GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
-                }elseif ($id == 'curah_hujan' && !empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
-                    "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
-                    "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
-                    FROM data WHERE WEEK(tgl)=WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-                    ->queryAll();
-                }elseif (!empty($idp)) {
-                    $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
-                    "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
-                    "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.' FROM data WHERE WEEK(tgl)=WEEK(NOW())
-                    AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-                    ->queryAll();
+                }else {
+                    $chart = Yii::$app->db->createCommand
+                    ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday"
+                    THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS
+                    kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature,
+                    AVG(tekanan_udara) AS tekanan_udara FROM data WHERE AND WEEK(tgl)=WEEK(NOW()) AND data.id_perangkat="'.$idp.'"
+                    GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
                 }
-                    return $this->renderAjax('_chart3',[
-                        'chart' => $chart,
-                        'id' => $id,
-                        'idp' => $idp,
-                        'waktu' => $waktu
-                    ]);
-            }else{
-                if ($id == 'all' && !empty($waktu)) {
+            }elseif ($id == 'all' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand
+                ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday"
+                THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS
+                kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature,
+                AVG(tekanan_udara) AS tekanan_udara FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY hari 
+                ORDER BY DATE(tgl) ASC')->queryAll();
+            }elseif ($id == 'curah_hujan' && !empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
+                "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
+                "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
+                FROM data WHERE WEEK(tgl)=WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+            }elseif ($id == 'curah_hujan' && empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
+                "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
+                "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
+                FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+            }elseif (!empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
+                "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
+                "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.' FROM data WHERE WEEK(tgl)=WEEK(NOW())
+                AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+            }elseif (empty($idp)) {
+                $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
+                "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN
+                "Sabtu" WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.' FROM data WHERE WEEK(tgl)=WEEK(NOW())
+                GROUP BY hari ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+            }
+                return $this->renderAjax('_chart3',[
+                    'chart' => $chart,
+                    'id' => $id,
+                    'idp' => $idp,
+                    'waktu' => $waktu
+                ]);
+        }else{
+            if ($id == 'all' && !empty($waktu)) {
+                if (Yii::$app->user->identity->role == 'user') {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
                     AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
                     tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
                     user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = "'.$waktu.'" GROUP BY waktu ORDER BY
                     TIME(tgl)')->queryAll();
-                }elseif ($id == 'all' && empty($waktu)) {
+                }
+                else {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
                     AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-                    tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
-                    user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY
+                    tekanan_udara FROM data WHERE id_perangkat = "'.$idp.'" AND DATE(tgl) = "'.$waktu.'" GROUP BY waktu ORDER BY
                     TIME(tgl)')->queryAll();
-                }elseif ($id == 'curah_hujan' && !empty($idp) && !empty($waktu)) {
-                    $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,SUM('.$id.') AS '.$id.'
-                    FROM data WHERE DATE(tgl) = "'.$waktu.'" AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY TIME(tgl) ASC')
-                    ->queryAll();
-                }elseif ($id == 'curah_hujan' && !empty($idp) && empty($waktu)) {
-                    $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,SUM('.$id.') AS '.$id.'
-                    FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY TIME(tgl) ASC')
-                    ->queryAll();
-                }elseif (!empty($idp) && !empty($waktu)) {
-                    $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
-                    FROM data WHERE DATE(tgl) = "'.$waktu.'" AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
-                    ->queryAll();
-                }elseif (!empty($idp) && empty($waktu)){
-                    $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
-                    FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
-                    ->queryAll();
                 }
-                    return $this->renderAjax('_chart4',[
-                        'chart' => $chart,
-                        'id' => $id,
-                        'idp' => $idp,
-                        'waktu' => $waktu
-                    ]);
+            }elseif ($id == 'all' && empty($waktu)) {
+                $chart = Yii::$app->db->createCommand
+                ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
+                AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
+                tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+                user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY
+                TIME(tgl)')->queryAll();
+            }elseif ($id == 'curah_hujan' && !empty($idp) && !empty($waktu)) {
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,SUM('.$id.') AS '.$id.'
+                FROM data WHERE DATE(tgl) = "'.$waktu.'" AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY TIME(tgl) ASC')
+                ->queryAll();
+            }elseif ($id == 'curah_hujan' && !empty($idp) && empty($waktu)) {
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,SUM('.$id.') AS '.$id.'
+                FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY TIME(tgl) ASC')
+                ->queryAll();
+            }elseif (!empty($idp) && !empty($waktu)) {
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE DATE(tgl) = "'.$waktu.'" AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
+                ->queryAll();
+            }elseif (!empty($idp) && empty($waktu)){
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
+                FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
+                ->queryAll();
             }
-        }else {
-            # admin
+                return $this->renderAjax('_chart4',[
+                    'chart' => $chart,
+                    'id' => $id,
+                    'idp' => $idp,
+                    'waktu' => $waktu
+                ]);
         }
+       
 
     }
 
