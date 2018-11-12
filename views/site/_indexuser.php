@@ -319,14 +319,19 @@ $this->registerJs("
                     </div>
                     <div id="minggu" class="tab-pane fade">
                         <?= $this->render('chartminggu', [
-                                'charthari' => $charthari,
-                                'piehari'=>$piehari,
+                                'chartminggu' => $chartminggu,
+                                'pieminggu'=>$pieminggu,
                                 'query' => $query
                             ]); 
                         ?>
                     </div>
                     <div id="hari" class="tab-pane fade">
-                        <h3>Comming Soon</h3>
+                        <?= $this->render('charthari',[
+                                'charthari' => $charthari,
+                                'piehari' => $piehari,
+                                'query' => $query
+                            ])
+                        ?>
                     </div>
                 </div>
             </div>

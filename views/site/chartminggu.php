@@ -89,14 +89,14 @@ $this->registerJs("
 ?>
 <div class="row" id="cp">
     <?php
-        if (empty($charthari) || empty($piehari)) { ?>
+        if (empty($chartminggu) || empty($pieminggu)) { ?>
             <div class="col-md-12">
                 <h4 class="text-center">Belum Ada Data Minggu Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
             <div class="col-md-7" id="crot3">
                 <?php
-                    foreach ($charthari as $values) {
+                    foreach ($chartminggu as $values) {
                         $a[0]= ($values['hari']);
                         $c[]= ($values['hari']);
                         $b[]= array('type'=> 'column', 'name' =>$values['hari'], 'data' => array((int)$values['temperature'],
@@ -118,7 +118,7 @@ $this->registerJs("
             </div>
             <div class="col-md-5">
                 <?php
-                    foreach($piehari as $pieh){
+                    foreach($pieminggu as $pieh){
                         $arah = $pieh['arah_angin'];
                         $jmlh = $pieh['jumlah'];
                         $hasil[] = array($arah,
