@@ -3,7 +3,9 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+use miloschuman\highcharts\HighchartsAsset;
 
+HighchartsAsset::register($this)->withScripts(['highstock', 'modules/exporting', 'modules/drilldown']);
 \conquer\modal\ModalForm::widget([
     'selector' => '.modal-form',
     'clientOptions' => [

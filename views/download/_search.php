@@ -45,7 +45,9 @@ if (Yii::$app->user->identity->role =='admin') {
             'data-pjax' => 1
         ],
     ]); ?>
-        <?= $form->field($model, 'id_perangkat')->widget(Select2::classname(), [
+        <?= $form->field($model, 'id_perangkat',[
+          'template' => '<div class="row"><div class="col-md-3" align="right">{label}</div><div class="col-md-7">{input}</div></div>'
+          ])->widget(Select2::classname(), [
             'name' => 'id-perangkat',
             'id' => 'id-perangkat',
             'data' => $perangkats,
@@ -57,8 +59,11 @@ if (Yii::$app->user->identity->role =='admin') {
             'onchange'=>'this.form.submit()',
             ]
 
-            ])->label(false) ?>
-            <?= $form->field($model, 'bulan')->widget(Select2::classname(), [
+            ])->label('ID Perangkat') ?>
+
+            <?= $form->field($model, 'bulan',[
+              'template' => '<div class="row"><div class="col-md-3" align="right">{label}</div><div class="col-md-7">{input}</div></div>'
+              ])->widget(Select2::classname(), [
                 'name' => 'bulan',
                 'id' => 'bulan',
                 'data' => $months,
@@ -71,8 +76,10 @@ if (Yii::$app->user->identity->role =='admin') {
                 'onchange'=>'this.form.submit()',
                 ]
 
-                    ])->label(false) ?>
-        <?= $form->field($model, 'tahun')->widget(Select2::classname(), [
+                    ])->label('Bulan') ?>
+        <?= $form->field($model, 'tahun',[
+          'template' => '<div class="row"><div class="col-md-3" align="right">{label}</div><div class="col-md-7">{input}</div></div>'
+          ])->widget(Select2::classname(), [
             'name' => 'tahun',
             'id' => 'tahun',
             'data' => $years,
@@ -85,7 +92,7 @@ if (Yii::$app->user->identity->role =='admin') {
             'onchange'=>'this.form.submit()',
             ]
 
-            ])->label(false) ?>
+            ])->label('Tahun') ?>
 
 
     <?php ActiveForm::end(); ?>
