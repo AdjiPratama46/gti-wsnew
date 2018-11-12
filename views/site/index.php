@@ -70,10 +70,6 @@ $this->registerJs("
                             <span class="info-box-number"><?= $jmluser['jumlah_user']?></span>
                         </div>
                     </div>
-                    <!-- <div class="small-box bg-aqua"> <div class="inner"> <h3></h3> <p>Jumlah
-                    User</p> </div> <div class="icon"> <i class="ion ion-ios-people"></i> </div> <a
-                    href="#" class="small-box-footer">Lihat Lainnya <i class="fa
-                    fa-arrow-circle-right"></i></a> </div> -->
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="info-box">
@@ -352,6 +348,9 @@ $this->registerJs("
                       <li>
                           <a data-toggle="tab" href="#minggu" id="week">Minggu</a>
                       </li>
+                      <li>
+                        <a data-toggle="tab" href="#hari" id="day">Hari</a>
+                      </li>
                   </ul>
                   <div class="tab-content">
                       <div id="tahun" class="tab-pane fade in active">
@@ -372,12 +371,20 @@ $this->registerJs("
                       </div>
                       <div id="minggu" class="tab-pane fade">
                           <?= $this->render('chartminggu', [
-                                  'charthari' => $charthari,
-                                  'piehari'=>$piehari,
+                                  'chartminggu' => $chartminggu,
+                                  'pieminggu'=>$pieminggu,
                                   'query' => $query
                               ]);
                           ?>
                       </div>
+                      <div id="hari" class="tab-pane fade">
+                            <?= $this->render('charthari',[
+                                    'charthari' => $charthari,
+                                    'piehari' => $piehari,
+                                    'query' => $query
+                                ])
+                            ?>
+                        </div>
                   </div>
               </div>
           </div>
