@@ -30,15 +30,15 @@ $kolom=[
     <?php Pjax::begin(); ?>
     <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php
+    <center><?php
       echo ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $kolom,
         'target'=> '_blank',
         'dropdownOptions' => [
-            'label' => 'Download',
+            'label' => 'Download Data',
             'class' => 'btn btn-success',
-            'style' => 'border-radius:0;color:white;'
+            'style' => 'border-radius:0;color:white;padding-left:30px;padding-right:30px;'
           ],
         'columnSelectorOptions' => [
           'disabled' => true,
@@ -72,8 +72,8 @@ $kolom=[
           'downloadComplete' => 'Download selesai.'
         ]
       ]);
-       ?>
-       <br><br>
+       ?></center>
+       <br><hr style="border:0.5px solid #00C0EF;width:60%;"><br>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,

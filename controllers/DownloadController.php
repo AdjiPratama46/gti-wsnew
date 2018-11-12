@@ -8,6 +8,7 @@ use app\models\DownloadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DownloadController implements the CRUD actions for Data model.
@@ -19,14 +20,41 @@ class DownloadController extends Controller
      */
     public function behaviors()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
+      return [
+        'access' => [
+            'class' => AccessControl::className(),
+            'rules' => [
+              [
+                  'actions' => [
+                      'index',
+                      'view',
+                      'update',
+                      'create',
+                      'delete'
+                  ],
+                  'allow' => true,
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='admin');
+                  }
+              ],
+              [
+                  'actions' => [
+                      'index',
+                  ],
+                  'allow' => true,
+                  'matchCallback' => function(){
+                      return (Yii::$app->user->identity->role=='user');
+                  }
+              ],
             ],
-        ];
+        ],
+          'verbs' => [
+              'class' => VerbFilter::className(),
+              'actions' => [
+                  'delete' => ['POST'],
+              ],
+          ],
+      ];
     }
 
     /**
