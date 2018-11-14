@@ -67,7 +67,7 @@
                             'options' => ['id' => 'menu4']
                         ],
                         ['label' => 'Download', 'icon' => 'download', 'url' => ['download/index'],
-                          'options' => ['id' => 'menu1']
+                          'options' => ['id' => 'menu5']
                         ],
 
                         [

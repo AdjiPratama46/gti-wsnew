@@ -57,7 +57,7 @@ class DownloadSearch extends Data
 
             $sql1 = 'SELECT MONTH(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat    AND user.id = "'.Yii::$app->user->identity->id.'" GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
             $months = Data::findBySql($sql1)->one();
-            
+
             $perangkatu= Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
             $query
             ->where(['perangkat.id_owner' =>Yii::$app->user->identity->id]);
@@ -71,6 +71,24 @@ class DownloadSearch extends Data
                 $this->bulan= $months['tgl'];
             }
 
+        }
+        elseif (Yii::$app->user->identity->role =='admin'){
+          $sql = 'SELECT YEAR(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat   GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
+          $years = Data::findBySql($sql)->one();
+
+          $sql1 = 'SELECT MONTH(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat   GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
+          $months = Data::findBySql($sql1)->one();
+
+          $perangkatu= Perangkat::find()->one();
+          if(empty($this->id_perangkat)){
+              $this->id_perangkat= $perangkatu['id'];
+          }
+          if(empty($this->tahun)){
+              $this->tahun= $years['tgl'];
+          }
+          if(empty($this->bulan)){
+              $this->bulan= $months['tgl'];
+          }
         }
 
         // add conditions that should always apply here

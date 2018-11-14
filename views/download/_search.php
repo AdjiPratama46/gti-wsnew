@@ -12,27 +12,31 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 if (Yii::$app->user->identity->role =='admin') {
     $perangkats = ArrayHelper::map(Perangkat::find()->all(),'id','id');
+    $sql = 'SELECT YEAR(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat    GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
+    $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
 }elseif (Yii::$app->user->identity->role =='user') {
     $perangkats = ArrayHelper::map(Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->all(),'id','id');
     $perangkatq= Perangkat::find()->where(['id_owner'=>Yii::$app->user->identity->id])->one();
     $sql = 'SELECT YEAR(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat    AND user.id = "'.Yii::$app->user->identity->id.'" GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
     $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
 
-    $months =array(
-          '01' => 'Januari' ,
-          '02' => 'Febuari' ,
-          '03' => 'Maret' ,
-          '04' => 'April' ,
-          '05' => 'Mei' ,
-          '06' => 'Juni' ,
-          '07' => 'Juli' ,
-          '08' => 'Agustus' ,
-          '09' => 'September' ,
-          '10' => 'Oktober' ,
-          '11' => 'November' ,
-          '12' => 'Desember' ,
-        );
+
 }
+
+$months =array(
+      '01' => 'Januari' ,
+      '02' => 'Febuari' ,
+      '03' => 'Maret' ,
+      '04' => 'April' ,
+      '05' => 'Mei' ,
+      '06' => 'Juni' ,
+      '07' => 'Juli' ,
+      '08' => 'Agustus' ,
+      '09' => 'September' ,
+      '10' => 'Oktober' ,
+      '11' => 'November' ,
+      '12' => 'Desember' ,
+    );
 
 ?>
 
