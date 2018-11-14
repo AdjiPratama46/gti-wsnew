@@ -50,7 +50,7 @@ $jam =array(
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'summary' => "Menampilkan <b>{begin}-{end}</b> dari <b id='totaldata'>{totalCount}</b> data",
-        'emptyText' => '<center class="text-danger">Tidak Ada Pengajuan</center>',
+        'emptyText' => '<center class="text-danger">Tidak Ada Riwayat</center>',
 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
