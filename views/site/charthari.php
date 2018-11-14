@@ -6,7 +6,9 @@ use kartik\date\DatePicker;
 $urlC = Url::to(['site/charthari']);
 $urlCA = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
-
+if (empty($perangkatid)) {
+    $perangkatid = $id;
+}
  $this->registerJs("
     $('#dp1').change(function(){
         var id = $('#dp1').val();
@@ -104,14 +106,14 @@ $perangkatid = $query['id_perangkat'];
     <?php
         if (empty($charthari) || empty($piehari)) { ?>
             <div class="col-md-12">
-                <h4 class="text-center">Belum Ada Data Hari Ini, Silahkan Pilih Perangkat Lain</h4>
+                <h4 class="text-center">Belum Ada Data Harian, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
             <div class="col-sm-3 col-sm-offset-9">
                 <?= DatePicker::widget([
                         'name' => 'dp',
                         'id' => 'dp1',
-                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
+                        'type' => DatePicker::TYPE_INPUT,
                         'pluginOptions' => [
                             'autoclose'=>true,
                             'format' => 'yyyy-mm-dd'

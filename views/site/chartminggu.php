@@ -4,7 +4,9 @@ use yii\helpers\Url;
 
 $urlC = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
-
+if (empty($perangkatid)) {
+    $perangkatid = $id;
+}
 $this->registerJs("
     $('#mt').click(function(){
         var id = $('#mt').attr('name');

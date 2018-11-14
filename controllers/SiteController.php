@@ -364,7 +364,8 @@ class SiteController extends Controller
                 'pieminggu' => $pieminggu,
                 'charthari' => $charthari,
                 'piehari' => $piehari,
-                'daftarhari' => $daftarhari
+                'daftarhari' => $daftarhari,
+                'id' => $id
             ]);
         }else {
             $chart = Yii::$app->db->createCommand
@@ -424,7 +425,7 @@ class SiteController extends Controller
               'pieminggu' => $pieminggu,
               'charthari' => $charthari,
               'piehari' => $piehari,
-              
+              'id' => $id
           ]);
         }
     }

@@ -35,12 +35,39 @@ Modal::begin([
 echo '...';
 
 Modal::end();
+
+$gridColumns = [
+    ['class' => 'yii\grid\SerialColumn'],
+    'bulan',
+    [
+        'attribute' => 'kelembaban',
+        'format'=>['decimal',2]
+    ],
+    [
+        'attribute' => 'kecepatan_angin',
+        'format'=>['decimal',2]
+    ],
+    'arah_angin',
+    [
+        'attribute' => 'curah_hujan',
+        'format'=>['decimal',2]
+    ],
+    [
+        'attribute' => 'temperature',
+        'format'=>['decimal',2]
+    ],
+    [
+        'attribute' => 'tekanan_udara',
+        'format'=>['decimal',2]
+    ],
+  ];
+  
 ?>
 <div class="resume-index">
     <div class="box box-info">
         <div class="box-body">
             <br>
-            <?= $this->render('_search',['model' => $model]); ?>
+            <?= $this->render('_search',['model' => $model,'dataProvider' => $dataProvider,'gridColumns' => $gridColumns]); ?>
             <br>
             <div id="tabel">
                 <?php Pjax::begin(); ?>

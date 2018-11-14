@@ -48,6 +48,7 @@ $this->registerJs("
         }
     });
     ");
+    $id=$query['id_perangkat'];
 ?>
 <div class="site-index-user" id="tabel">
 
@@ -72,6 +73,7 @@ $this->registerJs("
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
                                 'data' => $perangkats,
+                                'value' =>  $query['id_perangkat'],
                                 'options' => ['placeholder' => 'Pilih Perangkat'],
                                 'pluginOptions' => [
                                     'width' => '200px',
@@ -304,7 +306,8 @@ $this->registerJs("
                         <?= $this->render('charttahun', [
                                 'chart' => $chart,
                                 'pie' => $pie,
-                                'query' => $query
+                                'query' => $query,
+                                'id' => $id
                             ]);
                         ?>
                     </div>
@@ -312,7 +315,8 @@ $this->registerJs("
                         <?= $this->render('chartbulan', [
                                 'chartbulan' => $chartbulan,
                                 'piebulan'=>$piebulan,
-                                'query' => $query
+                                'query' => $query,
+                                'id' => $id
                             ]);
                         ?>
                     </div>
@@ -320,7 +324,8 @@ $this->registerJs("
                         <?= $this->render('chartminggu', [
                                 'chartminggu' => $chartminggu,
                                 'pieminggu'=>$pieminggu,
-                                'query' => $query
+                                'query' => $query,
+                                'id' => $id
                             ]);
                         ?>
                     </div>
@@ -328,7 +333,8 @@ $this->registerJs("
                         <?= $this->render('charthari',[
                                 'charthari' => $charthari,
                                 'piehari' => $piehari,
-                                'query' => $query
+                                'query' => $query,
+                                'id' => $id
                             ])
                         ?>
                     </div>

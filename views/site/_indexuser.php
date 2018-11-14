@@ -59,11 +59,12 @@ $this->registerJs("
                 <div class="box-header with-border">
                     <h3 class="box-title">
                     <?php
-                        if (empty($query['id_perangkat'])) {
-                            echo 'Belum Ada Data';
-                        }else{
-                            echo $query['id_perangkat'];
-                        }
+                        // if (empty($query['id_perangkat'] || empty($id) )) {
+                        //     echo 'Belum Ada Data';
+                        // }else{
+                        //     echo $id."".$query['id_perangkat'];
+                        // }
+                        echo $id;
                         ?>
                     </h3>
                     <div class="box-tools pull-right">
@@ -73,6 +74,7 @@ $this->registerJs("
                                 'name' => 'id-perangkat',
                                 'id' => 'id-perangkat',
                                 'data' => $perangkats,
+                                'value' => $id,
                                 'options' => ['placeholder' => 'Pilih Perangkat'],
                                 'pluginOptions' => [
                                     'width' => '200px',
@@ -305,6 +307,7 @@ $this->registerJs("
                         <?= $this->render('charttahun', [
                                 'chart' => $chart,
                                 'pie'=>$pie,
+                                'id' => $id,
                                 'query' => $query
                             ]); 
                         ?>
@@ -313,6 +316,7 @@ $this->registerJs("
                         <?= $this->render('chartbulan', [
                                 'chartbulan' => $chartbulan,
                                 'piebulan'=>$piebulan,
+                                'id' => $id,
                                 'query' => $query
                             ]); 
                         ?>
@@ -321,6 +325,7 @@ $this->registerJs("
                         <?= $this->render('chartminggu', [
                                 'chartminggu' => $chartminggu,
                                 'pieminggu'=>$pieminggu,
+                                'id' => $id,
                                 'query' => $query
                             ]); 
                         ?>
@@ -329,6 +334,7 @@ $this->registerJs("
                         <?= $this->render('charthari',[
                                 'charthari' => $charthari,
                                 'piehari' => $piehari,
+                                'id' => $id,
                                 'query' => $query
                             ])
                         ?>
