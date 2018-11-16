@@ -6,8 +6,10 @@ use kartik\date\DatePicker;
 $urlC = Url::to(['site/charthari']);
 $urlCA = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
-if (empty($perangkatid)) {
-    $perangkatid = $id;
+if (Yii::$app->user->identity->role=="user") {
+    if (empty($perangkatid)) {
+        $perangkatid = $id;
+    }
 }
  $this->registerJs("
     $('#dp1').change(function(){

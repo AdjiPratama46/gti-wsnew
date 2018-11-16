@@ -8,6 +8,7 @@ $id = Yii::$app->user->identity->id;
 $urlu = Url::to(['user/index']);
 $urlp = Url::to(['perangkat/index']);
 $urld = Url::to(['data/index']);
+$urlper = Url::to(['permintaan/index']);
 $uba = Yii::$app->db->createCommand
 ('SELECT COUNT(*)as ubar FROM user WHERE DATE(tgl_buat)=DATE(NOW())')
 ->queryOne();
@@ -17,18 +18,24 @@ $per = Yii::$app->db->createCommand
 $dasuk = Yii::$app->db->createCommand
 ('SELECT count(*) as jml FROM data WHERE DATE(tgl)=DATE(NOW())')
 ->queryOne();
-
+$permin = Yii::$app->db->createCommand
+('SELECT count(*) as permin FROM permintaan WHERE DATE(tgl_pengajuan)=DATE(NOW())')
+->queryOne();
 $pe = $per['perba'];
 $da = $dasuk['jml'];
 $ub = $uba['ubar'];
-if ($pe >0) {
+$perm = $permin['permin'];
+
+if ($pe > 0) {
     $pe=1;
-}elseif ($da>0) {
+}if ($da > 0) {
     $da=1;
-}elseif ($ub>0) {
+}if ($ub > 0) {
     $ub=1;
+}if ($perm > 0) {
+    $perm=1;
 }
-$tot = $ub+$pe+$da;
+$tot = $pe+$da+$ub+$perm;
 $this->registerJs("
     $('#fs').on('click ', function (event) {
         if ($('#io').hasClass('fa-arrows-alt')) {
@@ -108,6 +115,15 @@ $this->registerJs("
                                             <a href=" <?= $urld ?> ">
                                                 <i class="ion ion-ios-download text-red"></i>
                                                 <?= $dasuk['jml'] ?> Data baru hari ini
+                                            </a>
+                                        <?php
+                                            }
+                                        ?>
+                                        <?php 
+                                            if ($permin['permin'] >0 ) { ?>
+                                            <a href=" <?= $urlper ?> ">
+                                                <i class="ion ion-ios-construct text-green"></i>
+                                                <?= $permin['permin'] ?> Permintaan perangkat baru hari ini
                                             </a>
                                         <?php
                                             }

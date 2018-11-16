@@ -5,9 +5,12 @@ use yii\helpers\Url;
 $urlC = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
 
-if (empty($perangkatid)) {
-    $perangkatid = $id;
+if (Yii::$app->user->identity->role=="user") {
+    if (empty($perangkatid)) {
+        $perangkatid = $id;
+    }
 }
+
 $this->registerJs("
     $('#bct').click(function(){
         var id = $('#bct').attr('name');
