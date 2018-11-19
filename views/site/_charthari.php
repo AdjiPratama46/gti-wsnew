@@ -31,7 +31,7 @@ $urlC = Url::to(['site/chart']);
                 <h4 class="text-center">Belum Ada Data Pada Hari <?= $dinten.", ".$new_date ?>. Silahkan Pilih Waktu Lain</h4>
             </div>
         <?php }else { ?>
-            <div class="col-md-7" id="c">
+            <div class="col-md-12" id="c">
                 <?php
                     foreach ($charthari as $values) {
                         $a[0]= ($values['waktu']);
@@ -54,7 +54,7 @@ $urlC = Url::to(['site/chart']);
                     ]);
                 ?>
             </div>
-            <div class="col-md-5" id="b">
+            <div class="col-md-12" id="b">
                 <?php
                     foreach($piehari as $pieh){
                         $arah = $pieh['arah_angin'];

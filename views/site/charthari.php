@@ -115,18 +115,20 @@ if (Yii::$app->user->identity->role=="user") {
                 <?= DatePicker::widget([
                         'name' => 'dp',
                         'id' => 'dp1',
-                        'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-                        'layout' => '{picker}{input}',
+                        'type' => DatePicker::TYPE_COMPONENT_APPEND,
                         'pluginOptions' => [
                             'autoclose'=>true,
                             'format' => 'yyyy-mm-dd'
-                        ]
+                        ],
+                        'options' => [
+                            'placeholder' => 'Pilih tanggal',
+                        ],
                     ]);
                 ?>
                 <hr>
             </div>
         <div id="crot4">
-            <div class="col-md-7" id="c">
+            <div class="col-md-12" id="c">
                 <?php
                     foreach ($charthari as $values) {
                         $a[0]= ($values['waktu']);
@@ -148,7 +150,30 @@ if (Yii::$app->user->identity->role=="user") {
                     ]);
                 ?>
             </div>
-            <div class="col-md-5" id="b">
+            <div class="col-md-12">
+                <br>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-orange" id="ht" name="temperature">Temperature</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-maroon" id="hk" name="kelembaban">Kelembaban</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-purple" id="hka" name="kecepatan_angin">Kecepatan Angin</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-black" id="hcu" name="curah_hujan">Curah Hujan</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-navy" id="htu" name="tekanan_udara">Tekanan Udara</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-block btn-xs btn-success" id="hbc" name="all">
+                        All
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12" id="b">
                 <?php
                     foreach($piehari as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -189,29 +214,6 @@ if (Yii::$app->user->identity->role=="user") {
                         ],
                     ]);
                 ?>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <br>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-orange" id="ht" name="temperature">Temperature</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-maroon" id="hk" name="kelembaban">Kelembaban</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-purple" id="hka" name="kecepatan_angin">Kecepatan Angin</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-black" id="hcu" name="curah_hujan">Curah Hujan</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-navy" id="htu" name="tekanan_udara">Tekanan Udara</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-block btn-xs btn-success" id="hbc" name="all">
-                    All
-                </button>
             </div>
         </div>
     <?php } ?>

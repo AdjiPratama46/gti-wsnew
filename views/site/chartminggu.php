@@ -98,7 +98,7 @@ $this->registerJs("
                 <h4 class="text-center">Belum Ada Data Minggu Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
-            <div class="col-md-7" id="crot3">
+            <div class="col-md-12" id="crot3">
                 <?php
                     foreach ($chartminggu as $values) {
                         $a[0]= ($values['hari']);
@@ -120,7 +120,30 @@ $this->registerJs("
                     ]);
                 ?>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-12">
+                <br>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-orange" id="mt" name="temperature">Temperature</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-maroon" id="mk" name="kelembaban">Kelembaban</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-purple" id="mka" name="kecepatan_angin">Kecepatan Angin</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-black" id="mcu" name="curah_hujan">Curah Hujan</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-navy" id="mtu" name="tekanan_udara">Tekanan Udara</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-block btn-xs btn-success" id="mbc" name="all">
+                        All
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12">
                 <?php
                     foreach($pieminggu as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -161,29 +184,6 @@ $this->registerJs("
                     ],
                 ]);
             ?>
-        </div>
-        <div class="col-md-12">
-        <br>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-orange" id="mt" name="temperature">Temperature</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-maroon" id="mk" name="kelembaban">Kelembaban</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-purple" id="mka" name="kecepatan_angin">Kecepatan Angin</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-black" id="mcu" name="curah_hujan">Curah Hujan</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-navy" id="mtu" name="tekanan_udara">Tekanan Udara</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-block btn-xs btn-success" id="mbc" name="all">
-                    All
-                </button>
-            </div>
         </div>
     <?php } ?>
 </div>

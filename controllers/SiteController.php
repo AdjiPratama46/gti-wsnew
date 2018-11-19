@@ -629,91 +629,6 @@ class SiteController extends Controller
     }
 
     public function actionCharthari($id,$idp){
-        // if (Yii::$app->user->identity->role=="user") {
-        //     $id_owner = Yii::$app->user->id;
-        //     if ($id=='all' && !empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-        //         SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-        //         perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND data.id_perangkat="'.$idp.'"
-        //         AND WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
-        //     }elseif ($id=='all' && empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT  CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-        //         SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-        //         perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND WEEK(tgl)=WEEK(NOW())
-        //         GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
-        //     }elseif($id=='curah_hujan' && empty($idp) ){
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
-        //         FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-        //         AND user.id = "'.$id_owner.'" AND WEEK(tgl) = WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }elseif($id=='curah_hujan' && !empty($idp) ){
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }elseif (empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.'
-        //         FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat
-        //         AND user.id = "'.$id_owner.'" AND WEEK(tgl) = WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }else{
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }
-        // }else {
-        //     if ($id=='all' && !empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-        //         SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-        //         perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND data.id_perangkat="'.$idp.'"
-        //         AND WEEK(tgl) = WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
-        //     }elseif ($id=='all' && empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
-        //         SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data, perangkat,user WHERE
-        //         perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND WEEK(tgl) = WEEK(NOW())
-        //         GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
-        //     }elseif($id=='curah_hujan' && empty($idp) ){
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }elseif($id=='curah_hujan' && !empty($idp) ){
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,SUM('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }elseif (empty($idp)) {
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }else{
-        //         $charthari = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa"
-        //             WHEN "Wednesday" THEN "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
-        //             WHEN "Sunday" THEN "Minggu" END AS hari,AVG('.$id.') AS '.$id.'
-        //         FROM data WHERE WEEK(tgl) = WEEK(NOW()) AND id_perangkat ="'.$idp.'" GROUP BY hari ORDER BY DATE(tgl) ASC')
-        //         ->queryAll();
-        //     }
-        // }
-
         $id_owner = Yii::$app->user->id;
         $query = Yii::$app->db->createCommand
         ('SELECT id_perangkat,perangkat.alias,perangkat.latitude,perangkat.longitude,DATE(tgl)as tgl, AVG(kelembaban) AS kelembaban,
@@ -722,7 +637,10 @@ class SiteController extends Controller
         AS temperature,AVG(tekanan_udara) AS tekanan_udara FROM data,perangkat WHERE data.id_perangkat=perangkat.id AND
         id_perangkat="'.$idp.'" AND DATE(tgl)=DATE(NOW())-1')
         ->queryOne();
-
+        if(empty($id)){
+            $id=DATE("Y-m-d",strtotime("-1 days"));
+        }
+               
         $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
         AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
         tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
