@@ -115,7 +115,8 @@ if (Yii::$app->user->identity->role=="user") {
                 <?= DatePicker::widget([
                         'name' => 'dp',
                         'id' => 'dp1',
-                        'type' => DatePicker::TYPE_INPUT,
+                        'type' => DatePicker::TYPE_COMPONENT_PREPEND,
+                        'layout' => '{picker}{input}',
                         'pluginOptions' => [
                             'autoclose'=>true,
                             'format' => 'yyyy-mm-dd'
