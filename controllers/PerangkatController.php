@@ -188,7 +188,7 @@ class PerangkatController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
           Yii::$app->getSession()->setFlash(
-              'success','Perangkat dipindahkan !'
+              'success','Perangkat telah diperbarui !'
           );
             return $this->redirect(['perangkat/index']);
         }
