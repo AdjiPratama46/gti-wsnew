@@ -37,7 +37,7 @@ class Perangkat extends \yii\db\ActiveRecord
               'message' => '{attribute} tidak boleh kosong'
             ],
             [['id'], 'unique', 'message' => '{attribute} sudah digunakan'],
-            [['id', 'alias', 'longitude', 'latitude'], 'string', 'max' => 255],
+            [['id', 'alias', 'longitude', 'latitude','altitude'], 'string', 'max' => 255],
             [['id'], 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/u',
               'message' => '{attribute} hanya bisa menggunakan huruf, angka, (_), dan (-)'
             ],
