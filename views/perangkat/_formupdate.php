@@ -48,7 +48,6 @@ use kartik\date\DatePicker;
         'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
         'options' => ['class' => 'form-group form-inline'],])
          ->textInput([
-             'readonly' => true,
              'maxlength' => true,
              'style' => 'width: 100%;'])
     ?>
@@ -57,7 +56,6 @@ use kartik\date\DatePicker;
         'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
         'options' => ['class' => 'form-group form-inline'],])
          ->textInput([
-             'readonly' => true,
              'maxlength' => true,
              'style' => 'width: 100%;'])
     ?>
@@ -65,7 +63,6 @@ use kartik\date\DatePicker;
         'template' => "<div class='row'><div class='col-md-4' align='right'>{label}</div><div class='col-md-8'><div style='width:60%'>{input}</div>{hint}{error}</div></div>",
         'options' => ['class' => 'form-group form-inline'],])
         ->textInput([
-           'readonly' => true,
            'maxlength' => true,
            'style' => 'width: 100%;'])
       ?>
