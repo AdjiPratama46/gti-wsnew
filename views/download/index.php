@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use kartik\export\ExportMenu;
 /* @var $this yii\web\View */
@@ -11,7 +11,7 @@ use kartik\export\ExportMenu;
 $this->title = 'Download Data';
 $this->params['breadcrumbs'][] = $this->title;
 $kolom=[
-    ['class' => 'yii\grid\SerialColumn'],
+    ['class' => 'kartik\grid\SerialColumn'],
 
     //'id_data',
     'id_perangkat',
@@ -34,7 +34,7 @@ $kolom=[
       echo ExportMenu::widget([
         'dataProvider' => $dataProvider,
         'columns' => $kolom,
-        'target'=> '_blank',
+        //'target'=> '_blank',
         'dropdownOptions' => [
             'label' => 'Download Data',
             'class' => 'btn btn-success',
