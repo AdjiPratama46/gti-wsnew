@@ -339,8 +339,10 @@ $this->registerJs("
                     </li>
                 </ul>
                 <div class="tab-content">
+                  <?php $id=$id['id'];?>
                     <div id="tahun" class="tab-pane fade in active">
                         <?= $this->render('charttahun', [
+                                  'id' => $id,
                                   'chart' => $chart,
                                   'pie' => $pie,
                                   'query' => $query
@@ -349,6 +351,7 @@ $this->registerJs("
                     </div>
                     <div id="bulan" class="tab-pane fade">
                         <?= $this->render('chartbulan', [
+                                  'id' => $id,
                                   'chartbulan' => $chartbulan,
                                   'piebulan'=>$piebulan,
                                   'query' => $query
@@ -357,6 +360,7 @@ $this->registerJs("
                     </div>
                     <div id="minggu" class="tab-pane fade">
                         <?= $this->render('chartminggu', [
+                                  'id' => $id,
                                   'chartminggu' => $chartminggu,
                                   'pieminggu'=>$pieminggu,
                                   'query' => $query
@@ -365,6 +369,7 @@ $this->registerJs("
                     </div>
                     <div id="hari" class="tab-pane fade">
                         <?= $this->render('charthari', [
+                                'id' => $id,
                                 'charthari' => $charthari,
                                 'piehari' => $piehari,
                                 'query' => $query

@@ -141,16 +141,16 @@ class SiteController extends Controller
                 ->queryAll();
 
                 $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-                AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-                tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+                AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
+                tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND
                 user.id = "'.$id_owner.'" AND id_perangkat = "'.$model['id'].'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY
                 TIME(tgl)')->queryAll();
-                $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
-                WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
+                $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya"
+                WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E"
                 THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user
-                WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND 
+                WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND
                 DAY(tgl) = DAY(NOW())-1 AND id_perangkat = "'.$model['id'].'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
-                
+
                 $daftarhari = Yii::$app->db->createCommand
                 ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN
                 "Rabu" WHEN "Thursday" THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"
@@ -158,7 +158,7 @@ class SiteController extends Controller
                 GROUP BY hari ORDER BY DATE(tgl) ASC')
                 ->queryAll();
 
-                
+
             return $this->render('indexuser', [
                 'query' => $query,
                 'model' => $model,
@@ -179,6 +179,8 @@ class SiteController extends Controller
                 'daftarhari' => $daftarhari
             ]);
         }else {
+
+            $id = Perangkat::find()->Where(['id_owner' => $id_owner ])->one();
             $chart = Yii::$app->db->createCommand
             ('SELECT MONTHNAME(tgl) AS bulan, AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin,
             SUM(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data
@@ -196,7 +198,7 @@ class SiteController extends Controller
             $piebulan = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
             WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE MONTH (tgl) = MONTH (NOW()) 
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE MONTH (tgl) = MONTH (NOW())
             GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $chartminggu = Yii::$app->db->createCommand
@@ -207,15 +209,15 @@ class SiteController extends Controller
             WEEK(tgl)=WEEK(NOW()) GROUP BY hari ORDER BY DATE(tgl) ASC')->queryAll();
             $pieminggu = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, 
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin,
             COUNT(arah_angin) AS jumlah FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
+            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
             tekanan_udara FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY TIME(tgl)')->queryAll();
-            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
-            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
-            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1  
+            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya"
+            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E"
+            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1
             GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             return $this->render('index', [
@@ -235,6 +237,7 @@ class SiteController extends Controller
                 'pieminggu' => $pieminggu,
                 'charthari' => $charthari,
                 'piehari' => $piehari,
+                'id' => $id,
             ]);
         }
       }else{
@@ -333,14 +336,14 @@ class SiteController extends Controller
             ->queryAll();
 
             $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-            tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
+            tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND
             user.id = "'.$id_owner.'" AND id_perangkat = "'.$id.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY
             TIME(tgl)')->queryAll();
-            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
-            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
+            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya"
+            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E"
             THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user
-            WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND 
+            WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND
             DAY(tgl) = DAY(NOW())-1 AND id_perangkat = "'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $daftarhari = Yii::$app->db->createCommand
@@ -374,8 +377,8 @@ class SiteController extends Controller
             YEAR(tgl)=YEAR(NOW()) AND id_perangkat="'.$id.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC')->queryAll();
             $pie = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
-            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, 
-            COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin 
+            WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin,
+            COUNT(arah_angin) AS jumlah FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat="'.$id.'" GROUP BY arah_angin
             ORDER BY jumlah DESC')->queryAll();
 
             $chartbulan = Yii::$app->db->createCommand
@@ -385,7 +388,7 @@ class SiteController extends Controller
             $piebulan = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
             WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat="'.$id.'" 
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE MONTH (tgl) = MONTH (NOW()) AND id_perangkat="'.$id.'"
             GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $chartminggu = Yii::$app->db->createCommand
@@ -397,18 +400,18 @@ class SiteController extends Controller
             $pieminggu = Yii::$app->db->createCommand
             ('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara"
             WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" THEN "Timur" WHEN "W" THEN "Barat"
-            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE WEEK(tgl)=WEEK(NOW()) AND 
+            END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE WEEK(tgl)=WEEK(NOW()) AND
             id_perangkat="'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
 
             $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
+            AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
             tekanan_udara FROM data WHERE id_perangkat = "'.$id.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY TIME(tgl)')
             ->queryAll();
-            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
-            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
-            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1 
+            $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya"
+            WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E"
+            THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data WHERE DAY(tgl) = DAY(NOW())-1
             AND id_perangkat = "'.$id.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
-          
+
 
           return $this->renderAjax('_index', [
               'query' => $query,
@@ -470,7 +473,7 @@ class SiteController extends Controller
                 FROM data WHERE YEAR (tgl) = YEAR (NOW()) AND id_perangkat ="'.$idp.'" GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')
                 ->queryAll();
             }elseif (empty($idp)) {
-                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG('.$id.') AS '.$id.' FROM data 
+                $chart = Yii::$app->db->createCommand('SELECT MONTHNAME(tgl) AS bulan, AVG('.$id.') AS '.$id.' FROM data
                 WHERE YEAR (tgl) = YEAR (NOW()) GROUP BY MONTHNAME(tgl) ORDER BY MONTH (tgl) ASC')->queryAll();
             }
                 return $this->renderAjax('_chart',[
@@ -490,13 +493,13 @@ class SiteController extends Controller
                 }else {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
-                    AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE 
+                    AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE
                     MONTH (tgl) = MONTH (NOW()) AND data.id_perangkat="'.$idp.'" GROUP BY minggu ORDER BY minggu ASC')->queryAll();
                 }
             }elseif ($id == 'all' && empty($idp)) {
                 $chart = Yii::$app->db->createCommand
                 ('SELECT WEEK(tgl) AS minggu ,AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan)
-                AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE 
+                AS curah_hujan, AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara FROM data WHERE
                 MONTH (tgl) = MONTH (NOW()) GROUP BY minggu ORDER BY minggu ASC')->queryAll();
             }elseif ($id == 'curah_hujan' && !empty($idp)) {
                 $chart = Yii::$app->db->createCommand('SELECT WEEK(tgl) as minggu,SUM('.$id.') AS '.$id.'
@@ -543,7 +546,7 @@ class SiteController extends Controller
                 ('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN "Selasa" WHEN "Wednesday" THEN "Rabu" WHEN "Thursday"
                 THEN "Kamis" WHEN "Friday" THEN "Jumat" WHEN "Saturday" THEN "Sabtu"WHEN "Sunday" THEN "Minggu" END AS hari , AVG(kelembaban) AS
                 kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(temperature) AS temperature,
-                AVG(tekanan_udara) AS tekanan_udara FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY hari 
+                AVG(tekanan_udara) AS tekanan_udara FROM data WHERE WEEK(tgl)=WEEK(NOW()) GROUP BY hari
                 ORDER BY DATE(tgl) ASC')->queryAll();
             }elseif ($id == 'curah_hujan' && !empty($idp)) {
                 $chart = Yii::$app->db->createCommand('SELECT CASE DAYNAME(tgl) WHEN "Monday" THEN "Senin" WHEN "Tuesday" THEN
@@ -581,23 +584,23 @@ class SiteController extends Controller
                 if (Yii::$app->user->identity->role == 'user') {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-                    AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-                    tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+                    AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
+                    tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND
                     user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = "'.$waktu.'" GROUP BY waktu ORDER BY
                     TIME(tgl)')->queryAll();
                 }
                 else {
                     $chart = Yii::$app->db->createCommand
                     ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-                    AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
+                    AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
                     tekanan_udara FROM data WHERE id_perangkat = "'.$idp.'" AND DATE(tgl) = "'.$waktu.'" GROUP BY waktu ORDER BY
                     TIME(tgl)')->queryAll();
                 }
             }elseif ($id == 'all' && empty($waktu)) {
                 $chart = Yii::$app->db->createCommand
                 ('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-                AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-                tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+                AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
+                tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND
                 user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = DATE(NOW()) - 1 GROUP BY waktu ORDER BY
                 TIME(tgl)')->queryAll();
             }elseif ($id == 'curah_hujan' && !empty($idp) && !empty($waktu)) {
@@ -609,11 +612,11 @@ class SiteController extends Controller
                 FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY TIME(tgl) ASC')
                 ->queryAll();
             }elseif (!empty($idp) && !empty($waktu)) {
-                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.'
                 FROM data WHERE DATE(tgl) = "'.$waktu.'" AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
                 ->queryAll();
             }elseif (!empty($idp) && empty($waktu)){
-                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.' 
+                $chart = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu,AVG('.$id.') AS '.$id.'
                 FROM data WHERE DATE(tgl) = DATE(NOW()) - 1 AND id_perangkat ="'.$idp.'" GROUP BY waktu ORDER BY DATE(tgl) ASC')
                 ->queryAll();
             }
@@ -624,7 +627,7 @@ class SiteController extends Controller
                     'waktu' => $waktu
                 ]);
         }
-       
+
 
     }
 
@@ -724,18 +727,18 @@ class SiteController extends Controller
         ->queryOne();
 
         $charthari = Yii::$app->db->createCommand('SELECT TIME_FORMAT(TIME(tgl), "%h:%i %p") AS waktu, AVG(temperature) AS temperature,
-        AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS 
-        tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND 
+        AVG(kelembaban) AS kelembaban, AVG(kecepatan_angin) AS kecepatan_angin, SUM(curah_hujan) AS curah_hujan, AVG(tekanan_udara) AS
+        tekanan_udara FROM data,user,perangkat WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND
         user.id = "'.$id_owner.'" AND id_perangkat = "'.$idp.'" AND DATE(tgl) = "'.$id.'" GROUP BY waktu ORDER BY
         TIME(tgl)')->queryAll();
 
-        $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya" 
-        WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E" 
+        $piehari = Yii::$app->db->createCommand('SELECT CASE arah_angin WHEN "S" THEN "Selatan" WHEN "SW" THEN "Barat Daya"
+        WHEN "SE" THEN "Tenggara" WHEN "N" THEN "Utara" WHEN "NE" THEN "Timur Laut" WHEN "NW" THEN "Barat Laut" WHEN "E"
         THEN "Timur" WHEN "W" THEN "Barat" END AS arah_angin, COUNT(arah_angin) AS jumlah FROM data,perangkat,user
         WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat AND user.id = "'.$id_owner.'" AND DATE(tgl) = "'.$id.'"
         AND id_perangkat = "'.$idp.'" GROUP BY arah_angin ORDER BY jumlah DESC')->queryAll();
-        
-        
+
+
         return $this->renderAjax('_charthari',[
             'query' => $query,
             'charthari' => $charthari,
