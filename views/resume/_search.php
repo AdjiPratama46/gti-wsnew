@@ -23,51 +23,8 @@ if (Yii::$app->user->identity->role=="admin") {
 
 ?>
 <div class="resume-search">
-    <div class="row">
-        <div class="col-md-3">
-            <?= ExportMenu::widget([
-                    'dataProvider' => $dataProvider,
-                    'columns' => $gridColumns,
-                    'target'=> ExportMenu::TARGET_POPUP,
-                    'dropdownOptions' => [
-                        'label' => 'Export',
-                        'class' => 'btn ',
-                        'style' => 'border-radius:0;'
-                    ],
-                    'columnSelectorOptions' => [
-                        'label' => 'Kolom',
-                        'class' => 'btn',
-                        'style' => 'visibility: hidden;width:0;height:0;position:absolute;'
-                    ],
-                    'exportConfig' => [
-                            ExportMenu::FORMAT_HTML => false,
-                            ExportMenu::FORMAT_CSV => [
-                                'alertMsg' => 'Tabel data resume akan di export menjadi file CSV',
-                            ],
-                            ExportMenu::FORMAT_TEXT => [
-                                'alertMsg' => 'Tabel data resume akan di export menjadi file TEXT',
-                            ],
-                            ExportMenu::FORMAT_PDF => [
-                                'alertMsg' => 'Tabel data resume akan di export menjadi file PDF',
-                            ],
-                            ExportMenu::FORMAT_EXCEL => [
-                                'alertMsg' => 'Tabel data resume akan di export menjadi file EXCEL 95+',
-                            ],
-                            ExportMenu::FORMAT_EXCEL_X => [
-                                'alertMsg' => 'Tabel data resume akan di export menjadi file EXCEL 2007+',
-                            ],
-                        ],
-                    'filename' => date('YmdHis', mktime(date('H')+5)).'_WSDataResume',
-                    'messages' => [
-                        'allowPopups' =>  '',
-                        'confirmDownload' => 'Lanjutkan proses export ?',
-                        'downloadProgress' => 'Memproses file. silahkan tunggu...',
-                        'downloadComplete' => 'Download selesai.'
-                    ]
-                ]);
-            ?>
-        </div>
-        <div class="col-md-3 col-md-offset-3">
+    <div class="row">        
+        <div class="col-md-3 col-md-offset-6">
             <?= Select2::widget([
                 'name' => 'id-perangkat',
                 'id' => 'id-perangkat',

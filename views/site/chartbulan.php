@@ -4,8 +4,10 @@ use yii\helpers\Url;
 
 $urlC = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
-if (empty($perangkatid)) {
-    $perangkatid = $id;
+if (Yii::$app->user->identity->role=="user") {
+    if (empty($perangkatid)) {
+        $perangkatid = $id;
+    }
 }
 $this->registerJs("
     $('#t').click(function(){
@@ -95,7 +97,7 @@ $this->registerJs("
                 <h4 class="text-center">Belum Ada Data Bulan Ini, Silahkan Pilih Perangkat Lain</h4>
             </div>
         <?php }else { ?>
-            <div class="col-md-7" id="crot2">
+            <div class="col-md-12" id="crot2">
                 <?php
                     foreach ($chartbulan as $values) {
                         $a[0]= ($values['minggu']);
@@ -118,7 +120,30 @@ $this->registerJs("
                     ]);
                 ?>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-12">
+                <br>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-orange" id="t" name="temperature">Temperature</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-maroon" id="k" name="kelembaban">Kelembaban</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-purple" id="ka" name="kecepatan_angin">Kecepatan Angin</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-black" id="cu" name="curah_hujan">Curah Hujan</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-block btn-xs bg-navy" id="tu" name="tekanan_udara">Tekanan Udara</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-block btn-xs btn-success" id="a" name="all">
+                        All
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12">
                 <?php
                     foreach($piebulan as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -159,29 +184,6 @@ $this->registerJs("
                     ],
                 ]);
             ?>
-        </div>
-        <div class="col-md-12">
-        <br>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-orange" id="t" name="temperature">Temperature</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-maroon" id="k" name="kelembaban">Kelembaban</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-purple" id="ka" name="kecepatan_angin">Kecepatan Angin</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-black" id="cu" name="curah_hujan">Curah Hujan</button>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-block btn-xs bg-navy" id="tu" name="tekanan_udara">Tekanan Udara</button>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-block btn-xs btn-success" id="a" name="all">
-                    All
-                </button>
-            </div>
         </div>
     <?php } ?>
 </div>

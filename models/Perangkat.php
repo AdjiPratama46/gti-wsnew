@@ -30,11 +30,14 @@ class Perangkat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude','altitude'], 'required',
+//             [['id','alias', 'id_owner', 'tgl_instalasi', 'longitude', 'latitude','altitude'], 'required',
+//               'message' => '{attribute} tidak boleh kosong'
+//             ],
+            [['id','tgl_instalasi', 'longitude', 'latitude'], 'required',
               'message' => '{attribute} tidak boleh kosong'
             ],
             [['id'], 'unique', 'message' => '{attribute} sudah digunakan'],
-            [['id', 'alias', 'longitude', 'latitude'], 'string', 'max' => 255],
+            [['id', 'alias', 'longitude', 'latitude','altitude'], 'string', 'max' => 255],
             [['id'], 'match', 'pattern' => '/^[A-Za-z0-9_-]+$/u',
               'message' => '{attribute} hanya bisa menggunakan huruf, angka, (_), dan (-)'
             ],
