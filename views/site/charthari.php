@@ -6,10 +6,8 @@ use kartik\date\DatePicker;
 $urlC = Url::to(['site/charthari']);
 $urlCA = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
-if (Yii::$app->user->identity->role=="user") {
-    if (empty($perangkatid)) {
-        $perangkatid = $id;
-    }
+if (empty($perangkatid)) {
+    $perangkatid = $id;
 }
  $this->registerJs("
     $('#dp1').change(function(){
@@ -121,8 +119,8 @@ if (Yii::$app->user->identity->role=="user") {
                             'format' => 'yyyy-mm-dd'
                         ],
                         'options' => [
-                            'placeholder' => 'Pilih tanggal',
-                        ],
+                                'placeholder' => 'Pilih tanggal',
+                              ],
                     ]);
                 ?>
                 <hr>
@@ -138,6 +136,7 @@ if (Yii::$app->user->identity->role=="user") {
                     }
                     echo Highcharts::widget([
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'title' => ['text' => 'Data Hari Kemarin'],
                             'xAxis' => [
                                 'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
@@ -150,30 +149,32 @@ if (Yii::$app->user->identity->role=="user") {
                     ]);
                 ?>
             </div>
-            <div class="col-md-12">
-                <br>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-xs bg-orange" id="ht" name="temperature">Temperature</button>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-xs bg-maroon" id="hk" name="kelembaban">Kelembaban</button>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-xs bg-purple" id="hka" name="kecepatan_angin">Kecepatan Angin</button>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-xs bg-black" id="hcu" name="curah_hujan">Curah Hujan</button>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn btn-block btn-xs bg-navy" id="htu" name="tekanan_udara">Tekanan Udara</button>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-block btn-xs btn-success" id="hbc" name="all">
-                        All
-                    </button>
-                </div>
+          <div class="col-md-12">
+            <br>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-orange" id="ht" name="temperature">Temperature</button>
             </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-maroon" id="hk" name="kelembaban">Kelembaban</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-purple" id="hka" name="kecepatan_angin">Kecepatan Angin</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-black" id="hcu" name="curah_hujan">Curah Hujan</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-navy" id="htu" name="tekanan_udara">Tekanan Udara</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-block btn-xs btn-success" id="hbc" name="all">
+                    All
+                </button>
+            </div>
+          <br>
+        </div>
             <div class="col-md-12" id="b">
+              <br><hr style="border:0.5px solid #00C0EF;width:60%;"><br>
                 <?php
                     foreach($piehari as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -186,6 +187,7 @@ if (Yii::$app->user->identity->role=="user") {
                             'highcharts-3d',
                             ],
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'chart' => ['type' => 'pie',
                                 'options3d'=>[
                                     'enabled'=>true,
@@ -216,5 +218,6 @@ if (Yii::$app->user->identity->role=="user") {
                 ?>
             </div>
         </div>
+        
     <?php } ?>
 </div>

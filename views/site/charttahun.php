@@ -5,12 +5,9 @@ use yii\helpers\Url;
 $urlC = Url::to(['site/chart']);
 $perangkatid = $query['id_perangkat'];
 
-if (Yii::$app->user->identity->role=="user") {
-    if (empty($perangkatid)) {
-        $perangkatid = $id;
-    }
+if (empty($perangkatid)) {
+    $perangkatid = $id;
 }
-
 $this->registerJs("
     $('#bct').click(function(){
         var id = $('#bct').attr('name');
@@ -109,6 +106,7 @@ $this->registerJs("
                     }
                     echo Highcharts::widget([
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'title' => ['text' => 'Data Tahun 2018'],
                             'xAxis' => [
                                 'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
@@ -121,7 +119,7 @@ $this->registerJs("
                     ]);
                 ?>
             </div>
-            <div class="col-md-12">
+  			<div class="col-md-12">
             <br>
                 <div class="col-md-2 col-sm-12">
                     <button class="btn btn-block btn-xs bg-orange" id="bct" name="temperature">Temperature</button>
@@ -143,10 +141,11 @@ $this->registerJs("
                         All
                     </button>
                 </div>
-            
-            </div>
             <br>
+            </div>
+  			
             <div class="col-md-12">
+              <br><hr style="border:0.5px solid #00C0EF;width:60%;"><br>
                 <?php
                     foreach( $pie as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -159,6 +158,7 @@ $this->registerJs("
                             'highcharts-3d',
                             ],
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'chart' => ['type' => 'pie',
                                 'options3d'=>[
                                     'enabled'=>true,
@@ -189,6 +189,5 @@ $this->registerJs("
                 ?>
             </div>
 
-            
         <?php } ?>
 </div>

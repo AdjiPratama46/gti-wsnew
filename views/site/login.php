@@ -29,7 +29,7 @@ if(Yii::$app->session->hasFlash('success')){
             ];
             $fieldPassword = [
                 'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => "{input}<span class='pwd'><span toggle='#loginform-password' class='form-control-feedback glyphicon glyphicon-eye-close field-icon toggle-password'></span></span>"
+                'inputTemplate' => "{input}<span class='nput-group-addon pwd'><span toggle='#loginform-password' class='form-control-feedback glyphicon glyphicon-eye-close field-icon toggle-password'></span></span>"
             ];
 
         ?>
