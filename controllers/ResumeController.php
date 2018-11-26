@@ -3,6 +3,7 @@
 namespace app\controllers;
 use Yii;
 use app\models\Perangkat;
+use app\models\ResumeSearch;
 use yii\data\SqlDataProvider;
 use yii\filters\AccessControl;
 class ResumeController extends \yii\web\Controller
@@ -28,42 +29,12 @@ class ResumeController extends \yii\web\Controller
         ->where(['id_owner' => $id_owner])
         ->one();
 
-        $thn=date('Y');
-        if (Yii::$app->user->identity->role=="admin") {
-            $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT MONTHNAME(tgl) AS bulan, id_perangkat, year(tgl) as tahun, AVG(kelembaban) AS kelembaban,
-                AVG(kecepatan_angin) AS kecepatan_angin,(SELECT arah_angin FROM data
-                WHERE MONTHNAME(tgl) = bulan GROUP BY arah_angin ORDER BY count(arah_angin) DESC
-                LIMIT 1) AS arah_angin,SUM(curah_hujan) AS curah_hujan,AVG(temperature) AS temperature, AVG(tekanan_udara) AS tekanan_udara
-                FROM data  GROUP BY bulan ORDER BY MONTH (tgl) ASC',
-
-                'sort' =>false,
-                'pagination' => [
-                    'pageSize' => 10,
-                ],
-            ]);
-        }elseif (Yii::$app->user->identity->role=="user") {
-            $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT MONTHNAME(tgl) AS bulan, id_perangkat, year(tgl) as tahun, AVG(kelembaban) AS kelembaban,
-                AVG(kecepatan_angin) AS kecepatan_angin,
-                (SELECT arah_angin FROM data WHERE id_perangkat="'.$model['id'].'"
-                AND MONTHNAME(tgl)=bulan GROUP BY arah_angin
-                ORDER BY count(arah_angin) DESC LIMIT 1) AS arah_angin,
-                SUM(curah_hujan) AS curah_hujan,
-                AVG(temperature) AS temperature,
-                AVG(tekanan_udara) AS tekanan_udara
-                FROM data WHERE id_perangkat="'.$model['id'].'" AND year(tgl)="'.$thn.'" GROUP BY bulan ORDER BY MONTH(tgl) ASC',
-
-                'sort' =>false,
-                'pagination' => [
-                    'pageSize' => 10,
-                ],
-            ]);
-        }
-
+        $searchModel = new ResumeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
             'model' => $model,
         ]);
     }

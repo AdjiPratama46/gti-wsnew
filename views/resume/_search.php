@@ -6,7 +6,7 @@ use kartik\select2\Select2;
 use app\models\Perangkat;
 use app\models\Data;
 use kartik\date\DatePicker;
-use kartik\export\ExportMenu;
+
 
 if (Yii::$app->user->identity->role=="admin") {
     $query = 'SELECT * FROM perangkat,data WHERE perangkat.id=data.id_perangkat';
@@ -19,11 +19,9 @@ if (Yii::$app->user->identity->role=="admin") {
     $sql = 'SELECT YEAR(tgl) as tgl FROM data,perangkat,user WHERE perangkat.id_owner = user.id AND perangkat.id = data.id_perangkat    AND user.id = "'.$id.'" GROUP BY YEAR(tgl) ORDER BY YEAR(tgl) DESC';
     $years = ArrayHelper::map(Data::findBySql($sql)->all(),'tgl','tgl');
 }
-
-
 ?>
 <div class="resume-search">
-    <div class="row">        
+    <div class="row">
         <div class="col-md-3 col-md-offset-6">
             <?= Select2::widget([
                 'name' => 'id-perangkat',
