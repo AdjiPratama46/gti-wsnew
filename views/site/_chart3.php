@@ -28,6 +28,7 @@ if ($id == 'temperature') {
             }
             echo Highcharts::widget([
                 'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['renderTo'=> 'crot3'],
                     'title' => ['text' => 'Data Minggu Ini'],
                     'xAxis' => [
@@ -46,6 +47,7 @@ if ($id == 'temperature') {
             }
             echo Highcharts::widget([
             'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['type' => 'line','renderTo'=> 'crot3'],
                     'title' => ['text' => 'Data '.$name.' Minggu Ini'],
                     'xAxis' => [

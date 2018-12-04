@@ -159,7 +159,7 @@ $this->registerJs("
                                       echo 'Belum Ada Data';
                                   }else{
                                     $timestamps = strtotime($query['tgl']);
-                                    $new_date = date('d-m-Y', $timestamps);
+                                    $new_date = 'Update terakhir tanggal '.date('d F Y', $timestamps);
                                     echo $new_date;
                                   }
                                   ?>

@@ -161,7 +161,7 @@ $this->registerJs("
                                         echo 'Belum Ada Data';
                                     }else{
                                         $timestamps = strtotime($query['tgl']);
-                                        $new_date = date('d-m-Y', $timestamps);
+                                        $new_date = 'Update terakhir tanggal '.date('d F Y', $timestamps);
                                         echo $new_date;
                                     }
                                     ?>
@@ -343,15 +343,17 @@ $this->registerJs("
                         <?= $this->render('charttahun', [
                                   'chart' => $chart,
                                   'pie' => $pie,
-                                  'query' => $query
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
                     <div id="bulan" class="tab-pane fade">
                         <?= $this->render('chartbulan', [
                                   'chartbulan' => $chartbulan,
-                                  'piebulan'=>$piebulan,
-                                  'query' => $query
+                                  'pie' => $piebulan,
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
@@ -359,7 +361,8 @@ $this->registerJs("
                         <?= $this->render('chartminggu', [
                                   'chartminggu' => $chartminggu,
                                   'pieminggu'=>$pieminggu,
-                                  'query' => $query
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
@@ -367,7 +370,8 @@ $this->registerJs("
                         <?= $this->render('charthari', [
                                 'charthari' => $charthari,
                                 'piehari' => $piehari,
-                                'query' => $query
+                                'query' => $query,
+                                'id' => $id
                             ]);
                         ?>
                     </div>

@@ -36,6 +36,11 @@ if ($hari == 'Mon') {
 }elseif ($hari == 'Sun') {
     $dinten = str_replace('Sun','Minggu',$hari);
 } 
+  if(date('d F Y', mktime(0, 0, 0, date('m'), date('d') -1, date('Y')))==$new_date){
+                      $judul='Data '.$name.' Hari Kemarin';
+                    }else{
+                      $judul='Data '.$name.' Hari '.$dinten.",".$new_date;
+                    }
     if ($id == 'all' && empty($waktu)) {
             foreach ($chart as $values) {
                 $a[0]= ($values['waktu']);
@@ -45,6 +50,7 @@ if ($hari == 'Mon') {
             }
             echo Highcharts::widget([
                 'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['renderTo'=> 'c'],
                     'title' => ['text' => 'Data Hari Kemarin'],
                     'xAxis' => [
@@ -63,6 +69,7 @@ if ($hari == 'Mon') {
             }
             echo Highcharts::widget([
             'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['type' => 'line','renderTo'=> 'c'],
                     'title' => ['text' => 'Data '.$name.' Hari Kemarin'],
                     'xAxis' => [
@@ -95,8 +102,9 @@ if ($hari == 'Mon') {
             }
             echo Highcharts::widget([
                 'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['renderTo'=> 'c'],
-                    'title' => ['text' => 'Data Hari '.$dinten.",".$new_date],
+                    'title' => ['text' => $judul],
                     'xAxis' => [
                         'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
                     ],
@@ -113,8 +121,9 @@ if ($hari == 'Mon') {
             }
             echo Highcharts::widget([
             'options' => [
+              		'credits' => ['enabled' => false],
                     'chart' => ['type' => 'line','renderTo'=> 'c'],
-                    'title' => ['text' => 'Data '.$name.' Hari '.$dinten.",".$new_date],
+                    'title' => ['text' => $judul],
                     'xAxis' => [
                         'categories' =>$c
                     ],

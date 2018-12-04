@@ -124,7 +124,7 @@ $this->registerJs("
                                         echo 'Belum Ada Data';
                                     }else{
                                       $timestamps = strtotime($query['tgl']);
-                                      $new_date = date('d-m-Y', $timestamps);
+                                      $new_date = 'Update terakhir tanggal '.date('d F Y', $timestamps);
                                       echo $new_date;
                                     }
                                     ?>
@@ -309,7 +309,7 @@ $this->registerJs("
                                 'pie'=>$pie,
                                 'id' => $id,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                     <div id="bulan" class="tab-pane fade">
@@ -318,7 +318,7 @@ $this->registerJs("
                                 'piebulan'=>$piebulan,
                                 'id' => $id,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                     <div id="minggu" class="tab-pane fade">
@@ -327,7 +327,7 @@ $this->registerJs("
                                 'pieminggu'=>$pieminggu,
                                 'id' => $id,
                                 'query' => $query
-                            ]); 
+                            ]);
                         ?>
                     </div>
                     <div id="hari" class="tab-pane fade">

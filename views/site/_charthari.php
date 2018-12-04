@@ -1,8 +1,106 @@
 <?php
 use miloschuman\highcharts\Highcharts;
 use yii\helpers\Url;
+use kartik\date\DatePicker;
 
-$urlC = Url::to(['site/chart']);
+$urlC = Url::to(['site/charthari']);
+$urlCA = Url::to(['site/chart']);
+$perangkatid = $query['id_perangkat'];
+if (empty($perangkatid)) {
+    $perangkatid = $id;
+}
+ $this->registerJs("
+    $('#dp1').change(function(){
+        var id = $('#dp1').val();
+        var idp = '{$perangkatid}';
+        $.ajax({
+            type :'GET',
+            url : '{$urlC}',
+            data:'id='+id+'&idp='+idp,
+            success : function(data){
+                $('#crot4').html(data);
+            }
+        });
+    });
+    $('#ht').click(function(){
+        var id = $('#ht').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+    $('#hk').click(function(){
+        var id = $('#hk').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+    $('#hka').click(function(){
+        var id = $('#hka').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+    $('#hcu').click(function(){
+        var id = $('#hcu').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+    $('#htu').click(function(){
+        var id = $('#tu').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+    $('#hbc').click(function(){
+        var id = $('#hbc').attr('name');
+        var idp = '{$perangkatid}';
+        var waktu = $('#dp1').val();
+        $.ajax({
+            type :'GET',
+            url : '{$urlCA}',
+            data:'id='+id+'&idp='+idp+'&waktu='+waktu,
+            success : function(data){
+                $('#c').html(data);
+            }
+        });
+    });
+");
 
 
 ?>
@@ -39,10 +137,18 @@ $urlC = Url::to(['site/chart']);
                         $b[]= array('type'=> 'column', 'name' =>$values['waktu'], 'data' => array((int)$values['temperature'],
                         (int)$values['kelembaban'],(int)$values['kecepatan_angin'],(int)$values['curah_hujan'],(int)$values['tekanan_udara'] ));
                     }
+          			if(date('d F Y', mktime(0, 0, 0, date('m'), date('d') -1, date('Y')))==$new_date){
+                      $judul='Data Hari Kemarin';
+                      $judul1='Data Arah Angin Hari Kemarin';
+                    }else{
+                      $judul='Data Hari '.$dinten.",".$new_date;
+                      $judul1='Data Arah Angin Hari '.$dinten.",".$new_date;
+                    }
                     echo Highcharts::widget([
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'chart' => ['renderTo'=> 'c'],
-                            'title' => ['text' => 'Data Hari '.$dinten.",".$new_date],
+                            'title' => ['text' => $judul],
                             'xAxis' => [
                                 'categories' => ['Temperature', 'Kelembaban', 'Kecepatan Angin','Curah Hujan','Tekanan Udara']
                             ],
@@ -54,7 +160,33 @@ $urlC = Url::to(['site/chart']);
                     ]);
                 ?>
             </div>
+  <div class="col-md-12">
+            <br>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-orange" id="ht" name="temperature">Temperature</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-maroon" id="hk" name="kelembaban">Kelembaban</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-purple" id="hka" name="kecepatan_angin">Kecepatan Angin</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-black" id="hcu" name="curah_hujan">Curah Hujan</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block btn-xs bg-navy" id="htu" name="tekanan_udara">Tekanan Udara</button>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-block btn-xs btn-success" id="hbc" name="all">
+                    All
+                </button>
+            </div>
+          <br>
+    <br><hr style="border:0.5px solid #00C0EF;width:60%;"><br>
+        </div>
             <div class="col-md-12" id="b">
+              
                 <?php
                     foreach($piehari as $pieh){
                         $arah = $pieh['arah_angin'];
@@ -67,6 +199,7 @@ $urlC = Url::to(['site/chart']);
                             'highcharts-3d',
                             ],
                         'options' => [
+                      		'credits' => ['enabled' => false],
                             'chart' => ['type' => 'pie', 'renderTo' => 'b',
                                 'options3d'=>[
                                     'enabled'=>true,
@@ -74,7 +207,7 @@ $urlC = Url::to(['site/chart']);
                                     'beta'=>0,
                                 ]
                             ],
-                            'title' => ['text' => 'Data Arah Angin Hari '.$dinten.",".$new_date],
+                            'title' => ['text' => $judul1],
                             'plotOptions' => [
                                 'pie' => [
                                     'cursor' => 'pointer',
