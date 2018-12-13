@@ -1,6 +1,6 @@
 .login-page,
 .register-page {
-    background: linear-gradient(-45deg,#3C8DBC,#363795);
+    background: linear-gradient(-45deg,#3C8DBC,#2a0845);
     background-size: 400% 400%;
     -webkit-animation: AnimationName 15s ease infinite;
     -moz-animation: AnimationName 15s ease infinite;
@@ -22,7 +22,7 @@
     100%{background-position:0% 50%}
 }
 #btn-gd{
-    background: linear-gradient(-45deg,#3C8DBC,#363795);
+    background: linear-gradient(-45deg,#3C8DBC,#2a0845);
     background-size: 400% 400%;
     -webkit-animation: AnimationName 15s ease infinite;
     -moz-animation: AnimationName 15s ease infinite;
@@ -119,4 +119,19 @@
 }
 #bx-dg{
     padding-bottom: 83px;
+}
+.img-profile{
+    margin: 0 auto;
+    border: 1.5vh solid #3963A9;
+    width: 45%;
+    height: 45%;
+    cursor: pointer;
+}
+.img-logo{
+    margin: 0 auto;
+    width: 45%;
+    height: 45%;
+}
+#ifp{
+    display: none;
 }

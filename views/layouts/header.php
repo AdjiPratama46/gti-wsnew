@@ -138,7 +138,7 @@ $this->registerJs("
             
                 <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'user-image']);?>
+                        <?= Html::img('@web/images/'.Yii::$app->user->identity->gambar, ['alt'=>'User Image', 'class'=>'user-image']);?>
 
                         <span class="hidden-xs"><?= Yii::$app->user->identity->name ?></span>
                         <span class="caret"></span>
@@ -146,7 +146,7 @@ $this->registerJs("
                     <ul class="dropdown-menu" style="width:200px;" >
                         <!-- User image -->
                         <li class="user-header" style="background-color: #3963A9;">
-                          <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'img-circle']);?>
+                          <?= Html::img('@web/images/'.Yii::$app->user->identity->gambar, ['alt'=>'User Image', 'class'=>'img-circle']);?>
 
 
 

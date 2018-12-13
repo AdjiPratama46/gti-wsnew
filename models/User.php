@@ -10,10 +10,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public $name;
     public $username;
     public $password;
+    public $gambar;
     public $authKey;
     public $accessToken;
     public $role;
     public $tgl_buat;
+    
 
     // private static $users = [
     //     '100' => [
@@ -54,6 +56,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
               'name',
               'username',
               'password',
+              'gambar',
               'authKey',
               'accessToken',
               'role',

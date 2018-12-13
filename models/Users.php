@@ -22,6 +22,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public $confirm_password;
     public $new_password;
+    public $filegambar;
     public static function tableName()
     {
         return 'user';
@@ -36,7 +37,7 @@ class Users extends \yii\db\ActiveRecord
             [['id'], 'integer'],
             ['username' , 'email', 'message' => 'Username Harus Menggunakan Email'],
             [['username'],'unique','targetClass' => '\app\models\Users','message' => 'Username Ini Sudah Digunakan'],
-            [['authKey','accessToken','role'],'string','max' => 255],
+            [['authKey','accessToken','role','gambar'],'string','max' => 255],
             [['name'], 'required','message' => 'Nama Tidak Boleh Kosong'],
             [['username'], 'required','message' => 'Username Tidak Boleh Kosong'],
             [['new_password'], 'match', 'pattern' => '/^[A-Za-z0-9]+$/u',
@@ -46,6 +47,7 @@ class Users extends \yii\db\ActiveRecord
               'message' => '{attribute} Hanya Bisa Menggunakan Huruf dan Spasi'
             ],
             [['tgl_buat','status'], 'safe'],
+            [['filegambar'],'file'],
             [['username'], 'match', 'pattern' => '/^([A-Za-z0-9_\.-]+)@([\dA-Za-z\.-]+)\.([A-Za-z\.]{2,6})$/',
               'message' => '{attribute} Tidak Boleh Mengandung Simbol'
             ],
@@ -71,6 +73,7 @@ class Users extends \yii\db\ActiveRecord
             'name' => 'Nama',
             'username' => 'Username',
             'password' => 'Password',
+            'gambar' => 'Gambar',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
             'confirm_password' => 'Password Lama',

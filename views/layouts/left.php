@@ -7,7 +7,7 @@
               <?php
               use yii\helpers\Html;
                ?>
-               <?= Html::img('@web/images/profilephoto.png', ['alt'=>'some', 'class'=>'img-circle']);?>
+               <?= Html::img('@web/images/'.Yii::$app->user->identity->gambar, ['alt'=>'some', 'class'=>'img-circle']);?>
 
             </div>
             <div class="pull-left info">
