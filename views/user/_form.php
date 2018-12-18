@@ -19,7 +19,15 @@ use yii\widgets\ActiveForm;
 
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                    <?= $form->field($model, 'role')->dropDownList(['admin' => 'admin','user' => 'user']); ?>
+                  <?php
+                  if(Yii::$app->user->identity->id == $model->id){
+
+                      echo $form->field($model, 'new_password')->passwordInput(['maxlength' => 12]);
+                  }else{
+                      echo $form->field($model, 'role')->dropDownList(['admin' => 'admin','user' => 'user']);
+                  }
+                  ?>
+
                 </div>
             </div>
             <div class="row">
@@ -36,7 +44,7 @@ use yii\widgets\ActiveForm;
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                   <?php
                   if(Yii::$app->user->identity->id == $model->id){
-                    echo $form->field($model, 'new_password')->passwordInput(['maxlength' => 12]);
+                    echo $form->field($model, 'confirm_password')->passwordInput(['maxlength' => 12]);
                   }else{
                     //MERESET PASSWORD MENJADI 'QWERTY'
                     echo '<label style="opacity:0;">.</label><br>';
@@ -52,7 +60,12 @@ use yii\widgets\ActiveForm;
 
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-md-offset-4">
                     <div class="form-group">
-                        <?= $form->field($model, 'confirm_password')->hiddenInput(['value' => $model->password])->label(false) ?>
+
+                        <?php
+                          if(Yii::$app->user->identity->id != $model->id){
+                              echo $form->field($model, 'confirm_password')->hiddenInput(['value' => $model->password])->label(false);
+                          }
+                         ?>
                         <?= $form->field($model, 'password')->hiddenInput()->label(false) ?>
                         <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success']) ?>
 

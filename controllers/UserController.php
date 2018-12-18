@@ -149,12 +149,32 @@ class UserController extends Controller
         // echo Yii::$app->user->identity->role;exit;
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->user->identity->role=='admin') {
+              if(Yii::$app->user->identity->id == $model->id){
+                $eci = sha1($model->confirm_password);
+                $pas = $model->password;
+                if ($eci != $pas) {
+                    Yii::$app->getSession()->setFlash(
+                        'danger','Password Lama Tidak Sesuai, Coba Masukkan Kembali Dengan Benar'
+                    );
+                }else{
+                  if(!empty($model->new_password)){
+                      $model->password = sha1($model->new_password);
+                    }
+                      if($model->save(false)){
+                          Yii::$app->getSession()->setFlash('success','Data Berhasil Diubah!');
+                      }
+                    }
+              }else{
+
                 if(!empty($model->new_password)){
                     $model->password = sha1($model->new_password);
                   }
                     if($model->save(false)){
                         Yii::$app->getSession()->setFlash('success','Data Berhasil Diubah!');
                     }
+                    return $this->redirect(['index']);
+              }
+
             }elseif (Yii::$app->user->identity->role=='user') {
                 $eci = sha1($model->confirm_password);
                 $pas = $model->password;
@@ -171,7 +191,7 @@ class UserController extends Controller
                     }
                 }
             }
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -190,7 +210,7 @@ class UserController extends Controller
         Yii::$app->getSession()->setFlash(
             'success','Password user berhasil di reset!'
         );
-        return $this->redirect(['update', 'id' => $model->id]);
+        return $this->redirect(['index']);
     }
 
     public function actionSetstatus($id)

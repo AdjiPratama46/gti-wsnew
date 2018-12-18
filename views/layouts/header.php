@@ -66,76 +66,8 @@ $this->registerJs("
         <div class="navbar-custom-menu">
 
             <ul class="nav navbar-nav">
-                <?php
-                    if (Yii::$app->user->identity->role =='admin') { ?>
-                        <li class="notifications-menu">
-                            <a id="fs">
-                                <i class="fa fa-arrows-alt" id="io"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell-o"></i>
-                                <?php
-                                    if ($tot > 0) { ?>
-                                        <span class="label label-warning"><?= $tot ?> </span>
-                                <?php } ?>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">
-                                    <?php 
-                                        if ($tot <= 0) {
-                                            echo 'Belum ada notifikasi';
-                                        }else {
-                                            echo 'Kamu mempunyai '.$tot.' notifikasi'; ?> 
-                                </li>
-                                <li>
-                                    <ul class="menu">
-                                        <li>
-                                        <?php 
-                                            if ($uba['ubar'] >0 ) { ?>
-                                                <a href=" <?= $urlu ?> ">
-                                                <i class="fa fa-users text-aqua"></i>
-                                                <?= $uba['ubar'] ?> Member baru telah bergabung 
-                                            </a>
-                                        <?php
-                                            }
-                                        ?>
-                                        <?php 
-                                            if ($per['perba'] >0 ) { ?>
-                                            <a href=" <?= $urlp ?> ">
-                                                <i class="ion ion-ios-construct text-yellow"></i>
-                                                <?= $per['perba'] ?> Perangkat baru hari ini
-                                            </a>
-                                        <?php
-                                            }
-                                        ?>
-                                        <?php 
-                                            if ($dasuk['jml'] >0 ) { ?>
-                                            <a href=" <?= $urld ?> ">
-                                                <i class="ion ion-ios-download text-red"></i>
-                                                <?= $dasuk['jml'] ?> Data baru hari ini
-                                            </a>
-                                        <?php
-                                            }
-                                        ?>
-                                        <?php 
-                                            if ($permin['permin'] >0 ) { ?>
-                                            <a href=" <?= $urlper ?> ">
-                                                <i class="ion ion-ios-construct text-green"></i>
-                                                <?= $permin['permin'] ?> Permintaan perangkat baru hari ini
-                                            </a>
-                                        <?php
-                                            }
-                                        ?>
-                                        </li>
-                                    </ul>
-                                <?php } ?>
-                                </li>
-                            </ul>
-                        </li> 
-                <?php } ?>
-            
+              
+
                 <li class="dropdown user user-menu" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <?= Html::img('@web/images/profilephoto.png', ['alt'=>'User Image', 'class'=>'user-image']);?>

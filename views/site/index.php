@@ -350,10 +350,10 @@ $this->registerJs("
                     </div>
                     <div id="bulan" class="tab-pane fade">
                         <?= $this->render('chartbulan', [
-                                  'chartbulan' => $chartbulan,
-                                  'pie' => $piebulan,
-                                  'query' => $query,
-                                  'id' => $id
+                                'chartbulan' => $chartbulan,
+                                'piebulan'=>$piebulan,
+                                'query' => $query,
+                                'id' => $id
                               ]);
                           ?>
                     </div>

@@ -341,7 +341,8 @@ $this->registerJs("
                         <?= $this->render('charttahun', [
                                   'chart' => $chart,
                                   'pie' => $pie,
-                                  'query' => $query
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
@@ -349,7 +350,8 @@ $this->registerJs("
                         <?= $this->render('chartbulan', [
                                   'chartbulan' => $chartbulan,
                                   'piebulan'=>$piebulan,
-                                  'query' => $query
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
@@ -357,7 +359,8 @@ $this->registerJs("
                         <?= $this->render('chartminggu', [
                                   'chartminggu' => $chartminggu,
                                   'pieminggu'=>$pieminggu,
-                                  'query' => $query
+                                  'query' => $query,
+                                  'id' => $id
                               ]);
                           ?>
                     </div>
@@ -365,7 +368,8 @@ $this->registerJs("
                         <?= $this->render('charthari',[
                                     'charthari' => $charthari,
                                     'piehari' => $piehari,
-                                    'query' => $query
+                                    'query' => $query,
+                                    'id' => $id
                                 ])
                             ?>
                     </div>
