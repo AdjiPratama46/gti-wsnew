@@ -16,13 +16,13 @@ if(Yii::$app->session->hasFlash('success')){
 </div>
 <?php } ?>
 
-<div class="login-box">
+<div class="login-box" style="margin-bottom:0">
     <div class="login-logo">
-        <?= Html::img('@web/images/logo-ws-3.png', ['alt'=>'User Image', 'class'=>'img-responsive img-logo']);?>
+        <?= Html::img('@web/images/logo.png', ['alt'=>'User Image', 'class'=>'img-responsive img-logo']);?>
     </div>
     <div class="login-box-body box">
         <h2 class="text-center title"><?= Html::encode($this->title) ?></h2>
-        <?php 
+        <?php
             $fieldUsername = [
                 'options' => ['class' => 'form-group has-feedback'],
                 'inputTemplate' => "{input}<span class='glyphicon glyphicon-lock form-control-feedback'></span>"
@@ -35,7 +35,7 @@ if(Yii::$app->session->hasFlash('success')){
         ?>
         <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
-            ]); 
+            ]);
         ?>
 
         <?= $form->field($model, 'username',$fieldUsername)->textInput(['placeholder' => 'Masukkan Username'])->label(false) ?>
@@ -59,7 +59,7 @@ if(Yii::$app->session->hasFlash('success')){
 
 </div>
 
-<?php 
+<?php
     $js = <<<js
     $(".toggle-password").click(function() {
         var input = $($(this).attr("toggle"));
