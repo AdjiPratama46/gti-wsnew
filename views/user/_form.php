@@ -14,68 +14,11 @@ use dosamigos\fileupload\FileUpload;
         if (Yii::$app->user->identity->role=="admin") {
             $form = ActiveForm::begin(); ?>
             <div class="row">
-<<<<<<< HEAD
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?= $form->field($model, 'username')->textInput([
-                      'readonly' => true,'maxlength' => 25,'class' => 'col-md-4 form-control']) ?>
-
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                  <?php
-                  if(Yii::$app->user->identity->id == $model->id){
-
-                      echo $form->field($model, 'new_password')->passwordInput(['maxlength' => 12]);
-                  }else{
-                      echo $form->field($model, 'role')->dropDownList(['admin' => 'admin','user' => 'user']);
-                  }
-                  ?>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <?php
-                    if(Yii::$app->user->identity->id == $model->id){
-                        echo $form->field($model, 'name')->textInput(['maxlength' => 25]);
-                    }else{
-                        echo $form->field($model, 'name')->textInput(['readonly' => true,'maxlength' => 25]);
-                    }
-                    ?>
-
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                  <?php
-                  if(Yii::$app->user->identity->id == $model->id){
-                    echo $form->field($model, 'confirm_password')->passwordInput(['maxlength' => 12]);
-                  }else{
-                    //MERESET PASSWORD MENJADI 'QWERTY'
-                    echo '<label style="opacity:0;">.</label><br>';
-                    echo Html::a('Reset Password', ['resetpw', 'id' => $model->id], ['class' => 'btn btn-danger','style'=>'width:100%;','data' => [
-                        'confirm' => 'Anda yakin akan mereset password user ini?',
-                        'method' => 'post',
-                    ],]);
-                  }
-                    ?>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-md-offset-4">
-                    <div class="form-group">
-
-                        <?php
-                          if(Yii::$app->user->identity->id != $model->id){
-                              echo $form->field($model, 'confirm_password')->hiddenInput(['value' => $model->password])->label(false);
-                          }
-                         ?>
-                        <?= $form->field($model, 'password')->hiddenInput()->label(false) ?>
-                        <?= Html::submitButton('Simpan', ['class' => 'btn btn-block btn-success']) ?>
-=======
                 <div class="col-sm-12 col-md-5 col-lg-5 text-center"> <!-- Profile Picture Start-->
                     <!-- <img src="..." alt="Foto Profil" class="img-rounded"> -->
                     <hr>
                     <?= Html::img('@web/images/'.$model->gambar, ['alt'=>'User Image','id'=>'ip', 'class'=>'img-circle img-responsive img-profile']);?>
-                    <hr>                        
+                    <hr>
                     <!-- <input id="ifp" type="file" name="ifp" accept="image/*"> -->
                     <?= $form->field($model, 'filegambar')->fileInput(['accept' => 'image/*','id' => 'ifp'])->label(false); ?>
                 </div> <!-- Profile Picture End-->
@@ -119,7 +62,6 @@ use dosamigos\fileupload\FileUpload;
                         </div>
                     </div> <!-- Form End -->
                     <div class="row">
->>>>>>> 88dcb5272b98c680ca30e28eae7840bdfdd2a0b7
 
                         <div class="col-sm-12 col-md-4 col-lg-4 col-md-offset-3">
                             <div class="form-group">
@@ -130,7 +72,7 @@ use dosamigos\fileupload\FileUpload;
                         </div>
                     </div>
                 </div>
-            
+
             <?php ActiveForm::end();
         }elseif (Yii::$app->user->identity->role=="user") {
             $form = ActiveForm::begin([
@@ -143,15 +85,15 @@ use dosamigos\fileupload\FileUpload;
                         <!-- <img src="..." alt="Foto Profil" class="img-rounded"> -->
                         <hr>
                         <?= Html::img('@web/images/'.$model->gambar, ['alt'=>'User Image','id'=>'ip', 'class'=>'img-circle img-responsive img-profile']);?>
-                        <hr>                        
+                        <hr>
                         <!-- <input id="ifp" type="file" name="ifp" accept="image/*"> -->
                         <?= $form->field($model, 'filegambar')->fileInput(['accept' => 'image/*','id' => 'ifp'])->label(false); ?>
                     </div> <!-- Profile Picture End-->
-                    
+
                     <div class="col-sm-12 col-md-7 col-lg-7"> <!-- Form  Start-->
                         <div class="row">
                             <div class="col-sm-12 col-md-10">
-                                <?= $form->field($model, 'username')->textInput(['maxlength' => 30]) ?>    
+                                <?= $form->field($model, 'username')->textInput(['maxlength' => 30]) ?>
                             </div>
                         </div>
                         <div class="row">
@@ -170,7 +112,7 @@ use dosamigos\fileupload\FileUpload;
                             </div>
                         </div>
                     </div> <!-- Form End -->
-                    
+
                     <div class="row">
                         <div class="col-sm-12 col-md-4 col-lg-4 col-md-offset-3">
                             <div class="form-group">
@@ -197,7 +139,7 @@ use dosamigos\fileupload\FileUpload;
             reader.onload = function () {
                 var output = document.getElementById('ip');
                 output.src = reader.result;
-                
+
             }
             filename = $('#ifp').val();
             if (filename.substring(3,11) == 'fakepath') {

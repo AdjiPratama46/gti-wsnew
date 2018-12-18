@@ -8,7 +8,7 @@ use app\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;   
+use yii\web\UploadedFile;
 use yii\filters\AccessControl;
 
 /**
@@ -171,7 +171,7 @@ class UserController extends Controller
                     $model->password = sha1($model->new_password);
                   }
                 $model->gambar = UploadedFile::getInstance($model, 'filegambar');
-                if ($model->gambar && $model->validate()) {                
+                if ($model->gambar && $model->validate()) {
                     $model->gambar->saveAs('images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
                 }
                     if($model->save(false)){
@@ -182,7 +182,7 @@ class UserController extends Controller
 
             }elseif (Yii::$app->user->identity->role=='user') {
                 $model->gambar = UploadedFile::getInstance($model, 'filegambar');
-                if ($model->gambar && $model->validate()) {                
+                if ($model->gambar && $model->validate()) {
                     $model->gambar->saveAs('images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
                 }
                 $eci = sha1($model->confirm_password);
@@ -200,18 +200,12 @@ class UserController extends Controller
                     }
                 }
             }
-<<<<<<< HEAD
             return $this->redirect(['update', 'id' => $model->id]);
-=======
-            
-            return $this->redirect(['update','id' => $model->id
-            ]);
->>>>>>> 88dcb5272b98c680ca30e28eae7840bdfdd2a0b7
         }
         return $this->render('update', [
             'model' => $model,
         ]);
-       
+
     }
 
     //MERESET PASSWORD MENJADI QWERTY
