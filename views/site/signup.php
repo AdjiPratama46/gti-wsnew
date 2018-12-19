@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="login-box">
     <div class="login-logo">
         <!-- <h2 class="text-center text-white text-shadow">WEATHER STATION</h2> -->
-        <?= Html::img('@web/images/logo-ws-3.png', ['alt'=>'User Image', 'class'=>'img-responsive img-logo']);?>
+        <?= Html::img('@web/images/logo.png', ['alt'=>'User Image', 'class'=>'img-responsive img-logo']);?>
     </div>
     <div class="login-box-body box">
         <h2 class="text-center title"><?= Html::encode($this->title) ?></h2>

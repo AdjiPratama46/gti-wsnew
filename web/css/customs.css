@@ -22,11 +22,17 @@
     100%{background-position:0% 50%}
 }
 #btn-gd{
-    background: linear-gradient(-45deg,#3C8DBC,#2a0845);
+    background: linear-gradient(40deg,#3C8DBC,#2a0845);
+    border-radius: 50px;
     background-size: 400% 400%;
-    -webkit-animation: AnimationName 15s ease infinite;
-    -moz-animation: AnimationName 15s ease infinite;
-    animation: AnimationName 15s ease infinite;
+}
+#loginform-username,
+#loginform-password,
+#signupform-username,
+#signupform-name,
+#signupform-password
+{
+    border-radius: 50px;
 }
 .title {
     padding-bottom: 20px;
@@ -38,12 +44,13 @@
     cursor: pointer;
     pointer-events: auto !important;
 }
-
 .box-body{
     padding: 20px !important;
 }
 .login-box-body,
 .register-box-body {
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,.16), 0 5px 10px 0 rgba(0,0,0,.12);
+    border-radius: 10px;
     padding: 30px !important;
 }
 .text-white {
