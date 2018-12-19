@@ -129,8 +129,8 @@
 .img-profile{
     margin: 0 auto;
     border: 1.5vh solid #3963A9;
-    width: 45%;
-    height: 45%;
+    width: 180px;
+    height: 180px;
     cursor: pointer;
 }
 .img-logo{

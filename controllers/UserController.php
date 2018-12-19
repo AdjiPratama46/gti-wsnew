@@ -171,7 +171,7 @@ class UserController extends Controller
                     $model->password = sha1($model->new_password);
                   }
                 $model->gambar = UploadedFile::getInstance($model, 'filegambar');
-                if ($model->gambar && $model->validate()) {
+                if ($model->validate(false)) {
                     $model->gambar->saveAs('images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
                 }
                     if($model->save(false)){
@@ -182,7 +182,7 @@ class UserController extends Controller
 
             }elseif (Yii::$app->user->identity->role=='user') {
                 $model->gambar = UploadedFile::getInstance($model, 'filegambar');
-                if ($model->gambar && $model->validate()) {
+                if ($model->validate(false)) {
                     $model->gambar->saveAs('images/' . $model->gambar->baseName . '.' . $model->gambar->extension);
                 }
                 $eci = sha1($model->confirm_password);
